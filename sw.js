@@ -2,7 +2,7 @@ javascript
 const CACHE_NAME = 'github-pwa-v1';
 const ASSETS = [
   './',
-  './index.html',
+  './LSSC-MP.html',
   './manifest.json'
 ];
 
