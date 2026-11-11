@@ -1,0 +1,1481 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <meta http-equiv="Content-Style-Type" content="text/css">
+  <title></title>
+  <meta name="Generator" content="Cocoa HTML Writer">
+  <meta name="CocoaVersion" content="2575.7">
+  <style type="text/css">
+    p.p1 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'}
+    p.p2 {margin: 0.0px 0.0px 0.0px 0.0px; font: 13.0px 'Helvetica Neue'; min-height: 15.0px}
+    span.s1 {font: 13.0px 'Apple Symbols'}
+    span.s2 {font: 13.0px 'Zapf Dingbats'}
+  </style>
+</head>
+<body>
+<p class="p1">&lt;html lang="en" class="dark"&gt;</p>
+<p class="p1">&lt;head&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta charset="UTF-8" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;title&gt;Norfolk Pier 6 LSSC | Milepost Map&lt;/title&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- PWA &amp; Mobile Capable Meta Tags for iOS &amp; Android --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="theme-color" content="#0B0F17" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="apple-mobile-web-app-capable" content="yes" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="apple-mobile-web-app-title" content="Pier 6 LSSC" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="mobile-web-app-capable" content="yes" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;meta name="description" content="Norfolk Pier 6 Safety LSSC Interactive Milepost Map for Apple Maps &amp; Google Maps navigation." /&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Dynamic SVG App Icon for iOS &amp; Android Home Screen --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;link id="apple-touch-icon" rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%230B0F17'/%3E%3Crect x='24' y='24' width='464' height='464' rx='76' fill='none' stroke='%23F59E0B' stroke-width='16'/%3E%3Cpath d='M136 376L216 136M376 376L296 136M168 280H344M192 200H320M152 344H360' stroke='%23F59E0B' stroke-width='28' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='112' r='28' fill='%23FFFFFF'/%3E%3Ctext x='256' y='446' font-family='sans-serif' font-size='58' font-weight='900' fill='%23FFFFFF' text-anchor='middle' letter-spacing='4'%3ELSSC%3C/text%3E%3C/svg%3E" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%230B0F17'/%3E%3Crect x='24' y='24' width='464' height='464' rx='76' fill='none' stroke='%23F59E0B' stroke-width='16'/%3E%3Cpath d='M136 376L216 136M376 376L296 136M168 280H344M192 200H320M152 344H360' stroke='%23F59E0B' stroke-width='28' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='112' r='28' fill='%23FFFFFF'/%3E%3Ctext x='256' y='446' font-family='sans-serif' font-size='58' font-weight='900' fill='%23FFFFFF' text-anchor='middle' letter-spacing='4'%3ELSSC%3C/text%3E%3C/svg%3E" /&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Google Fonts: Inter &amp; JetBrains Mono for High-Contrast Railway Readability --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;link rel="preconnect" href="https://fonts.googleapis.com" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;link rel="preconnect" href="https://fonts.gstatic.com" crossorigin /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&amp;family=JetBrains+Mono:wght@600;700;800&amp;display=swap" rel="stylesheet" /&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Lightweight Pure-JS QR Code Generator for In-Person Yard/Briefing Sharing --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"&gt;&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Tailwind CSS --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script src="https://cdn.tailwindcss.com"&gt;&lt;/script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>tailwind.config = {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>darkMode: 'class',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>theme: {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>extend: {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>fontFamily: {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mono: ['JetBrains Mono', 'monospace'],</p>
+<p class="p1"><span class="Apple-converted-space">          </span>},</p>
+<p class="p1"><span class="Apple-converted-space">          </span>colors: {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>ns: {</p>
+<p class="p1"><span class="Apple-converted-space">              </span>dark: '#090D14',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>card: '#121824',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>cardHover: '#1A2233',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>border: '#263147',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>yellow: '#F59E0B',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>amber: '#FBBF24',</p>
+<p class="p1"><span class="Apple-converted-space">              </span>accent: '#EAB308'</p>
+<p class="p1"><span class="Apple-converted-space">            </span>}</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/script&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;style&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* High-contrast custom scrollbars &amp; touch target optimizations */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>* {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>-webkit-tap-highlight-color: transparent;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>body {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background-color: #090D14;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>color: #F8FAFC;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding-top: env(safe-area-inset-top);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding-bottom: env(safe-area-inset-bottom);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding-left: env(safe-area-inset-left);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>padding-right: env(safe-area-inset-right);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.safety-stripes {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>background: repeating-linear-gradient(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>-45deg,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#F59E0B,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#F59E0B 12px,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#090D14 12px,</p>
+<p class="p1"><span class="Apple-converted-space">        </span>#090D14 24px</p>
+<p class="p1"><span class="Apple-converted-space">      </span>);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.mp-card {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s ease, box-shadow 0.15s ease;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.mp-card:active {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>transform: scale(0.98);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>/* Hide scrollbar for horizontal filter pills */</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.no-scrollbar::-webkit-scrollbar {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>display: none;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>.no-scrollbar {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>-ms-overflow-style: none;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>scrollbar-width: none;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/style&gt;</p>
+<p class="p1">&lt;/head&gt;</p>
+<p class="p1">&lt;body class="min-h-screen flex flex-col font-sans antialiased selection:bg-amber-500 selection:text-black"&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Top High-Visibility Safety Stripe Banner --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="h-2 w-full safety-stripes"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Sticky App Header --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;header class="sticky top-0 z-30 bg-[#090D14]/95 backdrop-blur-md border-b border-slate-800/90 shadow-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="max-w-5xl mx-auto px-3 sm:px-6 py-3"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">      </span></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Top Row: Brand Title &amp; Action Buttons --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-800/80"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex items-center gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;!-- NS / LSSC Emblem --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="w-11 h-11 rounded-xl bg-amber-500 text-slate-950 flex flex-col items-center justify-center font-black shadow-md shadow-amber-500/20 border-2 border-amber-300 shrink-0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="text-[10px] leading-none tracking-tighter font-extrabold"&gt;NS&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="text-sm leading-tight tracking-tight font-mono"&gt;P6&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/40 rounded"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>NORFOLK PIER 6 SAFETY</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span id="offline-badge" class="hidden px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>PWA Ready</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;h1 class="text-base sm:text-xl font-black tracking-tight text-white leading-snug mt-0.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>Norfolk Pier 6 LSSC &lt;span class="text-amber-400 font-normal"&gt;|&lt;/span&gt; MILEPOST MAP</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/h1&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Share / Install / Data Config Buttons --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex items-center gap-1.5 sm:gap-2 ml-auto"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">            </span>onclick="openDataModal()"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>title="Manage or Import Custom GPS Links"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>class="px-2.5 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center gap-1.5 active:scale-95 transition"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span class="hidden sm:inline"&gt;GPS Data&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">            </span>onclick="openInstallShareModal()"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>class="px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-1.5 shadow-lg shadow-amber-500/25 ring-2 ring-amber-300/50 active:scale-95 transition"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span&gt;Share App / QR&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- NEW: Dedicated 1-Tap Crew Quick-Share Action Strip --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="py-2 border-b border-slate-800/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="text-[10px] font-black uppercase tracking-wider text-amber-400 shrink-0 pr-1 flex items-center gap-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>Send to Crew:</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/span&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onclick="shareAppViaSMS()"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="shrink-0 px-2.5 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 text-xs font-extrabold flex items-center gap-1.5 active:scale-95 transition"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;💬 Text Link (SMS)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onclick="openQrModalDirectly()"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="shrink-0 px-2.5 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 text-xs font-extrabold flex items-center gap-1.5 active:scale-95 transition"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;📱 Show QR Code&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onclick="downloadStandaloneHtmlFile()"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="shrink-0 px-2.5 py-1.5 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 text-xs font-extrabold flex items-center gap-1.5 active:scale-95 transition"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;📥 Save App File (AirDrop / Text)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onclick="shareAppViaEmail()"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="shrink-0 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center gap-1.5 active:scale-95 transition"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;✉️ Email Crew&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onclick="copyFullDirectoryText()"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="shrink-0 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center gap-1.5 active:scale-95 transition"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;📋 Copy All 50 Links&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Second Row: Map Provider Switcher &amp; Nearest GPS Button --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="pt-2.5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Map App Selector (Apple Maps / Google Maps / Auto) --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex items-center justify-between sm:justify-start gap-2 bg-slate-900/90 p-1 rounded-xl border border-slate-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 pl-2 pr-1 hidden md:inline"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Open With:</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">            </span>id="provider-apple"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>onclick="setMapProvider('apple')"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>class="flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.33c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span&gt;Apple Maps&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">            </span>id="provider-google"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>onclick="setMapProvider('google')"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>class="flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span&gt;Google Maps&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">            </span>id="provider-auto"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>onclick="setMapProvider('auto')"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>class="flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span&gt;Auto&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;span id="auto-detected-label" class="text-[10px] opacity-75"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Find Nearest Milepost via Live Device GPS --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">          </span>id="locate-me-btn"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onclick="locateNearestMilepost()"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="px-3.5 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 font-bold text-xs flex items-center justify-center gap-2 active:scale-95 transition"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;svg id="locate-icon" class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0013 3.06V1h-2v2.06A8.994 8.994 0 003.06 11H1v2h2.06A8.994 8.994 0 0011 20.94V23h2v-2.06A8.994 8.994 0 0020.94 13H23v-2h-2.06z" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span id="locate-btn-text"&gt;Find Nearest Milepost to Me&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Third Row: Search Input &amp; Clear Button --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="mt-2.5 relative"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">          </span>id="search-input"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>type="text"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>oninput="handleSearch(this.value)"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>placeholder="Search Milepost (e.g. MP4, MP102) or Station (e.g. Lamberts Point, Portlock, Crewe)..."</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="w-full pl-10 pr-20 py-2.5 bg-slate-900/95 border border-slate-700/90 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">          </span>id="clear-search-btn"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onclick="clearSearch()"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="hidden absolute inset-y-1.5 right-2 px-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-bold"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>Clear</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;!-- Fourth Row: Section / PDF Page Tabs --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="mt-2.5 flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onclick="setPageFilter('all')"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>id="tab-all"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="page-tab shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider transition"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>All (50)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onclick="setPageFilter('1')"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>id="tab-1"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="page-tab shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider transition"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>Page 1: MP 0–23</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onclick="setPageFilter('2')"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>id="tab-2"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="page-tab shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider transition"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>Page 2: MP 26–84 &amp;amp; Hopewell</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onclick="setPageFilter('3')"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>id="tab-3"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="page-tab shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider transition"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>Page 3: MP 86–129</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onclick="setPageFilter('pinned')"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>id="tab-pinned"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="page-tab shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider flex items-center gap-1 transition"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;★ Pinned&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span id="pinned-count-badge" class="px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded text-[10px]"&gt;0&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/header&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Active GPS Banner (Hidden until user taps "Find Nearest Milepost") --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div id="gps-status-banner" class="hidden bg-emerald-950/80 border-b border-emerald-700/60 px-4 py-2.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="flex items-center gap-2 text-emerald-200 font-semibold"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span id="gps-banner-text"&gt;Sorted by closest distance to your current GPS coordinates.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">        </span>onclick="clearGpsSort()"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>class="px-2.5 py-1 rounded-lg bg-emerald-900/90 hover:bg-emerald-800 text-emerald-200 font-bold border border-emerald-700"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Reset to Corridor Order</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Main Milepost Content Container --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;main class="flex-1 max-w-5xl w-full mx-auto px-3 sm:px-6 py-5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Instruction Sub-bar --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="flex flex-wrap items-center justify-between gap-2 mb-4 px-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;p class="text-xs sm:text-sm text-slate-300 font-medium flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span class="inline-block w-2 h-2 rounded-full bg-amber-400"&gt;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;span&gt;Tap any milepost button to launch turn-by-turn or satellite view in &lt;strong id="active-provider-text" class="text-amber-400"&gt;Apple Maps&lt;/strong&gt;.&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span id="results-counter" class="text-xs font-mono font-bold text-slate-400"&gt;Showing 50 mileposts&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Dynamic Sections Container --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="milepost-sections" class="space-y-8"&gt;&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;!-- Empty State --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div id="empty-state" class="hidden text-center py-14 px-4 bg-slate-900/60 border border-slate-800 rounded-2xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto mb-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;h3 class="text-base font-extrabold text-white"&gt;No Matching Mileposts Found&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;p id="empty-state-subtitle" class="text-xs text-slate-400 mt-1 max-w-md mx-auto"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Try searching a different MP number (like "MP8" or "102") or reset your active page filter.</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">        </span>onclick="resetAllFilters()"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>class="mt-4 px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-extrabold text-xs hover:bg-amber-400 transition"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Show All 50 Mileposts</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/main&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Official PDF Footer Attribution --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;footer class="mt-auto border-t border-slate-800/90 bg-[#070A10] py-6 pb-20 sm:pb-8 px-4"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex items-center justify-center sm:justify-start gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-black text-[11px] tracking-wider"&gt;LSSC&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="text-xs font-extrabold text-slate-200 tracking-wide uppercase"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Norfolk Pier 6 Safety | Norfolk Southern</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-xs text-slate-400 mt-1.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>LSSC Chairman Jeff Matthews | Station names from supplied workbook | GPS locations not independently verified</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="sm:text-right"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-xs font-extrabold text-amber-400 uppercase tracking-wider"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>LSSC Chairman Jeff Matthews</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-[11px] text-slate-400 mt-0.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>Pages 1–3 Complete &amp;bull; iOS &amp;amp; Android Offline PWA</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/footer&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Sticky Mobile Bottom Quick-Share Bar for Field Use --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div class="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-[#090D14]/95 backdrop-blur-md border-t border-slate-800 px-3 py-2 flex items-center justify-between gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">      </span>onclick="shareAppViaSMS()"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>class="flex-1 py-2 px-2.5 rounded-xl bg-emerald-500 text-slate-950 font-black text-xs flex items-center justify-center gap-1 shadow"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;💬 Text to Crew&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">      </span>onclick="openQrModalDirectly()"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>class="flex-1 py-2 px-2.5 rounded-xl bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center gap-1 shadow"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;📱 QR Code&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">      </span>onclick="downloadStandaloneHtmlFile()"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>class="py-2 px-3 rounded-xl bg-slate-800 text-sky-300 border border-slate-700 font-extrabold text-xs flex items-center justify-center"</p>
+<p class="p1"><span class="Apple-converted-space">      </span>title="Download Offline App File"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;span&gt;📥 File&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- Toast Notification Banner --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div</p>
+<p class="p1"><span class="Apple-converted-space">    </span>id="toast"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>class="fixed bottom-16 sm:bottom-5 left-1/2 -translate-x-1/2 z-50 hidden px-4 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-extrabold text-xs sm:text-sm shadow-2xl border border-amber-300 items-center gap-2"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;span id="toast-message"&gt;Copied!&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- MODAL 1: Enhanced Crew Share Hub, Live QR Code, File Download &amp; Install Guide --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div</p>
+<p class="p1"><span class="Apple-converted-space">    </span>id="install-modal"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="bg-[#121824] border border-slate-700 rounded-2xl max-w-xl w-full p-4 sm:p-6 shadow-2xl my-6 max-h-[92vh] overflow-y-auto"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="flex items-start justify-between gap-3 border-b border-slate-800 pb-3.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="text-[11px] font-black uppercase tracking-wider text-amber-400"&gt;Crew Distribution &amp;amp; Install Hub&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;h2 class="text-lg font-black text-white mt-0.5"&gt;Share Norfolk Pier 6 LSSC Map&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="closeInstallShareModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="mt-4 space-y-4 text-xs sm:text-sm"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- 1-Tap Direct Crew Share Buttons --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;label class="block text-[11px] font-black uppercase tracking-wider text-slate-400 mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>1. Send Directly to Crew Members</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="grid grid-cols-2 sm:grid-cols-4 gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">              </span>onclick="shareAppViaSMS()"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>class="py-2.5 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs flex flex-col items-center justify-center gap-1 shadow-md"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="text-base"&gt;💬&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;Text (SMS)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">              </span>onclick="shareAppViaEmail()"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>class="py-2.5 px-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-xs flex flex-col items-center justify-center gap-1 shadow-md"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="text-base"&gt;✉️&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;Email Crew&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">              </span>onclick="triggerNativeShare()"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>class="py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs flex flex-col items-center justify-center gap-1 shadow-md"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="text-base"&gt;📲&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;More / AirDrop&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">              </span>onclick="copyAppUrl()"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold border border-slate-700 text-xs flex flex-col items-center justify-center gap-1"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="text-base"&gt;🔗&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;Copy Link&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- No-Server / Offline Standalone File Share Option --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="p-3.5 rounded-xl bg-sky-950/40 border border-sky-500/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="text-xs font-black text-sky-300 uppercase tracking-wide flex items-center gap-1.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;📥 Share Without a Web Server (Offline File)&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-[11px] text-slate-300 mt-0.5 leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>Download the complete self-contained &lt;code class="text-amber-300 font-mono"&gt;.html&lt;/code&gt; app file to send via &lt;strong&gt;iMessage, AirDrop, WhatsApp, or Email attachment&lt;/strong&gt;. Works on any phone!</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">            </span>onclick="downloadStandaloneHtmlFile()"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>class="w-full sm:w-auto shrink-0 px-3.5 py-2.5 rounded-xl bg-sky-400 hover:bg-sky-300 text-slate-950 font-black text-xs shadow"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Download App File</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Live Scannable In-Person QR Code Section --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div id="qr-section-box" class="p-4 rounded-2xl bg-slate-900/95 border border-slate-800 flex flex-col items-center text-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-black text-[10px] uppercase tracking-wider"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>In-Person Yard / Safety Briefing QR Code</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;h3 class="text-sm font-extrabold text-white mt-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Point Any iPhone or Android Camera Here</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/h3&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;!-- High-Contrast White Pad for Instant Camera Scanning --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="mt-3 p-3.5 bg-white rounded-2xl shadow-xl border-4 border-amber-400 flex items-center justify-center"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div id="qrcode-container" class="w-[180px] h-[180px] flex items-center justify-center"&gt;&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;!-- Custom Share URL Input (if hosted on GitHub Pages, Netlify, SharePoint, etc.) --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="w-full mt-3.5 text-left"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label class="block text-[11px] font-bold text-slate-400 mb-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>Shared Link URL (Customize if hosted on company intranet / GitHub / Drive):</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex gap-1.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">                </span>id="custom-share-url-input"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type="url"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>oninput="updateCustomShareUrl(this.value)"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>placeholder="https://..."</p>
+<p class="p1"><span class="Apple-converted-space">                </span>class="flex-1 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs font-mono text-amber-300 focus:outline-none focus:border-amber-400"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type="button"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>onclick="copyAppUrl()"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>Copy</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Copy Full Printable Text Directory for Group Chats --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-slate-900/80 border border-slate-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="text-xs font-extrabold text-white"&gt;📋 Copy All 50 Mileposts as Text Directory&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;p class="text-[11px] text-slate-400"&gt;Paste the entire Norfolk–Crewe milepost GPS list into a group text or email.&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">            </span>onclick="copyFullDirectoryText()"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 font-extrabold text-xs"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Copy Directory</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- Direct Android/Desktop Install Prompt Button if available --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">          </span>id="native-install-btn"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onclick="triggerDeferredInstall()"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="hidden w-full py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black items-center justify-center gap-2"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span&gt;📲 Install App to Home Screen Now&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;!-- iOS &amp; Android Step-by-Step Instructions --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;!-- Apple iOS Box --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex items-center gap-2 text-amber-400 font-extrabold text-xs uppercase tracking-wider mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.33c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;Apple iPhone / iPad&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;ol class="text-xs text-slate-300 space-y-1.5 list-decimal list-inside"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;li&gt;Open in &lt;strong&gt;Safari&lt;/strong&gt;.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;li&gt;Tap &lt;strong&gt;Share&lt;/strong&gt; &lt;span class="px-1 py-0.5 bg-slate-800 rounded font-mono text-[10px]"&gt;↑&lt;/span&gt; at the bottom.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;li&gt;Tap &lt;strong&gt;"Add to Home Screen"&lt;/strong&gt;.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/ol&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;!-- Android Box --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex items-center gap-2 text-emerald-400 font-extrabold text-xs uppercase tracking-wider mb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-2.86-1.21-6.08-1.21-8.94 0L5.65 5.67c-.19-.28-.54-.37-.83-.22-.3.16-.42.54-.26.85l1.84 3.18C4.8 10.85 3.5 12.62 3.5 15h17c0-2.38-1.3-4.15-2.9-5.52zM7 12.75c-.41 0-.75-.34-.75-.75s.34-.75.75-.75.75.34.75.75-.34.75-.75.75zm10 0c-.41 0-.75-.34-.75-.75s.34-.75.75-.75.75.34.75.75-.34.75-.75.75z"/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;Android Phone / Tablet&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;ol class="text-xs text-slate-300 space-y-1.5 list-decimal list-inside"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;li&gt;Open in &lt;strong&gt;Chrome&lt;/strong&gt;.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;li&gt;Tap the 3-dot &lt;strong&gt;Menu&lt;/strong&gt; &lt;span class="px-1 py-0.5 bg-slate-800 rounded font-mono text-[10px]"&gt;<span class="s1">⋮</span>&lt;/span&gt; in top-right.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;li&gt;Tap &lt;strong&gt;"Add to Home screen"&lt;/strong&gt;.&lt;/li&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/ol&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="mt-5 pt-3 border-t border-slate-800 flex justify-end"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">          </span>onclick="closeInstallShareModal()"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>Done</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- MODAL 2: Edit Single Milepost Coordinates / Custom URL Override --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div</p>
+<p class="p1"><span class="Apple-converted-space">    </span>id="edit-mp-modal"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="bg-[#121824] border border-slate-700 rounded-2xl max-w-md w-full p-5 shadow-2xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="flex items-start justify-between gap-3 border-b border-slate-800 pb-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span id="edit-modal-mp-badge" class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-mono font-black text-xs"&gt;MP0.0&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;h3 id="edit-modal-station-name" class="text-base font-black text-white mt-1"&gt;LAMBERTS POINT&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="closeEditMpModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;form onsubmit="saveMpOverride(event)" class="mt-4 space-y-3.5 text-xs"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;input type="hidden" id="edit-mp-id" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="grid grid-cols-2 gap-2.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label class="block text-slate-300 font-bold mb-1"&gt;Latitude&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">              </span>id="edit-mp-lat"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>type="number"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>step="any"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>required</p>
+<p class="p1"><span class="Apple-converted-space">              </span>class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white font-mono focus:border-amber-400 focus:outline-none"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;label class="block text-slate-300 font-bold mb-1"&gt;Longitude&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">              </span>id="edit-mp-lng"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>type="number"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>step="any"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>required</p>
+<p class="p1"><span class="Apple-converted-space">              </span>class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white font-mono focus:border-amber-400 focus:outline-none"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;label class="block text-slate-300 font-bold mb-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Optional Direct Map Link Override (Apple/Google URL)</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">            </span>id="edit-mp-custom-url"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>type="url"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>placeholder="https://maps.apple.com/?ll=..."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white font-mono focus:border-amber-400 focus:outline-none"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;p class="text-[11px] text-slate-400 mt-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>If you paste a direct link from the workbook here, tapping the card will open that exact link, or automatically convert its coordinates between Apple Maps and Google Maps.</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;label class="block text-slate-300 font-bold mb-1"&gt;Field Notes / Access Info (Optional)&lt;/label&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;input</p>
+<p class="p1"><span class="Apple-converted-space">            </span>id="edit-mp-notes"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>type="text"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>placeholder="e.g. Gate code, crossing access, siding notes..."</p>
+<p class="p1"><span class="Apple-converted-space">            </span>class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white focus:border-amber-400 focus:outline-none"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>/&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="pt-3 border-t border-slate-800 flex items-center justify-between gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">            </span>type="button"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>onclick="resetSingleMpOverride()"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>class="px-3 py-2 rounded-xl bg-rose-950/70 hover:bg-rose-900 text-rose-300 border border-rose-800/60 font-bold"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Reset Default</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">              </span>type="button"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>onclick="closeEditMpModal()"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>class="px-3.5 py-2 rounded-xl bg-slate-800 text-slate-300 font-bold"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>Cancel</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">              </span>type="submit"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>Save GPS</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/form&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;!-- MODAL 3: Export / Import Team GPS Data Config --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;div</p>
+<p class="p1"><span class="Apple-converted-space">    </span>id="data-modal"</p>
+<p class="p1"><span class="Apple-converted-space">    </span>class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto"</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;div class="bg-[#121824] border border-slate-700 rounded-2xl max-w-lg w-full p-5 shadow-2xl my-8"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="flex items-start justify-between gap-3 border-b border-slate-800 pb-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;span class="text-[11px] font-black uppercase tracking-wider text-amber-400"&gt;Workbook GPS Config&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;h3 class="text-base font-black text-white mt-0.5"&gt;Export / Import Custom Milepost Coordinates&lt;/h3&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;button onclick="closeDataModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" /&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/svg&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;div class="mt-4 space-y-3 text-xs"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;p class="text-slate-300 leading-relaxed"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>You can edit any milepost's GPS coordinates or paste exact workbook URLs using the &lt;strong&gt;Edit (<span class="s2">✎</span>)&lt;/strong&gt; icon on any card. Use the box below to copy or import the complete JSON configuration to share with other LSSC crew members.</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;textarea</p>
+<p class="p1"><span class="Apple-converted-space">          </span>id="config-json-textarea"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>rows="6"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>class="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[11px] text-amber-300 focus:outline-none focus:border-amber-400"</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&gt;&lt;/textarea&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="flex flex-wrap items-center justify-between gap-2 pt-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">            </span>onclick="resetAllOverrides()"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>class="px-3 py-2 rounded-xl bg-rose-950/70 hover:bg-rose-900 text-rose-300 border border-rose-800 font-bold"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Reset All to Defaults</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="flex items-center gap-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">              </span>onclick="copyConfigJson()"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold border border-slate-700"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>Copy JSON</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">              </span>onclick="importConfigJson()"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>Apply / Import JSON</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">  </span>&lt;script&gt;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>/*************************************************************************</p>
+<p class="p1"><span class="Apple-converted-space">     </span>* 1. COMPLETE MILEPOST DATA FROM ALL 3 PAGES OF THE SUPPLIED PDF</p>
+<p class="p1"><span class="Apple-converted-space">     </span>* Ordered chronologically by page and railway corridor progression.</p>
+<p class="p1"><span class="Apple-converted-space">     </span>*************************************************************************/</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const DEFAULT_MILEPOSTS = [</p>
+<p class="p1"><span class="Apple-converted-space">      </span>// ==================== PAGE 1 (MP 0.0 to MP 23) ====================</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp0-lamberts', page: 1, mp: 'MP0.0', station: 'LAMBERTS POINT', corridor: 'Norfolk Pier 6 Terminal', lat: 36.8722, lng: -76.3197 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp1-norfolk-sl', page: 1, mp: 'MP1', station: 'NORFOLK SL', corridor: 'Norfolk Terminal', lat: 36.8580, lng: -76.2990 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp1-norfolk', page: 1, mp: 'MP1', station: 'NORFOLK', corridor: 'Norfolk Terminal', lat: 36.8468, lng: -76.2852 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp1-norfolk-fgn', page: 1, mp: 'MP1', station: 'NORFOLK FGN', corridor: 'Norfolk Terminal', lat: 36.8435, lng: -76.2795 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp2-ns-jct', page: 1, mp: 'MP2', station: 'NS JCT', corridor: 'Norfolk Junction', lat: 36.8350, lng: -76.2730 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp3-chesapeake', page: 1, mp: 'MP3', station: 'CHESAPEAKE', corridor: 'South Norfolk / Chesapeake', lat: 36.8190, lng: -76.2740 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp4-portlock', page: 1, mp: 'MP4', station: 'PORTLOCK', corridor: 'Portlock Corridor', lat: 36.7950, lng: -76.2710 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp4-north-jct', page: 1, mp: 'MP4', station: 'NORTH JUNCTION', corridor: 'Portlock / South Norfolk', lat: 36.8020, lng: -76.2735 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp4-south-norfolk', page: 1, mp: 'MP4', station: 'SOUTH NORFOLK', corridor: 'South Norfolk', lat: 36.8090, lng: -76.2745 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp4-portlock-yard', page: 1, mp: 'MP4', station: 'PORTLOCK YARD', corridor: 'Portlock Yard', lat: 36.7885, lng: -76.2690 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp5-bridge-5', page: 1, mp: 'MP5', station: 'BRIDGE 5', corridor: 'Elizabeth River Bridge 5', lat: 36.8065, lng: -76.2845 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp7-bridge-7', page: 1, mp: 'MP7', station: 'BRIDGE 7', corridor: 'Southern Branch Bridge 7', lat: 36.7745, lng: -76.2750 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp8-broadmoor', page: 1, mp: 'MP8', station: 'BROADMOOR', corridor: 'Chesapeake Mainline', lat: 36.7620, lng: -76.2850 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp8-canal-drive', page: 1, mp: 'MP8', station: 'CANAL DRIVE', corridor: 'Chesapeake / Deep Creek', lat: 36.7640, lng: -76.2950 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp9-st-joe', page: 1, mp: 'MP9', station: 'ST JOE', corridor: 'Chesapeake Mainline', lat: 36.7550, lng: -76.3150 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp10-yadkin', page: 1, mp: 'MP10', station: 'YADKIN', corridor: 'Chesapeake / Bowers Hill', lat: 36.7510, lng: -76.3380 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp17-juniper', page: 1, mp: 'MP17', station: 'JUNIPER PASSING SID', corridor: 'Dismal Swamp / Suffolk Approach', lat: 36.7380, lng: -76.4620 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p1-mp23-suffolk', page: 1, mp: 'MP23', station: 'SUFFOLK', corridor: 'Suffolk Mainline', lat: 36.7282, lng: -76.5836 },</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// ==================== PAGE 2 (MP 26 to MP 84 + Hopewell Branch) ====================</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp26-brico', page: 2, mp: 'MP26', station: 'BRICO', corridor: 'West Suffolk', lat: 36.7480, lng: -76.6280 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp30-myrtle', page: 2, mp: 'MP30', station: 'MYRTLE', corridor: 'Isle of Wight Corridor', lat: 36.7790, lng: -76.6890 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp34-windsor', page: 2, mp: 'MP34', station: 'WINDSOR', corridor: 'Windsor Mainline', lat: 36.8107, lng: -76.7441 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp35-windsor-scanner', page: 2, mp: 'MP35', station: 'WINDSOR SCANNER', corridor: 'Windsor Wayside Detector', lat: 36.8180, lng: -76.7590 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp40-zuni', page: 2, mp: 'MP40', station: 'ZUNI', corridor: 'Zuni / Blackwater River', lat: 36.8617, lng: -76.8319 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp45-ivor', page: 2, mp: 'MP45', station: 'IVOR', corridor: 'Southampton Mainline', lat: 36.9029, lng: -76.8969 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp51-wakefield', page: 2, mp: 'MP51', station: 'WAKEFIELD', corridor: 'Sussex Mainline', lat: 36.9685, lng: -76.9888 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp54-dudley', page: 2, mp: 'MP54', station: 'DUDLEY S ROBERTSON', corridor: 'Wakefield / Waverly Siding', lat: 36.9960, lng: -77.0350 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp59-waverly', page: 2, mp: 'MP59', station: 'WAVERLY', corridor: 'Waverly Mainline', lat: 37.0346, lng: -77.0947 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp69-disputanta', page: 2, mp: 'MP69', station: 'DISPUTANTA', corridor: 'Prince George Corridor', lat: 37.1235, lng: -77.2286 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp75-new-bohemia', page: 2, mp: 'MP75', station: 'NEW BOHEMIA', corridor: 'Prince George / Crater', lat: 37.1770, lng: -77.3190 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp78-poe', page: 2, mp: 'MP78', station: 'POE', corridor: 'Poe Belt Line Junction', lat: 37.2020, lng: -77.3690 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp81-petersburg', page: 2, mp: 'MP81', station: 'PETERSBURG', corridor: 'Petersburg Mainline', lat: 37.2320, lng: -77.4050 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp1-petersburg-branch', page: 2, mp: 'MP1', station: 'PETERSBURG', corridor: 'Hopewell / City Point Branch', lat: 37.2290, lng: -77.3880 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp4-ft-lee', page: 2, mp: 'MP4', station: 'FT LEE', corridor: 'Hopewell / City Point Branch', lat: 37.2460, lng: -77.3390 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp6-grogg', page: 2, mp: 'MP6', station: 'GROGG', corridor: 'Hopewell / City Point Branch', lat: 37.2650, lng: -77.3100 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp9-hopewell', page: 2, mp: 'MP9', station: 'HOPEWELL', corridor: 'Hopewell Terminal', lat: 37.2950, lng: -77.2870 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p2-mp84-sitterding', page: 2, mp: 'MP84', station: 'SITTERDING SIDING', corridor: 'West Petersburg Siding', lat: 37.2350, lng: -77.4580 },</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// ==================== PAGE 3 (MP 86 to MP 129) ====================</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p3-mp86-pa-jct', page: 3, mp: 'MP86', station: 'PA JUNCTION', corridor: 'Poe / West Petersburg Jct', lat: 37.2310, lng: -77.4950 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p3-mp87-addison', page: 3, mp: 'MP87', station: 'ADDISON', corridor: 'Dinwiddie Approach', lat: 37.2280, lng: -77.5150 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p3-mp88-jack', page: 3, mp: 'MP88', station: 'JACK', corridor: 'Jack Junction', lat: 37.2240, lng: -77.5350 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p3-mp88-airport', page: 3, mp: 'MP88', station: 'AIRPORT', corridor: 'Dinwiddie Airport', lat: 37.2220, lng: -77.5420 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p3-mp92-sutherland', page: 3, mp: 'MP92', station: 'SUTHERLAND', corridor: 'Sutherland Mainline', lat: 37.2050, lng: -77.6020 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p3-mp96-church-road', page: 3, mp: 'MP96', station: 'CHURCH ROAD', corridor: 'Dinwiddie Mainline', lat: 37.1890, lng: -77.6690 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p3-mp99-poole-scanner', page: 3, mp: 'MP99', station: 'POOLE SCANNER', corridor: 'Poole Wayside Detector', lat: 37.1750, lng: -77.7210 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p3-mp102-poole', page: 3, mp: 'MP102', station: 'POOLE', corridor: 'Poole Siding', lat: 37.1630, lng: -77.7720 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p3-mp102-ford', page: 3, mp: 'MP102', station: 'FORD', corridor: 'Ford Mainline', lat: 37.1590, lng: -77.7810 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p3-mp109-wilson', page: 3, mp: 'MP109', station: 'WILSON', corridor: 'Dinwiddie / Nottoway Line', lat: 37.1360, lng: -77.8920 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p3-mp112-wellville', page: 3, mp: 'MP112', station: 'WELLVILLE', corridor: 'Nottoway Mainline', lat: 37.1260, lng: -77.9470 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p3-mp118-blackstone', page: 3, mp: 'MP118', station: 'BLACKSTONE', corridor: 'Blackstone Mainline', lat: 37.0815, lng: -77.9972 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p3-mp124-nottoway', page: 3, mp: 'MP124', station: 'NOTTOWAY', corridor: 'Nottoway Courthouse', lat: 37.1250, lng: -78.0780 },</p>
+<p class="p1"><span class="Apple-converted-space">      </span>{ id: 'p3-mp129-crewe', page: 3, mp: 'MP129', station: 'CREWE', corridor: 'Crewe Yard &amp; Division Point', lat: 37.1785, lng: -78.1258 }</p>
+<p class="p1"><span class="Apple-converted-space">    </span>];</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>const PAGE_METADATA = {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>1: {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>title: 'Page 1 of 3 • Norfolk Pier 6 to Suffolk (MP 0.0 – MP 23)',</p>
+<p class="p1"><span class="Apple-converted-space">        </span>subtitle: 'Lamberts Point, Norfolk Terminal, Portlock Yard, Bridges 5 &amp; 7, Chesapeake &amp; Suffolk'</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>2: {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>title: 'Page 2 of 3 • Brico to Petersburg &amp; Hopewell Branch (MP 26 – MP 84)',</p>
+<p class="p1"><span class="Apple-converted-space">        </span>subtitle: 'Windsor, Zuni, Ivor, Wakefield, Waverly, Disputanta, Poe, Petersburg &amp; Hopewell Branch'</p>
+<p class="p1"><span class="Apple-converted-space">      </span>},</p>
+<p class="p1"><span class="Apple-converted-space">      </span>3: {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>title: 'Page 3 of 3 • PA Junction to Crewe Yard (MP 86 – MP 129)',</p>
+<p class="p1"><span class="Apple-converted-space">        </span>subtitle: 'Addison, Jack, Sutherland, Church Road, Poole, Ford, Blackstone, Nottoway &amp; Crewe'</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/*************************************************************************</p>
+<p class="p1"><span class="Apple-converted-space">     </span>* 2. STATE &amp; LOCAL STORAGE PERSISTENCE</p>
+<p class="p1"><span class="Apple-converted-space">     </span>*************************************************************************/</p>
+<p class="p1"><span class="Apple-converted-space">    </span>const STORAGE_KEYS = {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>PROVIDER: 'ns_pier6_map_provider_v1',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>PINNED: 'ns_pier6_pinned_mps_v1',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>OVERRIDES: 'ns_pier6_gps_overrides_v1',</p>
+<p class="p1"><span class="Apple-converted-space">      </span>CUSTOM_SHARE_URL: 'ns_pier6_custom_share_url_v1'</p>
+<p class="p1"><span class="Apple-converted-space">    </span>};</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>let currentProvider = localStorage.getItem(STORAGE_KEYS.PROVIDER) || 'auto';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let pinnedIds = JSON.parse(localStorage.getItem(STORAGE_KEYS.PINNED) || '[]');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let gpsOverrides = JSON.parse(localStorage.getItem(STORAGE_KEYS.OVERRIDES) || '{}');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let customShareUrl = localStorage.getItem(STORAGE_KEYS.CUSTOM_SHARE_URL) || '';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let activePageFilter = 'all';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let searchQuery = '';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let userLocation = null; // { lat, lng } when "Find Nearest" is active</p>
+<p class="p1"><span class="Apple-converted-space">    </span>let deferredInstallPrompt = null;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Detect if user is on Apple iOS / macOS vs Android</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function isAppleDevice() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const ua = navigator.userAgent || navigator.vendor || window.opera;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' &amp;&amp; navigator.maxTouchPoints &gt; 1);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const isMac = /Macintosh|MacIntel|MacPPC|Mac68K/.test(ua);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return isIOS || isMac;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function getResolvedProvider() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (currentProvider === 'apple') return 'apple';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (currentProvider === 'google') return 'google';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return isAppleDevice() ? 'apple' : 'google';</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Merge default mileposts with any user-saved GPS/URL overrides</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function getMileposts() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return DEFAULT_MILEPOSTS.map(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const override = gpsOverrides[item.id];</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (!override) return { ...item };</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>...item,</p>
+<p class="p1"><span class="Apple-converted-space">          </span>lat: typeof override.lat === 'number' ? override.lat : item.lat,</p>
+<p class="p1"><span class="Apple-converted-space">          </span>lng: typeof override.lng === 'number' ? override.lng : item.lng,</p>
+<p class="p1"><span class="Apple-converted-space">          </span>customUrl: override.customUrl || '',</p>
+<p class="p1"><span class="Apple-converted-space">          </span>notes: override.notes || '',</p>
+<p class="p1"><span class="Apple-converted-space">          </span>isCustomized: true</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/*************************************************************************</p>
+<p class="p1"><span class="Apple-converted-space">     </span>* 3. MAP URL BUILDER (Supports Apple Maps, Google Maps, &amp; Custom URLs)</p>
+<p class="p1"><span class="Apple-converted-space">     </span>*************************************************************************/</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function buildMapUrl(item) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const provider = getResolvedProvider();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const label = encodeURIComponent(`NS ${item.mp} - ${item.station}`);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const lat = item.lat.toFixed(6);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const lng = item.lng.toFixed(6);</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// If a custom URL override is saved, check if user wants cross-platform coordinate conversion</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (item.customUrl &amp;&amp; item.customUrl.trim() !== '') {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const rawUrl = item.customUrl.trim();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Extract coordinates if embedded in an Apple/Google URL so both iOS and Android crews can use it</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const coordMatch = rawUrl.match(/([-+]?\d{1,2}\.\d+)\s*,\s*([-+]?\d{1,3}\.\d+)/);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (coordMatch) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const cLat = coordMatch[1];</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const cLng = coordMatch[2];</p>
+<p class="p1"><span class="Apple-converted-space">          </span>if (provider === 'apple') {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return `https://maps.apple.com/?ll=${cLat},${cLng}&amp;q=${label}&amp;t=h`;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>return `https://www.google.com/maps/search/?api=1&amp;query=${cLat},${cLng}`;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return rawUrl;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (provider === 'apple') {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>// Hybrid satellite + road map view ideal for rail corridors</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return `https://maps.apple.com/?ll=${lat},${lng}&amp;q=${label}&amp;t=h`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return `https://www.google.com/maps/search/?api=1&amp;query=${lat},${lng}`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/*************************************************************************</p>
+<p class="p1"><span class="Apple-converted-space">     </span>* 4. DISTANCE CALCULATION (Haversine in Miles for "Find Nearest")</p>
+<p class="p1"><span class="Apple-converted-space">     </span>*************************************************************************/</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function getDistanceMiles(lat1, lon1, lat2, lon2) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const R = 3958.8; // Earth radius in miles</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const dLat = ((lat2 - lat1) * Math.PI) / 180;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const dLon = ((lon2 - lon1) * Math.PI) / 180;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const a =</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Math.sin(dLat / 2) * Math.sin(dLat / 2) +</p>
+<p class="p1"><span class="Apple-converted-space">        </span>Math.cos((lat1 * Math.PI) / 180) *</p>
+<p class="p1"><span class="Apple-converted-space">          </span>Math.cos((lat2 * Math.PI) / 180) *</p>
+<p class="p1"><span class="Apple-converted-space">          </span>Math.sin(dLon / 2) *</p>
+<p class="p1"><span class="Apple-converted-space">          </span>Math.sin(dLon / 2);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1 - a));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return R * c;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/*************************************************************************</p>
+<p class="p1"><span class="Apple-converted-space">     </span>* 5. RENDERING UI</p>
+<p class="p1"><span class="Apple-converted-space">     </span>*************************************************************************/</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function updateProviderUI() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const resolved = getResolvedProvider();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const autoDetectedLabel = document.getElementById('auto-detected-label');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>autoDetectedLabel.textContent = `(${isAppleDevice() ? 'iOS/Apple' : 'Android/Google'})`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const activeProviderText = document.getElementById('active-provider-text');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>activeProviderText.textContent = resolved === 'apple' ? 'Apple Maps' : 'Google Maps';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>['apple', 'google', 'auto'].forEach(p =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const btn = document.getElementById(`provider-${p}`);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (currentProvider === p) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>btn.className = 'flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-extrabold flex items-center justify-center gap-1.5 bg-amber-500 text-slate-950 shadow transition';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>btn.className = 'flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 text-slate-300 hover:text-white hover:bg-slate-800/70 transition';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function updatePageTabsUI() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const tabs = ['all', '1', '2', '3', 'pinned'];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>tabs.forEach(t =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const el = document.getElementById(`tab-${t}`);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (!el) return;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (activePageFilter === t) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>el.className = 'page-tab shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider bg-amber-500 text-slate-950 shadow flex items-center gap-1 transition';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>el.className = 'page-tab shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 flex items-center gap-1 transition';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const badge = document.getElementById('pinned-count-badge');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>badge.textContent = pinnedIds.length;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (activePageFilter === 'pinned') {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>badge.className = 'px-1.5 py-0.2 bg-slate-950/30 text-slate-950 rounded text-[10px] font-black';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>badge.className = 'px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded text-[10px] font-black';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderMileposts() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>updateProviderUI();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>updatePageTabsUI();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const allItems = getMileposts().map(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>let distanceMiles = null;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (userLocation) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>distanceMiles = getDistanceMiles(userLocation.lat, userLocation.lng, item.lat, item.lng);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>...item,</p>
+<p class="p1"><span class="Apple-converted-space">          </span>isPinned: pinnedIds.includes(item.id),</p>
+<p class="p1"><span class="Apple-converted-space">          </span>distanceMiles</p>
+<p class="p1"><span class="Apple-converted-space">        </span>};</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Filter by Page / Pinned</p>
+<p class="p1"><span class="Apple-converted-space">      </span>let filtered = allItems.filter(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (activePageFilter === 'pinned') return item.isPinned;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>if (activePageFilter !== 'all') return String(item.page) === String(activePageFilter);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return true;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>});</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Filter by Search Query</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (searchQuery.trim() !== '') {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const q = searchQuery.toLowerCase().trim();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>filtered = filtered.filter(item =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const mpClean = item.mp.toLowerCase();</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const mpNumOnly = mpClean.replace('mp', '');</p>
+<p class="p1"><span class="Apple-converted-space">          </span>return (</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mpClean.includes(q) ||</p>
+<p class="p1"><span class="Apple-converted-space">            </span>mpNumOnly === q ||</p>
+<p class="p1"><span class="Apple-converted-space">            </span>item.station.toLowerCase().includes(q) ||</p>
+<p class="p1"><span class="Apple-converted-space">            </span>(item.corridor &amp;&amp; item.corridor.toLowerCase().includes(q)) ||</p>
+<p class="p1"><span class="Apple-converted-space">            </span>(item.notes &amp;&amp; item.notes.toLowerCase().includes(q))</p>
+<p class="p1"><span class="Apple-converted-space">          </span>);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>});</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const container = document.getElementById('milepost-sections');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const emptyState = document.getElementById('empty-state');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const counter = document.getElementById('results-counter');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>counter.textContent = `Showing ${filtered.length} of ${allItems.length} mileposts`;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (filtered.length === 0) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>container.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">        </span>emptyState.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>emptyState.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// If GPS nearest sorting is active, display as a single sorted list by distance</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (userLocation) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const sortedByDist = [...filtered].sort((a, b) =&gt; a.distanceMiles - b.distanceMiles);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>container.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;section class="space-y-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex items-center justify-between border-b border-emerald-500/30 pb-2"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;h2 class="text-sm sm:text-base font-black text-emerald-400 uppercase tracking-wider"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>Closest Mileposts to Your Current Position</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;p class="text-xs text-slate-400"&gt;Real-time straight-line distance in miles&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>${sortedByDist.map((item, idx) =&gt; renderCardHTML(item, idx === 0)).join('')}</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Standard Grouping by PDF Page (Pages 1, 2, 3)</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const pagesToRender = [1, 2, 3].filter(p =&gt; filtered.some(item =&gt; item.page === p));</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>container.innerHTML = pagesToRender</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.map(pageNum =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const pageItems = filtered.filter(item =&gt; item.page === pageNum);</p>
+<p class="p1"><span class="Apple-converted-space">          </span>const meta = PAGE_METADATA[pageNum];</p>
+<p class="p1"><span class="Apple-converted-space">          </span>return `</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;section class="space-y-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 bg-slate-900/90 border-l-4 border-amber-500 px-3.5 py-2.5 rounded-r-xl"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;h2 class="text-sm sm:text-base font-black text-white tracking-tight"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>${meta.title}</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;/h2&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>&lt;p class="text-xs text-slate-400"&gt;${meta.subtitle}&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span class="text-[11px] font-mono font-bold text-amber-400 shrink-0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>${pageItems.length} Stations</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>${pageItems.map(item =&gt; renderCardHTML(item, false)).join('')}</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/section&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>})</p>
+<p class="p1"><span class="Apple-converted-space">        </span>.join('');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderCardHTML(item, isClosestHighlight) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const mapUrl = buildMapUrl(item);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const resolvedProvider = getResolvedProvider();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const providerBadge = resolvedProvider === 'apple' ? 'Apple Maps' : 'Google Maps';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const isBranch = item.corridor &amp;&amp; item.corridor.includes('Hopewell');</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>return `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="mp-card group relative rounded-2xl bg-[#121824] hover:bg-[#182030] border ${</p>
+<p class="p1"><span class="Apple-converted-space">          </span>isClosestHighlight</p>
+<p class="p1"><span class="Apple-converted-space">            </span>? 'border-emerald-400 ring-2 ring-emerald-500/30'</p>
+<p class="p1"><span class="Apple-converted-space">            </span>: item.isPinned</p>
+<p class="p1"><span class="Apple-converted-space">            </span>? 'border-amber-500/80'</p>
+<p class="p1"><span class="Apple-converted-space">            </span>: 'border-slate-800 hover:border-amber-500/60'</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} shadow-lg flex flex-col justify-between overflow-hidden"&gt;</p>
+<p class="p2"><span class="Apple-converted-space">          </span></p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;!-- Primary Tap Area that launches Maps immediately --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;a</p>
+<p class="p1"><span class="Apple-converted-space">            </span>href="${mapUrl}"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>target="_blank"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>rel="noopener noreferrer"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>class="p-4 flex items-start gap-3.5 flex-1 focus:outline-none"</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- High-Contrast Milepost Badge --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="min-w-[68px] px-2.5 py-2.5 rounded-xl ${</p>
+<p class="p1"><span class="Apple-converted-space">              </span>isBranch</p>
+<p class="p1"><span class="Apple-converted-space">                </span>? 'bg-amber-400 text-slate-950 border-2 border-amber-200'</p>
+<p class="p1"><span class="Apple-converted-space">                </span>: 'bg-amber-500 text-slate-950 border-2 border-amber-300'</p>
+<p class="p1"><span class="Apple-converted-space">            </span>} flex flex-col items-center justify-center shadow-md shadow-amber-500/10 shrink-0 group-hover:scale-105 transition"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="text-[10px] font-black uppercase tracking-wider leading-none opacity-80"&gt;MILEPOST&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span class="text-base font-mono font-black tracking-tight leading-tight mt-0.5"&gt;${item.mp}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;!-- Station Name &amp; Details --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex-1 min-w-0"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="flex items-center gap-1.5 flex-wrap"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>${</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>isClosestHighlight</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>? `&lt;span class="px-1.5 py-0.5 rounded bg-emerald-500 text-slate-950 font-black text-[10px] uppercase"&gt;NEAREST TO YOU&lt;/span&gt;`</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>: ''</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>${</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>isBranch</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>? `&lt;span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[10px] uppercase"&gt;Branch&lt;/span&gt;`</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>: ''</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">                </span>${</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>item.isCustomized</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>? `&lt;span class="px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30 font-bold text-[10px] uppercase"&gt;Custom GPS&lt;/span&gt;`</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>: ''</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;h3 class="text-base sm:text-lg font-black text-white tracking-tight leading-snug group-hover:text-amber-400 transition truncate"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>${item.station}</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/h3&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;p class="text-xs text-slate-400 truncate mt-0.5"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>${item.corridor || `Page ${item.page}`}</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/p&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>${</p>
+<p class="p1"><span class="Apple-converted-space">                </span>item.notes</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>? `&lt;p class="mt-1 text-[11px] text-amber-300 bg-amber-500/10 border border-amber-500/20 rounded px-2 py-0.5"&gt;${item.notes}&lt;/p&gt;`</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>: ''</p>
+<p class="p1"><span class="Apple-converted-space">              </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;div class="mt-2 flex items-center gap-2 text-[11px] font-mono text-slate-400"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;${item.lat.toFixed(4)}, ${item.lng.toFixed(4)}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>${</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>item.distanceMiles !== null</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>? `&lt;span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700/60 font-bold"&gt;${item.distanceMiles.toFixed(1)} mi&lt;/span&gt;`</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>: ''</p>
+<p class="p1"><span class="Apple-converted-space">                </span>}</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;!-- Card Utility Footer Bar (Pin, Share MP, Copy Coords, Edit GPS) --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="px-3 py-2 bg-slate-950/70 border-t border-slate-800/80 flex items-center justify-between text-[11px]"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;a</p>
+<p class="p1"><span class="Apple-converted-space">              </span>href="${mapUrl}"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>target="_blank"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>rel="noopener noreferrer"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>class="font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1"</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;Open ${providerBadge}&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;span&gt;&amp;rarr;&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/a&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;div class="flex items-center gap-1"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;!-- NEW: 1-Tap Share Specific Milepost Button --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type="button"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>onclick="shareSingleMilepost('${item.id}')"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>title="Share or Text this Milepost Location"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>class="px-2 py-1 rounded bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 font-extrabold flex items-center gap-1 transition"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>&lt;span&gt;Share MP&lt;/span&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;!-- Copy Coordinates Button --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type="button"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>onclick="copyCoordinates('${item.mp} ${item.station}', ${item.lat}, ${item.lng})"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>title="Copy GPS Coordinates"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>class="px-2 py-1 rounded bg-slate-800/90 hover:bg-slate-700 text-slate-300 font-semibold transition"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>GPS</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;!-- Edit GPS / Link Button --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type="button"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>onclick="openEditMpModal('${item.id}')"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>title="Edit GPS or Custom Map URL"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>class="px-2 py-1 rounded bg-slate-800/90 hover:bg-slate-700 text-slate-300 font-semibold transition"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span><span class="s2">✎</span></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/button&gt;</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;!-- Pin / Favorite Toggle --&gt;</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;button</p>
+<p class="p1"><span class="Apple-converted-space">                </span>type="button"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>onclick="togglePin('${item.id}')"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>title="Pin Milepost to Favorites"</p>
+<p class="p1"><span class="Apple-converted-space">                </span>class="px-2 py-1 rounded ${</p>
+<p class="p1"><span class="Apple-converted-space">                  </span>item.isPinned</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>? 'bg-amber-500 text-slate-950 font-black'</p>
+<p class="p1"><span class="Apple-converted-space">                    </span>: 'bg-slate-800/90 hover:bg-slate-700 text-slate-400'</p>
+<p class="p1"><span class="Apple-converted-space">                </span>} transition"</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&gt;</p>
+<p class="p1"><span class="Apple-converted-space">                </span>★</p>
+<p class="p1"><span class="Apple-converted-space">              </span>&lt;/button&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/*************************************************************************</p>
+<p class="p1"><span class="Apple-converted-space">     </span>* 6. INTERACTIVE HANDLERS (Search, Filter, Pin, Geolocation, Copy, Modals)</p>
+<p class="p1"><span class="Apple-converted-space">     </span>*************************************************************************/</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function setMapProvider(provider) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>currentProvider = provider;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>localStorage.setItem(STORAGE_KEYS.PROVIDER, provider);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderMileposts();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const resolvedName = getResolvedProvider() === 'apple' ? 'Apple Maps' : 'Google Maps';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>showToast(`Map provider set to ${provider === 'auto' ? `Auto (${resolvedName})` : resolvedName}`);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function setPageFilter(filter) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>activePageFilter = filter;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderMileposts();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function handleSearch(val) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>searchQuery = val;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const clearBtn = document.getElementById('clear-search-btn');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (val.trim().length &gt; 0) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>clearBtn.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>clearBtn.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderMileposts();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function clearSearch() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const input = document.getElementById('search-input');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>input.value = '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>handleSearch('');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function resetAllFilters() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>activePageFilter = 'all';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>clearSearch();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>clearGpsSort();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function togglePin(id) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (pinnedIds.includes(id)) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>pinnedIds = pinnedIds.filter(item =&gt; item !== id);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>showToast('Removed from Pinned mileposts');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} else {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>pinnedIds.push(id);</p>
+<p class="p1"><span class="Apple-converted-space">        </span>showToast('★ Pinned for quick access');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>localStorage.setItem(STORAGE_KEYS.PINNED, JSON.stringify(pinnedIds));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderMileposts();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function locateNearestMilepost() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (!navigator.geolocation) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>showToast('Geolocation is not supported by your browser.');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>const btnText = document.getElementById('locate-btn-text');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>btnText.textContent = 'Acquiring GPS Signal...';</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>navigator.geolocation.getCurrentPosition(</p>
+<p class="p1"><span class="Apple-converted-space">        </span>pos =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>userLocation = {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>lat: pos.coords.latitude,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>lng: pos.coords.longitude</p>
+<p class="p1"><span class="Apple-converted-space">          </span>};</p>
+<p class="p1"><span class="Apple-converted-space">          </span>btnText.textContent = 'Update Nearest GPS';</p>
+<p class="p1"><span class="Apple-converted-space">          </span>document.getElementById('gps-status-banner').classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">          </span>activePageFilter = 'all';</p>
+<p class="p1"><span class="Apple-converted-space">          </span>renderMileposts();</p>
+<p class="p1"><span class="Apple-converted-space">          </span>showToast('Sorted mileposts by closest distance to you!');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">        </span>err =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>btnText.textContent = 'Find Nearest Milepost to Me';</p>
+<p class="p1"><span class="Apple-converted-space">          </span>showToast('Unable to read GPS. Check location permissions.');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>},</p>
+<p class="p1"><span class="Apple-converted-space">        </span>{ enableHighAccuracy: true, timeout: 10000 }</p>
+<p class="p1"><span class="Apple-converted-space">      </span>);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function clearGpsSort() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>userLocation = null;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('gps-status-banner').classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('locate-btn-text').textContent = 'Find Nearest Milepost to Me';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderMileposts();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>// Reliable Clipboard Helper for iFrames and Mobile WebViews</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function copyTextToClipboard(text, successMsg) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const textarea = document.createElement('textarea');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>textarea.value = text;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>textarea.style.position = 'fixed';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>textarea.style.opacity = '0';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.body.appendChild(textarea);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>textarea.select();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>document.execCommand('copy');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>showToast(successMsg || 'Copied to clipboard!');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} catch (e) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>showToast('Copy failed');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.body.removeChild(textarea);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function copyCoordinates(label, lat, lng) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const text = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>copyTextToClipboard(text, `Copied ${label}: ${text}`);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function showToast(msg) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const toast = document.getElementById('toast');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const msgEl = document.getElementById('toast-message');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>msgEl.textContent = msg;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>toast.classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>toast.classList.add('flex');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>clearTimeout(window._toastTimer);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>window._toastTimer = setTimeout(() =&gt; {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>toast.classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>toast.classList.remove('flex');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}, 2600);</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/*************************************************************************</p>
+<p class="p1"><span class="Apple-converted-space">     </span>* 7. EDIT MILEPOST MODAL &amp; BULK JSON EXPORT/IMPORT</p>
+<p class="p1"><span class="Apple-converted-space">     </span>*************************************************************************/</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function openEditMpModal(id) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const item = getMileposts().find(m =&gt; m.id === id);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (!item) return;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('edit-mp-id').value = item.id;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('edit-modal-mp-badge').textContent = item.mp;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('edit-modal-station-name').textContent = item.station;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('edit-mp-lat').value = item.lat;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('edit-mp-lng').value = item.lng;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('edit-mp-custom-url').value = item.customUrl || '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('edit-mp-notes').value = item.notes || '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('edit-mp-modal').classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function closeEditMpModal() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('edit-mp-modal').classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function saveMpOverride(e) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>e.preventDefault();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const id = document.getElementById('edit-mp-id').value;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const lat = parseFloat(document.getElementById('edit-mp-lat').value);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const lng = parseFloat(document.getElementById('edit-mp-lng').value);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const customUrl = document.getElementById('edit-mp-custom-url').value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const notes = document.getElementById('edit-mp-notes').value.trim();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>gpsOverrides[id] = { lat, lng, customUrl, notes };</p>
+<p class="p1"><span class="Apple-converted-space">      </span>localStorage.setItem(STORAGE_KEYS.OVERRIDES, JSON.stringify(gpsOverrides));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>closeEditMpModal();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderMileposts();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>showToast('Saved custom GPS / Link for milepost');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function resetSingleMpOverride() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const id = document.getElementById('edit-mp-id').value;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>delete gpsOverrides[id];</p>
+<p class="p1"><span class="Apple-converted-space">      </span>localStorage.setItem(STORAGE_KEYS.OVERRIDES, JSON.stringify(gpsOverrides));</p>
+<p class="p1"><span class="Apple-converted-space">      </span>closeEditMpModal();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderMileposts();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>showToast('Restored default milepost coordinates');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function openDataModal() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('config-json-textarea').value = JSON.stringify(gpsOverrides, null, 2);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('data-modal').classList.remove('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function closeDataModal() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('data-modal').classList.add('hidden');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function copyConfigJson() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const val = document.getElementById('config-json-textarea').value;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>copyTextToClipboard(val, 'Copied GPS Config JSON!');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function importConfigJson() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const raw = document.getElementById('config-json-textarea').value.trim();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>const parsed = JSON.parse(raw || '{}');</p>
+<p class="p1"><span class="Apple-converted-space">        </span>gpsOverrides = parsed;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>localStorage.setItem(STORAGE_KEYS.OVERRIDES, JSON.stringify(gpsOverrides));</p>
+<p class="p1"><span class="Apple-converted-space">        </span>closeDataModal();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>renderMileposts();</p>
+<p class="p1"><span class="Apple-converted-space">        </span>showToast('Imported custom GPS configuration!');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>} catch (err) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>showToast('Invalid JSON format. Please check and try again.');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function resetAllOverrides() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>gpsOverrides = {};</p>
+<p class="p1"><span class="Apple-converted-space">      </span>localStorage.removeItem(STORAGE_KEYS.OVERRIDES);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>closeDataModal();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderMileposts();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>showToast('All mileposts reset to default coordinates.');</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>/*************************************************************************</p>
+<p class="p1"><span class="Apple-converted-space">     </span>* 8. SHARE &amp; INSTALL PWA MODAL + SMS/EMAIL/QR/FILE DOWNLOAD &amp; SERVICE WORKER</p>
+<p class="p1"><span class="Apple-converted-space">     </span>*************************************************************************/</p>
+<p class="p1"><span class="Apple-converted-space">    </span>function getEffectiveShareUrl() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (customShareUrl &amp;&amp; customShareUrl.trim() !== '') {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>return customShareUrl.trim();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>return window.location.href;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function updateCustomShareUrl(val) {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>customShareUrl = val.trim();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>localStorage.setItem(STORAGE_KEYS.CUSTOM_SHARE_URL, customShareUrl);</p>
+<p class="p1"><span class="Apple-converted-space">      </span>renderQrCode();</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function renderQrCode() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const container = document.getElementById('qrcode-container');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (!container) return;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>container.innerHTML = '';</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const targetUrl = getEffectiveShareUrl();</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (typeof QRCode !== 'undefined') {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>try {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>new QRCode(container, {</p>
+<p class="p1"><span class="Apple-converted-space">            </span>text: targetUrl,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>width: 176,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>height: 176,</p>
+<p class="p1"><span class="Apple-converted-space">            </span>colorDark: '#090D14',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>colorLight: '#FFFFFF',</p>
+<p class="p1"><span class="Apple-converted-space">            </span>correctLevel: QRCode.CorrectLevel.M</p>
+<p class="p1"><span class="Apple-converted-space">          </span>});</p>
+<p class="p1"><span class="Apple-converted-space">          </span>return;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>} catch (err) {</p>
+<p class="p1"><span class="Apple-converted-space">          </span>// Fallback to SVG badge below if URL is too long (e.g. data: URL)</p>
+<p class="p1"><span class="Apple-converted-space">        </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">      </span>// Offline SVG Fallback if QRCode library isn't reachable or URL is a local file path</p>
+<p class="p1"><span class="Apple-converted-space">      </span>container.innerHTML = `</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;div class="p-3 text-center text-slate-900 font-sans"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;div class="text-xs font-black uppercase text-amber-600"&gt;Norfolk Pier 6 LSSC&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;p class="text-[11px] font-semibold mt-1 leading-snug"&gt;</p>
+<p class="p1"><span class="Apple-converted-space">            </span>Paste your hosted link below to generate a live camera QR code, or tap "Download App File" above to AirDrop/Text the app!</p>
+<p class="p1"><span class="Apple-converted-space">          </span>&lt;/p&gt;</p>
+<p class="p1"><span class="Apple-converted-space">        </span>&lt;/div&gt;</p>
+<p class="p1"><span class="Apple-converted-space">      </span>`;</p>
+<p class="p1"><span class="Apple-converted-space">    </span>}</p>
+<p class="p2"><br></p>
+<p class="p1"><span class="Apple-converted-space">    </span>function openInstallShareModal() {</p>
+<p class="p1"><span class="Apple-converted-space">      </span>const urlInput = document.getElementById('custom-share-url-input');</p>
+<p class="p1"><span class="Apple-converted-space">      </span>if (urlInput) {</p>
+<p class="p1"><span class="Apple-converted-space">        </span>urlInput.value = getEffectiveShareUrl();</p>
+<p class="p1"><span class="Apple-converted-space">      </span>}</p>
+<p class="p1"><span class="Apple-converted-space">      </span>document.getElementById('</p>
+</body>
+</html>
