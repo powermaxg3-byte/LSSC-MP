@@ -1,28 +1,22 @@
+<!DOCTYPE html>
 <html lang="en" class="dark">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes, viewport-fit=cover" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>Norfolk Pier 6 LSSC | Milepost Map</title>
 
-  <!-- PWA & Mobile Capable Meta Tags for iOS & Android -->
-  <meta name="theme-color" content="#0B0F17" />
+  <!-- iOS & Android PWA Meta Tags -->
   <meta name="apple-mobile-web-app-capable" content="yes" />
-  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-  <meta name="apple-mobile-web-app-title" content="Pier 6 LSSC" />
   <meta name="mobile-web-app-capable" content="yes" />
-  <meta name="description" content="Norfolk Pier 6 Safety LSSC Interactive Milepost Map for Apple Maps & Google Maps navigation." />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+  <meta name="apple-mobile-web-app-title" content="LSSC Mileposts" />
+  <meta name="theme-color" content="#0b111e" id="themeColorMeta" />
+  <meta name="description" content="Norfolk Pier 6 Safety NS LSSC Milepost Map — Quick GPS Navigation for iPhone & Android" />
 
-  <!-- Dynamic SVG App Icon for iOS & Android Home Screen -->
-  <link id="apple-touch-icon" rel="apple-touch-icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%230B0F17'/%3E%3Crect x='24' y='24' width='464' height='464' rx='76' fill='none' stroke='%23F59E0B' stroke-width='16'/%3E%3Cpath d='M136 376L216 136M376 376L296 136M168 280H344M192 200H320M152 344H360' stroke='%23F59E0B' stroke-width='28' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='112' r='28' fill='%23FFFFFF'/%3E%3Ctext x='256' y='446' font-family='sans-serif' font-size='58' font-weight='900' fill='%23FFFFFF' text-anchor='middle' letter-spacing='4'%3ELSSC%3C/text%3E%3C/svg%3E" />
-  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 512 512'%3E%3Crect width='512' height='512' rx='96' fill='%230B0F17'/%3E%3Crect x='24' y='24' width='464' height='464' rx='76' fill='none' stroke='%23F59E0B' stroke-width='16'/%3E%3Cpath d='M136 376L216 136M376 376L296 136M168 280H344M192 200H320M152 344H360' stroke='%23F59E0B' stroke-width='28' stroke-linecap='round'/%3E%3Ccircle cx='256' cy='112' r='28' fill='%23FFFFFF'/%3E%3Ctext x='256' y='446' font-family='sans-serif' font-size='58' font-weight='900' fill='%23FFFFFF' text-anchor='middle' letter-spacing='4'%3ELSSC%3C/text%3E%3C/svg%3E" />
-
-  <!-- Google Fonts: Inter & JetBrains Mono for High-Contrast Railway Readability -->
-  <link rel="preconnect" href="https://fonts.googleapis.com" />
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@600;700;800&display=swap" rel="stylesheet" />
-
-  <!-- Lightweight Pure-JS QR Code Generator for In-Person Yard/Briefing Sharing -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <!-- Dynamic Apple Touch Icon & Favicon populated via Canvas script on load -->
+  <link rel="apple-touch-icon" id="appleTouchIcon" href="" />
+  <link rel="icon" type="image/png" id="favIcon" href="" />
+  <link rel="manifest" id="pwaManifest" href="" />
 
   <!-- Tailwind CSS -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -32,18 +26,20 @@
       theme: {
         extend: {
           fontFamily: {
-            sans: ['Inter', 'system-ui', '-apple-system', 'sans-serif'],
-            mono: ['JetBrains Mono', 'monospace'],
+            sans: ['Inter', '-apple-system', 'BlinkMacSystemFont', 'Segoe UI', 'Roboto', 'sans-serif'],
+            mono: ['JetBrains Mono', 'ui-monospace', 'SFMono-Regular', 'monospace']
           },
           colors: {
             ns: {
-              dark: '#090D14',
-              card: '#121824',
-              cardHover: '#1A2233',
-              border: '#263147',
-              yellow: '#F59E0B',
-              amber: '#FBBF24',
-              accent: '#EAB308'
+              dark: '#090e17',
+              panel: '#111927',
+              card: '#172133',
+              cardHover: '#1e2b42',
+              border: '#28354e',
+              gold: '#f59e0b',
+              goldLight: '#fbbf24',
+              amber: '#d97706',
+              blue: '#38bdf8'
             }
           }
         }
@@ -51,35 +47,130 @@
     };
   </script>
 
+  <!-- Google Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@500;700;800&display=swap" rel="stylesheet">
+
+  <!-- Leaflet CSS & JS for Interactive Railroad Map -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin="" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
+
+  <!-- Font Awesome Icons -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
   <style>
-    /* High-contrast custom scrollbars & touch target optimizations */
-    * {
-      -webkit-tap-highlight-color: transparent;
+    :root {
+      --safe-top: env(safe-area-inset-top, 0px);
+      --safe-bottom: env(safe-area-inset-bottom, 0px);
     }
+
     body {
-      background-color: #090D14;
-      color: #F8FAFC;
-      padding-top: env(safe-area-inset-top);
-      padding-bottom: env(safe-area-inset-bottom);
-      padding-left: env(safe-area-inset-left);
-      padding-right: env(safe-area-inset-right);
+      -webkit-tap-highlight-color: transparent;
+      user-select: none;
+      overscroll-behavior-y: none;
     }
-    .safety-stripes {
-      background: repeating-linear-gradient(
-        -45deg,
-        #F59E0B,
-        #F59E0B 12px,
-        #090D14 12px,
-        #090D14 24px
-      );
+
+    /* Custom Scrollbars */
+    ::-webkit-scrollbar {
+      width: 6px;
+      height: 6px;
     }
+    ::-webkit-scrollbar-track {
+      background: rgba(15, 23, 42, 0.4);
+    }
+    ::-webkit-scrollbar-thumb {
+      background: rgba(100, 116, 139, 0.5);
+      border-radius: 9999px;
+    }
+
+    /* Industrial Milepost Card Styling matching the PDF aesthetic */
     .mp-card {
-      transition: transform 0.12s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.15s ease, box-shadow 0.15s ease;
+      position: relative;
+      transition: transform 0.14s cubic-bezier(0.16, 1, 0.3, 1), box-shadow 0.16s ease, border-color 0.16s ease;
     }
     .mp-card:active {
-      transform: scale(0.98);
+      transform: scale(0.97);
     }
-    /* Hide scrollbar for horizontal filter pills */
+
+    .dark .mp-card {
+      background: linear-gradient(145deg, #182336 0%, #101826 100%);
+      border: 1.5px solid #293852;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.38), inset 0 1px 0 rgba(255, 255, 255, 0.06);
+    }
+    .dark .mp-card:hover {
+      border-color: #f59e0b;
+      box-shadow: 0 6px 18px rgba(245, 158, 11, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.12);
+    }
+
+    /* High-Sunlight Day Mode Card */
+    html:not(.dark) .mp-card {
+      background: linear-gradient(145deg, #ffffff 0%, #f1f5f9 100%);
+      border: 2px solid #cbd5e1;
+      box-shadow: 0 3px 10px rgba(15, 23, 42, 0.08);
+    }
+    html:not(.dark) .mp-card:hover {
+      border-color: #d97706;
+      box-shadow: 0 6px 15px rgba(217, 119, 6, 0.18);
+    }
+
+    /* Gold Accent Left Bar on Cards like the PDF */
+    .mp-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      bottom: 10px;
+      width: 4px;
+      border-radius: 0 4px 4px 0;
+      background: linear-gradient(180deg, #fbbf24 0%, #d97706 100%);
+    }
+
+    .mp-card.branch-hopewell::before {
+      background: linear-gradient(180deg, #38bdf8 0%, #0284c7 100%);
+    }
+
+    .mp-card.type-scanner::before {
+      background: linear-gradient(180deg, #34d399 0%, #059669 100%);
+    }
+
+    .mp-card.type-bridge::before {
+      background: linear-gradient(180deg, #a78bfa 0%, #7c3aed 100%);
+    }
+
+    /* Leaflet Custom Marker Styling */
+    .leaflet-container {
+      font-family: 'Inter', sans-serif;
+      background: #0b111e;
+    }
+    .mp-map-pin {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: #111927;
+      color: #fbbf24;
+      border: 2px solid #f59e0b;
+      border-radius: 8px;
+      padding: 2px 6px;
+      font-family: 'JetBrains Mono', monospace;
+      font-weight: 800;
+      font-size: 11px;
+      white-space: nowrap;
+      box-shadow: 0 3px 10px rgba(0,0,0,0.65);
+      transition: transform 0.15s ease;
+    }
+    .mp-map-pin:hover {
+      transform: scale(1.12);
+      z-index: 1000 !important;
+      background: #f59e0b;
+      color: #090e17;
+    }
+    .mp-map-pin.hopewell {
+      border-color: #38bdf8;
+      color: #38bdf8;
+    }
+
+    /* Hide scrollbar on filter chips */
     .no-scrollbar::-webkit-scrollbar {
       display: none;
     }
@@ -87,828 +178,997 @@
       -ms-overflow-style: none;
       scrollbar-width: none;
     }
+
+    /* Pulse ring for live GPS */
+    @keyframes pulseRing {
+      0% { transform: scale(0.9); opacity: 0.8; }
+      70% { transform: scale(1.6); opacity: 0; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+    .gps-pulse::after {
+      content: '';
+      position: absolute;
+      inset: -4px;
+      border-radius: 9999px;
+      border: 2px solid #22c55e;
+      animation: pulseRing 1.8s infinite;
+    }
   </style>
 </head>
-<body class="min-h-screen flex flex-col font-sans antialiased selection:bg-amber-500 selection:text-black">
+<body class="bg-slate-100 dark:bg-ns-dark text-slate-900 dark:text-slate-100 min-h-screen flex flex-col selection:bg-amber-500 selection:text-slate-950 transition-colors duration-200">
 
-  <!-- Top High-Visibility Safety Stripe Banner -->
-  <div class="h-2 w-full safety-stripes"></div>
-
-  <!-- Sticky App Header -->
-  <header class="sticky top-0 z-30 bg-[#090D14]/95 backdrop-blur-md border-b border-slate-800/90 shadow-xl">
-    <div class="max-w-5xl mx-auto px-3 sm:px-6 py-3">
-      
-      <!-- Top Row: Brand Title & Action Buttons -->
-      <div class="flex flex-wrap items-center justify-between gap-2 pb-2.5 border-b border-slate-800/80">
+  <!-- TOP INDUSTRIAL HEADER (INSPIRED BY NORFOLK PIER 6 SAFETY NS LSSC PDF) -->
+  <header class="sticky top-0 z-30 bg-white/95 dark:bg-ns-panel/95 backdrop-blur-md border-b border-slate-200 dark:border-ns-border pt-[var(--safe-top)] shadow-md">
+    <div class="max-w-7xl mx-auto px-3 sm:px-5 py-2.5">
+      <!-- Top Row: Emblem, Title, Platform Map Selector, Actions -->
+      <div class="flex flex-wrap items-center justify-between gap-2">
+        <!-- Left Brand & Badge -->
         <div class="flex items-center gap-3">
-          <!-- NS / LSSC Emblem -->
-          <div class="w-11 h-11 rounded-xl bg-amber-500 text-slate-950 flex flex-col items-center justify-center font-black shadow-md shadow-amber-500/20 border-2 border-amber-300 shrink-0">
-            <span class="text-[10px] leading-none tracking-tighter font-extrabold">NS</span>
-            <span class="text-sm leading-tight tracking-tight font-mono">P6</span>
+          <!-- Custom SVG Norfolk Pier 6 Safety NS LSSC Emblem -->
+          <div class="relative w-12 h-12 sm:w-14 sm:h-14 rounded-xl bg-gradient-to-br from-slate-900 via-slate-800 to-slate-950 border-2 border-amber-500/80 shadow-inner flex items-center justify-center shrink-0 overflow-hidden group cursor-pointer" onclick="resetAllFilters()" title="Reset View">
+            <svg viewBox="0 0 100 100" class="w-11 h-11">
+              <!-- Outer Safety Ring -->
+              <circle cx="50" cy="50" r="46" fill="#090e17" stroke="#f59e0b" stroke-width="3" stroke-dasharray="6 2" />
+              <circle cx="50" cy="50" r="37" fill="#131c2e" stroke="#fbbf24" stroke-width="1.5" />
+              <!-- Top Arc Text Approximation -->
+              <text x="50" y="19" text-anchor="middle" fill="#fbbf24" font-size="8.5" font-weight="900" font-family="Inter, sans-serif" letter-spacing="0.6">NORFOLK PIER 6</text>
+              <!-- Center NS / Track Graphic -->
+              <path d="M32 62 L44 36 M68 62 L56 36 M36 55 L64 55 M39 46 L61 46" stroke="#94a3b8" stroke-width="2.5" stroke-linecap="round"/>
+              <rect x="26" y="37" width="48" height="22" rx="4" fill="#f59e0b" />
+              <text x="50" y="52.5" text-anchor="middle" fill="#090e17" font-size="14" font-weight="900" font-family="Inter, sans-serif" letter-spacing="1">NS • 6</text>
+              <!-- Bottom LSSC -->
+              <text x="50" y="75" text-anchor="middle" fill="#ffffff" font-size="9.5" font-weight="800" font-family="JetBrains Mono, monospace" letter-spacing="1.2">LSSC</text>
+              <text x="50" y="89" text-anchor="middle" fill="#38bdf8" font-size="7" font-weight="800" font-family="Inter, sans-serif" letter-spacing="1.2">SAFETY</text>
+            </svg>
           </div>
+
           <div>
-            <div class="flex items-center gap-2">
-              <span class="px-1.5 py-0.5 text-[10px] font-black uppercase tracking-wider bg-amber-500/20 text-amber-400 border border-amber-500/40 rounded">
-                NORFOLK PIER 6 SAFETY
+            <div class="flex items-center gap-2 flex-wrap">
+              <span class="px-2 py-0.5 text-[10px] font-mono font-extrabold uppercase tracking-wider rounded bg-amber-500/20 text-amber-600 dark:text-amber-400 border border-amber-500/30">
+                Norfolk Southern • Pier 6
               </span>
-              <span id="offline-badge" class="hidden px-1.5 py-0.5 text-[10px] font-bold uppercase tracking-wider bg-emerald-500/20 text-emerald-300 border border-emerald-500/30 rounded">
-                PWA Ready
+              <span id="offlineStatusBadge" class="px-2 py-0.5 text-[10px] font-mono font-bold uppercase tracking-wider rounded bg-emerald-500/15 text-emerald-600 dark:text-emerald-400 border border-emerald-500/30 flex items-center gap-1">
+                <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span> PWA Ready
               </span>
             </div>
-            <h1 class="text-base sm:text-xl font-black tracking-tight text-white leading-snug mt-0.5">
-              Norfolk Pier 6 LSSC <span class="text-amber-400 font-normal">|</span> MILEPOST MAP
+            <h1 class="text-base sm:text-xl font-black tracking-tight text-slate-900 dark:text-white leading-tight mt-0.5">
+              Norfolk Pier 6 LSSC <span class="text-amber-500 font-normal">|</span> <span class="text-amber-600 dark:text-amber-400">MILEPOST MAP</span>
             </h1>
+            <p class="text-[11px] sm:text-xs text-slate-500 dark:text-slate-400 font-medium flex items-center gap-1.5">
+              <i class="fa-solid fa-location-arrow text-amber-500 text-[10px]"></i>
+              <span id="headerSubtitleText">Tap a milepost button to open Maps navigation</span>
+            </p>
           </div>
         </div>
 
-        <!-- Share / Install / Data Config Buttons -->
+        <!-- Right Controls: Navigation App Selector, GPS Nearest, Install, Theme -->
         <div class="flex items-center gap-1.5 sm:gap-2 ml-auto">
-          <button
-            onclick="openDataModal()"
-            title="Manage or Import Custom GPS Links"
-            class="px-2.5 py-2 rounded-xl bg-slate-800/90 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center gap-1.5 active:scale-95 transition"
-          >
-            <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-              <path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-            </svg>
-            <span class="hidden sm:inline">GPS Data</span>
+          <!-- Default Map App Switcher (Apple Maps / Google Maps / Waze) -->
+          <div class="relative flex items-center bg-slate-200/80 dark:bg-slate-800/90 rounded-lg p-0.5 border border-slate-300 dark:border-slate-700 text-xs">
+            <button onclick="setMapProvider('apple')" id="providerBtn-apple" class="px-2.5 py-1.5 rounded-md font-bold flex items-center gap-1.5 transition-all" title="Open Mileposts in Apple Maps (iPhone/iPad/Mac)">
+              <i class="fa-brands fa-apple text-sm"></i>
+              <span class="hidden md:inline">Apple Maps</span>
+            </button>
+            <button onclick="setMapProvider('google')" id="providerBtn-google" class="px-2.5 py-1.5 rounded-md font-bold flex items-center gap-1.5 transition-all" title="Open Mileposts in Google Maps (Android/iOS/Web)">
+              <i class="fa-brands fa-google text-xs"></i>
+              <span class="hidden md:inline">Google Maps</span>
+            </button>
+            <button onclick="setMapProvider('waze')" id="providerBtn-waze" class="px-2.5 py-1.5 rounded-md font-bold flex items-center gap-1.5 transition-all" title="Open Mileposts in Waze">
+              <i class="fa-brands fa-waze text-sm"></i>
+              <span class="hidden lg:inline">Waze</span>
+            </button>
+          </div>
+
+          <!-- Find Nearest Milepost GPS Button -->
+          <button onclick="locateNearestMilepost()" id="gpsNearestBtn" class="relative px-3 py-2 rounded-lg font-bold text-xs bg-emerald-600 hover:bg-emerald-500 text-white shadow-sm flex items-center gap-1.5 transition-all active:scale-95" title="Find Closest Milepost to Your Current Location">
+            <i class="fa-solid fa-crosshairs"></i>
+            <span class="hidden sm:inline">Nearest MP</span>
           </button>
 
-          <button
-            onclick="openInstallShareModal()"
-            class="px-3 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs sm:text-sm flex items-center gap-1.5 shadow-lg shadow-amber-500/25 ring-2 ring-amber-300/50 active:scale-95 transition"
-          >
-            <svg class="w-4 h-4 stroke-[2.5]" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M8.684 13.342C8.886 12.938 9 12.482 9 12c0-.482-.114-.938-.316-1.342m0 2.684a3 3 0 110-2.684m0 2.684l6.632 3.316m-6.632-6l6.632-3.316m0 0a3 3 0 105.367-2.684 3 3 0 00-5.367 2.684zm0 9.316a3 3 0 105.368 2.684 3 3 0 00-5.368-2.684z" />
-            </svg>
-            <span>Share App / QR</span>
+          <!-- Install PWA Guide Button (iPhone & Android) -->
+          <button onclick="openInstallModal()" class="px-3 py-2 rounded-lg font-bold text-xs bg-amber-500 hover:bg-amber-400 text-slate-950 shadow-sm flex items-center gap-1.5 transition-all active:scale-95" title="Install App on iPhone or Android Home Screen">
+            <i class="fa-solid fa-mobile-screen-button"></i>
+            <span class="hidden sm:inline">Install App</span>
+          </button>
+
+          <!-- Day / Sunlight Mode Toggle -->
+          <button onclick="toggleTheme()" class="p-2 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-700 dark:text-amber-400 border border-slate-300 dark:border-slate-700 hover:border-amber-500 transition-all" title="Toggle High-Contrast Daylight / Night Mode">
+            <i id="themeIcon" class="fa-solid fa-sun text-sm"></i>
           </button>
         </div>
       </div>
 
-      <!-- NEW: Dedicated 1-Tap Crew Quick-Share Action Strip -->
-      <div class="py-2 border-b border-slate-800/80 flex items-center gap-1.5 overflow-x-auto no-scrollbar">
-        <span class="text-[10px] font-black uppercase tracking-wider text-amber-400 shrink-0 pr-1 flex items-center gap-1">
-          <span class="w-1.5 h-1.5 rounded-full bg-amber-400 animate-pulse"></span>
-          Send to Crew:
-        </span>
-
-        <button
-          onclick="shareAppViaSMS()"
-          class="shrink-0 px-2.5 py-1.5 rounded-lg bg-emerald-500/15 hover:bg-emerald-500/25 text-emerald-300 border border-emerald-500/30 text-xs font-extrabold flex items-center gap-1.5 active:scale-95 transition"
-        >
-          <span>💬 Text Link (SMS)</span>
-        </button>
-
-        <button
-          onclick="openQrModalDirectly()"
-          class="shrink-0 px-2.5 py-1.5 rounded-lg bg-amber-500/15 hover:bg-amber-500/25 text-amber-300 border border-amber-500/30 text-xs font-extrabold flex items-center gap-1.5 active:scale-95 transition"
-        >
-          <span>📱 Show QR Code</span>
-        </button>
-
-        <button
-          onclick="downloadStandaloneHtmlFile()"
-          class="shrink-0 px-2.5 py-1.5 rounded-lg bg-sky-500/15 hover:bg-sky-500/25 text-sky-300 border border-sky-500/30 text-xs font-extrabold flex items-center gap-1.5 active:scale-95 transition"
-        >
-          <span>📥 Save App File (AirDrop / Text)</span>
-        </button>
-
-        <button
-          onclick="shareAppViaEmail()"
-          class="shrink-0 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center gap-1.5 active:scale-95 transition"
-        >
-          <span>✉️ Email Crew</span>
-        </button>
-
-        <button
-          onclick="copyFullDirectoryText()"
-          class="shrink-0 px-2.5 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-slate-200 border border-slate-700 text-xs font-bold flex items-center gap-1.5 active:scale-95 transition"
-        >
-          <span>📋 Copy All 50 Links</span>
-        </button>
-      </div>
-
-      <!-- Second Row: Map Provider Switcher & Nearest GPS Button -->
-      <div class="pt-2.5 flex flex-col sm:flex-row items-stretch sm:items-center justify-between gap-2">
-        <!-- Map App Selector (Apple Maps / Google Maps / Auto) -->
-        <div class="flex items-center justify-between sm:justify-start gap-2 bg-slate-900/90 p-1 rounded-xl border border-slate-800">
-          <span class="text-[11px] font-bold uppercase tracking-wider text-slate-400 pl-2 pr-1 hidden md:inline">
-            Open With:
-          </span>
-          <button
-            id="provider-apple"
-            onclick="setMapProvider('apple')"
-            class="flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition"
-          >
-            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.33c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/>
-            </svg>
-            <span>Apple Maps</span>
-          </button>
-          <button
-            id="provider-google"
-            onclick="setMapProvider('google')"
-            class="flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 transition"
-          >
-            <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24">
-              <path d="M12 2C8.13 2 5 5.13 5 9c0 5.25 7 13 7 13s7-7.75 7-13c0-3.87-3.13-7-7-7zm0 9.5c-1.38 0-2.5-1.12-2.5-2.5s1.12-2.5 2.5-2.5 2.5 1.12 2.5 2.5-1.12 2.5-2.5 2.5z"/>
-            </svg>
-            <span>Google Maps</span>
-          </button>
-          <button
-            id="provider-auto"
-            onclick="setMapProvider('auto')"
-            class="flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center justify-center gap-1 transition"
-          >
-            <span>Auto</span>
-            <span id="auto-detected-label" class="text-[10px] opacity-75"></span>
+      <!-- Second Row: Search Bar + View Switcher + PDF Page Tabs -->
+      <div class="mt-2.5 flex flex-col md:flex-row items-stretch md:items-center gap-2">
+        <!-- Instant Search Input -->
+        <div class="relative flex-1">
+          <i class="fa-solid fa-magnifying-glass absolute left-3.5 top-1/2 -translate-y-1/2 text-slate-400 text-sm"></i>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="Search milepost (e.g. MP0.0, MP51, 88) or station (Lamberts, Suffolk, Hopewell, Crewe)..."
+            class="w-full pl-9 pr-20 py-2 rounded-xl bg-slate-100 dark:bg-slate-900/90 border border-slate-300 dark:border-ns-border text-sm font-medium text-slate-900 dark:text-white placeholder-slate-400 focus:outline-none focus:border-amber-500 focus:ring-2 focus:ring-amber-500/20 transition-all"
+            oninput="handleSearch(this.value)"
+          />
+          <button id="clearSearchBtn" onclick="clearSearch()" class="hidden absolute right-2.5 top-1/2 -translate-y-1/2 px-2 py-0.5 text-xs font-bold rounded bg-slate-300 dark:bg-slate-700 text-slate-700 dark:text-slate-200 hover:bg-amber-500 hover:text-slate-950">
+            Clear
           </button>
         </div>
 
-        <!-- Find Nearest Milepost via Live Device GPS -->
-        <button
-          id="locate-me-btn"
-          onclick="locateNearestMilepost()"
-          class="px-3.5 py-2 rounded-xl bg-emerald-600/20 hover:bg-emerald-600/30 text-emerald-300 border border-emerald-500/40 font-bold text-xs flex items-center justify-center gap-2 active:scale-95 transition"
-        >
-          <svg id="locate-icon" class="w-4 h-4 text-emerald-400 shrink-0" fill="none" stroke="currentColor" stroke-width="2.2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M12 8c-2.21 0-4 1.79-4 4s1.79 4 4 4 4-1.79 4-4-1.79-4-4-4zm8.94 3A8.994 8.994 0 0013 3.06V1h-2v2.06A8.994 8.994 0 003.06 11H1v2h2.06A8.994 8.994 0 0011 20.94V23h2v-2.06A8.994 8.994 0 0020.94 13H23v-2h-2.06z" />
-          </svg>
-          <span id="locate-btn-text">Find Nearest Milepost to Me</span>
-        </button>
-      </div>
-
-      <!-- Third Row: Search Input & Clear Button -->
-      <div class="mt-2.5 relative">
-        <div class="absolute inset-y-0 left-0 pl-3.5 flex items-center pointer-events-none">
-          <svg class="w-4 h-4 text-amber-400" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z" />
-          </svg>
+        <!-- View Mode Toggle: Grid View vs Live Interactive Railroad Map vs Reference Table -->
+        <div class="flex items-center justify-between sm:justify-end gap-2">
+          <div class="flex items-center bg-slate-200/80 dark:bg-slate-900 rounded-xl p-1 border border-slate-300 dark:border-ns-border w-full sm:w-auto">
+            <button onclick="setViewMode('grid')" id="viewBtn-grid" class="flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-extrabold flex items-center justify-center gap-1.5 transition-all">
+              <i class="fa-solid fa-grip"></i>
+              <span>Milepost Grid</span>
+            </button>
+            <button onclick="setViewMode('map')" id="viewBtn-map" class="flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-extrabold flex items-center justify-center gap-1.5 transition-all">
+              <i class="fa-solid fa-map-location-dot"></i>
+              <span>Live Corridor Map</span>
+            </button>
+            <button onclick="setViewMode('list')" id="viewBtn-list" class="flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-extrabold flex items-center justify-center gap-1.5 transition-all">
+              <i class="fa-solid fa-table-list"></i>
+              <span>Log Sheet</span>
+            </button>
+          </div>
         </div>
-        <input
-          id="search-input"
-          type="text"
-          oninput="handleSearch(this.value)"
-          placeholder="Search Milepost (e.g. MP4, MP102) or Station (e.g. Lamberts Point, Portlock, Crewe)..."
-          class="w-full pl-10 pr-20 py-2.5 bg-slate-900/95 border border-slate-700/90 rounded-xl text-sm text-white placeholder-slate-400 focus:outline-none focus:border-amber-400 focus:ring-1 focus:ring-amber-400 transition"
-        />
-        <button
-          id="clear-search-btn"
-          onclick="clearSearch()"
-          class="hidden absolute inset-y-1.5 right-2 px-2.5 bg-slate-800 hover:bg-slate-700 text-slate-300 rounded-lg text-xs font-bold"
-        >
-          Clear
-        </button>
       </div>
 
-      <!-- Fourth Row: Section / PDF Page Tabs -->
+      <!-- Third Row: Subdivision / PDF Page Filter Chips -->
       <div class="mt-2.5 flex items-center gap-1.5 overflow-x-auto no-scrollbar pb-0.5">
-        <button
-          onclick="setPageFilter('all')"
-          id="tab-all"
-          class="page-tab shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider transition"
-        >
-          All (50)
+        <button onclick="setCategoryFilter('all')" id="filter-all" class="filter-chip shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all flex items-center gap-1.5">
+          <i class="fa-solid fa-layer-group text-[11px]"></i> All Mileposts <span class="opacity-75 font-mono" id="count-all">(50)</span>
         </button>
-        <button
-          onclick="setPageFilter('1')"
-          id="tab-1"
-          class="page-tab shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider transition"
-        >
-          Page 1: MP 0–23
+        <button onclick="setCategoryFilter('page1')" id="filter-page1" class="filter-chip shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-amber-400"></span> Page 1: Norfolk – Suffolk <span class="opacity-75 font-mono">(MP 0–23)</span>
         </button>
-        <button
-          onclick="setPageFilter('2')"
-          id="tab-2"
-          class="page-tab shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider transition"
-        >
-          Page 2: MP 26–84 &amp; Hopewell
+        <button onclick="setCategoryFilter('page2')" id="filter-page2" class="filter-chip shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-amber-500"></span> Page 2: Brico – Petersburg <span class="opacity-75 font-mono">(MP 26–84)</span>
         </button>
-        <button
-          onclick="setPageFilter('3')"
-          id="tab-3"
-          class="page-tab shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider transition"
-        >
-          Page 3: MP 86–129
+        <button onclick="setCategoryFilter('page3')" id="filter-page3" class="filter-chip shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-orange-500"></span> Page 3: PA Jct – Crewe <span class="opacity-75 font-mono">(MP 86–129)</span>
         </button>
-        <button
-          onclick="setPageFilter('pinned')"
-          id="tab-pinned"
-          class="page-tab shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider flex items-center gap-1 transition"
-        >
-          <span>★ Pinned</span>
-          <span id="pinned-count-badge" class="px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded text-[10px]">0</span>
+        <button onclick="setCategoryFilter('hopewell')" id="filter-hopewell" class="filter-chip shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all flex items-center gap-1.5">
+          <span class="w-2 h-2 rounded-full bg-sky-400"></span> Hopewell Branch <span class="opacity-75 font-mono">(MP 1–9)</span>
+        </button>
+        <button onclick="setCategoryFilter('special')" id="filter-special" class="filter-chip shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all flex items-center gap-1.5">
+          <i class="fa-solid fa-tower-broadcast text-emerald-400 text-[11px]"></i> Bridges / Scanners / Jcts
+        </button>
+        <button onclick="setCategoryFilter('favorites')" id="filter-favorites" class="filter-chip shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all flex items-center gap-1.5">
+          <i class="fa-solid fa-star text-amber-400 text-[11px]"></i> Pinned <span class="opacity-75 font-mono" id="count-favs">(0)</span>
         </button>
       </div>
     </div>
   </header>
 
-  <!-- Active GPS Banner (Hidden until user taps "Find Nearest Milepost") -->
-  <div id="gps-status-banner" class="hidden bg-emerald-950/80 border-b border-emerald-700/60 px-4 py-2.5">
-    <div class="max-w-5xl mx-auto flex flex-wrap items-center justify-between gap-2 text-xs">
-      <div class="flex items-center gap-2 text-emerald-200 font-semibold">
+  <!-- LIVE GPS NEAREST MILEPOST BANNER (HIDDEN UNTIL ACTIVATED) -->
+  <div id="gpsBanner" class="hidden bg-emerald-950/90 border-b border-emerald-500/40 text-emerald-100 px-4 py-2.5">
+    <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-2">
+      <div class="flex items-center gap-2.5">
         <span class="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-ping"></span>
-        <span id="gps-banner-text">Sorted by closest distance to your current GPS coordinates.</span>
+        <div class="text-xs sm:text-sm">
+          <span class="font-bold text-emerald-300 uppercase tracking-wider font-mono text-[11px]" id="gpsStatusLabel">GPS Radar Active:</span>
+          <span id="gpsNearestSummary" class="font-semibold ml-1">Calculating distance to Norfolk Southern corridor...</span>
+        </div>
       </div>
-      <button
-        onclick="clearGpsSort()"
-        class="px-2.5 py-1 rounded-lg bg-emerald-900/90 hover:bg-emerald-800 text-emerald-200 font-bold border border-emerald-700"
-      >
-        Reset to Corridor Order
-      </button>
+      <div class="flex items-center gap-2">
+        <button id="gpsQuickNavBtn" onclick="" class="px-2.5 py-1 rounded bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-extrabold text-xs flex items-center gap-1">
+          <i class="fa-solid fa-diamond-turn-right"></i> Navigate Nearest
+        </button>
+        <button onclick="closeGpsBanner()" class="text-emerald-300 hover:text-white px-2 py-1 text-xs font-bold">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
     </div>
   </div>
 
-  <!-- Main Milepost Content Container -->
-  <main class="flex-1 max-w-5xl w-full mx-auto px-3 sm:px-6 py-5">
-    <!-- Instruction Sub-bar -->
-    <div class="flex flex-wrap items-center justify-between gap-2 mb-4 px-1">
-      <p class="text-xs sm:text-sm text-slate-300 font-medium flex items-center gap-2">
-        <span class="inline-block w-2 h-2 rounded-full bg-amber-400"></span>
-        <span>Tap any milepost button to launch turn-by-turn or satellite view in <strong id="active-provider-text" class="text-amber-400">Apple Maps</strong>.</span>
-      </p>
-      <span id="results-counter" class="text-xs font-mono font-bold text-slate-400">Showing 50 mileposts</span>
-    </div>
+  <!-- MAIN CONTENT WORKSPACE -->
+  <main class="flex-1 max-w-7xl w-full mx-auto px-3 sm:px-5 py-4">
 
-    <!-- Dynamic Sections Container -->
-    <div id="milepost-sections" class="space-y-8"></div>
+    <!-- 1. CLASSIC MILEPOST GRID VIEW (MATCHING THE 3-PAGE PDF LAYOUT) -->
+    <section id="gridViewSection" class="space-y-8">
+      <div id="gridContainer" class="space-y-8"></div>
+    </section>
 
-    <!-- Empty State -->
-    <div id="empty-state" class="hidden text-center py-14 px-4 bg-slate-900/60 border border-slate-800 rounded-2xl">
-      <div class="w-12 h-12 rounded-2xl bg-amber-500/10 border border-amber-500/30 text-amber-400 flex items-center justify-center mx-auto mb-3">
-        <svg class="w-6 h-6" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-          <path stroke-linecap="round" stroke-linejoin="round" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
-        </svg>
+    <!-- 2. INTERACTIVE LIVE RAILROAD MAP VIEW (LEAFLET) -->
+    <section id="mapViewSection" class="hidden">
+      <div class="bg-white dark:bg-ns-panel border border-slate-200 dark:border-ns-border rounded-2xl overflow-hidden shadow-xl">
+        <!-- Map Toolbar -->
+        <div class="px-4 py-2.5 border-b border-slate-200 dark:border-ns-border flex flex-wrap items-center justify-between gap-2 text-xs">
+          <div class="flex items-center gap-3 flex-wrap">
+            <span class="font-extrabold text-slate-700 dark:text-slate-200 flex items-center gap-1.5">
+              <i class="fa-solid fa-train-subway text-amber-500"></i>
+              Norfolk District Corridor (Lamberts Pt MP0.0 → Crewe MP129)
+            </span>
+            <span class="flex items-center gap-1 text-amber-500 font-semibold">
+              <span class="w-3 h-1 bg-amber-500 inline-block rounded"></span> Main Line
+            </span>
+            <span class="flex items-center gap-1 text-sky-400 font-semibold">
+              <span class="w-3 h-1 bg-sky-400 inline-block rounded"></span> Hopewell Branch
+            </span>
+          </div>
+          <div class="flex items-center gap-1.5">
+            <button onclick="fitMapToCorridor('all')" class="px-2.5 py-1 rounded bg-slate-200 dark:bg-slate-800 hover:bg-amber-500 hover:text-slate-950 font-bold transition-colors">Full Corridor</button>
+            <button onclick="fitMapToCorridor(1)" class="px-2.5 py-1 rounded bg-slate-200 dark:bg-slate-800 hover:bg-amber-500 hover:text-slate-950 font-bold transition-colors">Page 1 (Norfolk)</button>
+            <button onclick="fitMapToCorridor(2)" class="px-2.5 py-1 rounded bg-slate-200 dark:bg-slate-800 hover:bg-amber-500 hover:text-slate-950 font-bold transition-colors">Page 2 (Wakefield/Pete)</button>
+            <button onclick="fitMapToCorridor(3)" class="px-2.5 py-1 rounded bg-slate-200 dark:bg-slate-800 hover:bg-amber-500 hover:text-slate-950 font-bold transition-colors">Page 3 (Crewe)</button>
+          </div>
+        </div>
+        <!-- Map Canvas -->
+        <div id="corridorMap" class="w-full h-[64vh] min-h-[420px]"></div>
       </div>
-      <h3 class="text-base font-extrabold text-white">No Matching Mileposts Found</h3>
-      <p id="empty-state-subtitle" class="text-xs text-slate-400 mt-1 max-w-md mx-auto">
-        Try searching a different MP number (like "MP8" or "102") or reset your active page filter.
-      </p>
-      <button
-        onclick="resetAllFilters()"
-        class="mt-4 px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-extrabold text-xs hover:bg-amber-400 transition"
-      >
-        Show All 50 Mileposts
-      </button>
-    </div>
+    </section>
+
+    <!-- 3. COMPACT LOG SHEET / DISPATCH TABLE VIEW -->
+    <section id="listViewSection" class="hidden">
+      <div class="bg-white dark:bg-ns-panel border border-slate-200 dark:border-ns-border rounded-2xl overflow-hidden shadow-lg">
+        <div class="overflow-x-auto">
+          <table class="w-full text-left border-collapse">
+            <thead>
+              <tr class="border-b border-slate-200 dark:border-ns-border bg-slate-100 dark:bg-slate-900/70 text-[11px] font-mono uppercase text-slate-500 dark:text-slate-400">
+                <th class="py-3 px-4">Milepost</th>
+                <th class="py-3 px-4">Station / Control Point</th>
+                <th class="py-3 px-4 hidden sm:table-cell">Subdivision / Page</th>
+                <th class="py-3 px-4 hidden md:table-cell">GPS Coordinates</th>
+                <th class="py-3 px-4 text-right">Launch Navigation</th>
+              </tr>
+            </thead>
+            <tbody id="tableBodyContainer" class="divide-y divide-slate-200 dark:divide-ns-border text-sm"></tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+
   </main>
 
-  <!-- Official PDF Footer Attribution -->
-  <footer class="mt-auto border-t border-slate-800/90 bg-[#070A10] py-6 pb-20 sm:pb-8 px-4">
-    <div class="max-w-5xl mx-auto flex flex-col sm:flex-row items-center justify-between gap-4 text-center sm:text-left">
-      <div>
-        <div class="flex items-center justify-center sm:justify-start gap-2">
-          <span class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-black text-[11px] tracking-wider">LSSC</span>
-          <span class="text-xs font-extrabold text-slate-200 tracking-wide uppercase">
-            Norfolk Pier 6 Safety | Norfolk Southern
-          </span>
-        </div>
-        <p class="text-xs text-slate-400 mt-1.5">
-          LSSC Chairman Jeff Matthews | Station names from supplied workbook | GPS locations not independently verified
-        </p>
+  <!-- FOOTER ATTRIBUTION MATCHING THE SUPPLIED WORKBOOK / PDF -->
+  <footer class="mt-auto border-t border-slate-200 dark:border-ns-border bg-white/80 dark:bg-ns-panel/90 pb-[var(--safe-bottom)]">
+    <div class="max-w-7xl mx-auto px-4 py-4 flex flex-col sm:flex-row items-center justify-between gap-2 text-xs text-slate-500 dark:text-slate-400">
+      <div class="flex items-center gap-2 text-center sm:text-left">
+        <i class="fa-solid fa-shield-halved text-amber-500"></i>
+        <span>Station names from supplied workbook <span class="text-amber-500 font-bold">|</span> GPS locations not independently verified</span>
       </div>
-      <div class="sm:text-right">
-        <p class="text-xs font-extrabold text-amber-400 uppercase tracking-wider">
-          LSSC Chairman Jeff Matthews
-        </p>
-        <p class="text-[11px] text-slate-400 mt-0.5">
-          Pages 1–3 Complete &bull; iOS &amp; Android Offline PWA
-        </p>
+      <div class="flex items-center gap-3 font-semibold text-slate-700 dark:text-slate-300">
+        <span>LSSC Chairman <strong class="text-amber-600 dark:text-amber-400">Jeff Matthews</strong></span>
+        <span>•</span>
+        <button onclick="exportCustomDataJSON()" class="underline hover:text-amber-400 text-[11px]">Backup Custom Pins</button>
       </div>
     </div>
   </footer>
 
-  <!-- Sticky Mobile Bottom Quick-Share Bar for Field Use -->
-  <div class="sm:hidden fixed bottom-0 inset-x-0 z-40 bg-[#090D14]/95 backdrop-blur-md border-t border-slate-800 px-3 py-2 flex items-center justify-between gap-2">
-    <button
-      onclick="shareAppViaSMS()"
-      class="flex-1 py-2 px-2.5 rounded-xl bg-emerald-500 text-slate-950 font-black text-xs flex items-center justify-center gap-1 shadow"
-    >
-      <span>💬 Text to Crew</span>
-    </button>
-    <button
-      onclick="openQrModalDirectly()"
-      class="flex-1 py-2 px-2.5 rounded-xl bg-amber-500 text-slate-950 font-black text-xs flex items-center justify-center gap-1 shadow"
-    >
-      <span>📱 QR Code</span>
-    </button>
-    <button
-      onclick="downloadStandaloneHtmlFile()"
-      class="py-2 px-3 rounded-xl bg-slate-800 text-sky-300 border border-slate-700 font-extrabold text-xs flex items-center justify-center"
-      title="Download Offline App File"
-    >
-      <span>📥 File</span>
-    </button>
-  </div>
-
-  <!-- Toast Notification Banner -->
-  <div
-    id="toast"
-    class="fixed bottom-16 sm:bottom-5 left-1/2 -translate-x-1/2 z-50 hidden px-4 py-2.5 rounded-xl bg-amber-500 text-slate-950 font-extrabold text-xs sm:text-sm shadow-2xl border border-amber-300 items-center gap-2"
-  >
-    <span id="toast-message">Copied!</span>
-  </div>
-
-  <!-- MODAL 1: Enhanced Crew Share Hub, Live QR Code, File Download & Install Guide -->
-  <div
-    id="install-modal"
-    class="fixed inset-0 z-50 hidden bg-black/85 backdrop-blur-sm flex items-center justify-center p-3 sm:p-4 overflow-y-auto"
-  >
-    <div class="bg-[#121824] border border-slate-700 rounded-2xl max-w-xl w-full p-4 sm:p-6 shadow-2xl my-6 max-h-[92vh] overflow-y-auto">
-      <div class="flex items-start justify-between gap-3 border-b border-slate-800 pb-3.5">
+  <!-- MILEPOST DETAIL & CUSTOM GPS EDITOR MODAL -->
+  <div id="detailModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+    <div class="bg-white dark:bg-ns-panel border border-slate-300 dark:border-ns-border rounded-2xl max-w-md w-full p-5 shadow-2xl space-y-4 animate-fadeIn">
+      <div class="flex items-start justify-between gap-3 border-b border-slate-200 dark:border-ns-border pb-3">
         <div>
-          <span class="text-[11px] font-black uppercase tracking-wider text-amber-400">Crew Distribution &amp; Install Hub</span>
-          <h2 class="text-lg font-black text-white mt-0.5">Share Norfolk Pier 6 LSSC Map</h2>
+          <span id="modalPageBadge" class="px-2 py-0.5 text-[10px] font-mono font-bold uppercase rounded bg-amber-500/20 text-amber-500">Page 1</span>
+          <h3 id="modalMpTitle" class="text-2xl font-black font-mono text-amber-500 mt-1">MP0.0</h3>
+          <p id="modalStationName" class="text-base font-extrabold text-slate-900 dark:text-white">LAMBERTS POINT</p>
         </div>
-        <button onclick="closeInstallShareModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+        <button onclick="closeDetailModal()" class="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-500 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <div class="mt-4 space-y-4 text-xs sm:text-sm">
-        <!-- 1-Tap Direct Crew Share Buttons -->
-        <div>
-          <label class="block text-[11px] font-black uppercase tracking-wider text-slate-400 mb-2">
-            1. Send Directly to Crew Members
-          </label>
-          <div class="grid grid-cols-2 sm:grid-cols-4 gap-2">
-            <button
-              onclick="shareAppViaSMS()"
-              class="py-2.5 px-3 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs flex flex-col items-center justify-center gap-1 shadow-md"
-            >
-              <span class="text-base">💬</span>
-              <span>Text (SMS)</span>
-            </button>
-
-            <button
-              onclick="shareAppViaEmail()"
-              class="py-2.5 px-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-black text-xs flex flex-col items-center justify-center gap-1 shadow-md"
-            >
-              <span class="text-base">✉️</span>
-              <span>Email Crew</span>
-            </button>
-
-            <button
-              onclick="triggerNativeShare()"
-              class="py-2.5 px-3 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black text-xs flex flex-col items-center justify-center gap-1 shadow-md"
-            >
-              <span class="text-base">📲</span>
-              <span>More / AirDrop</span>
-            </button>
-
-            <button
-              onclick="copyAppUrl()"
-              class="py-2.5 px-3 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold border border-slate-700 text-xs flex flex-col items-center justify-center gap-1"
-            >
-              <span class="text-base">🔗</span>
-              <span>Copy Link</span>
-            </button>
-          </div>
-        </div>
-
-        <!-- No-Server / Offline Standalone File Share Option -->
-        <div class="p-3.5 rounded-xl bg-sky-950/40 border border-sky-500/40 flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3">
-          <div>
-            <div class="text-xs font-black text-sky-300 uppercase tracking-wide flex items-center gap-1.5">
-              <span>📥 Share Without a Web Server (Offline File)</span>
-            </div>
-            <p class="text-[11px] text-slate-300 mt-0.5 leading-relaxed">
-              Download the complete self-contained <code class="text-amber-300 font-mono">.html</code> app file to send via <strong>iMessage, AirDrop, WhatsApp, or Email attachment</strong>. Works on any phone!
-            </p>
-          </div>
-          <button
-            onclick="downloadStandaloneHtmlFile()"
-            class="w-full sm:w-auto shrink-0 px-3.5 py-2.5 rounded-xl bg-sky-400 hover:bg-sky-300 text-slate-950 font-black text-xs shadow"
-          >
-            Download App File
+      <!-- Direct Launch Buttons for All Platforms -->
+      <div class="space-y-2">
+        <label class="text-[11px] font-mono uppercase tracking-wider text-slate-400 font-bold">Open Direct Turn-by-Turn Navigation</label>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-2">
+          <button id="modalAppleBtn" class="py-2.5 px-3 rounded-xl bg-slate-900 hover:bg-slate-800 text-white border border-slate-700 font-bold text-xs flex items-center justify-center gap-2 shadow">
+            <i class="fa-brands fa-apple text-base text-amber-400"></i> Apple Maps
           </button>
-        </div>
-
-        <!-- Live Scannable In-Person QR Code Section -->
-        <div id="qr-section-box" class="p-4 rounded-2xl bg-slate-900/95 border border-slate-800 flex flex-col items-center text-center">
-          <span class="px-2 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-black text-[10px] uppercase tracking-wider">
-            In-Person Yard / Safety Briefing QR Code
-          </span>
-          <h3 class="text-sm font-extrabold text-white mt-1">
-            Point Any iPhone or Android Camera Here
-          </h3>
-
-          <!-- High-Contrast White Pad for Instant Camera Scanning -->
-          <div class="mt-3 p-3.5 bg-white rounded-2xl shadow-xl border-4 border-amber-400 flex items-center justify-center">
-            <div id="qrcode-container" class="w-[180px] h-[180px] flex items-center justify-center"></div>
-          </div>
-
-          <!-- Custom Share URL Input (if hosted on GitHub Pages, Netlify, SharePoint, etc.) -->
-          <div class="w-full mt-3.5 text-left">
-            <label class="block text-[11px] font-bold text-slate-400 mb-1">
-              Shared Link URL (Customize if hosted on company intranet / GitHub / Drive):
-            </label>
-            <div class="flex gap-1.5">
-              <input
-                id="custom-share-url-input"
-                type="url"
-                oninput="updateCustomShareUrl(this.value)"
-                placeholder="https://..."
-                class="flex-1 px-3 py-1.5 rounded-lg bg-slate-950 border border-slate-700 text-xs font-mono text-amber-300 focus:outline-none focus:border-amber-400"
-              />
-              <button
-                type="button"
-                onclick="copyAppUrl()"
-                class="px-3 py-1.5 rounded-lg bg-slate-800 hover:bg-slate-700 text-white font-bold text-xs border border-slate-700"
-              >
-                Copy
-              </button>
-            </div>
-          </div>
-        </div>
-
-        <!-- Copy Full Printable Text Directory for Group Chats -->
-        <div class="flex flex-wrap items-center justify-between gap-2 p-3 rounded-xl bg-slate-900/80 border border-slate-800">
-          <div>
-            <div class="text-xs font-extrabold text-white">📋 Copy All 50 Mileposts as Text Directory</div>
-            <p class="text-[11px] text-slate-400">Paste the entire Norfolk–Crewe milepost GPS list into a group text or email.</p>
-          </div>
-          <button
-            onclick="copyFullDirectoryText()"
-            class="px-3 py-2 rounded-lg bg-slate-800 hover:bg-slate-700 text-amber-400 border border-slate-700 font-extrabold text-xs"
-          >
-            Copy Directory
+          <button id="modalGoogleBtn" class="py-2.5 px-3 rounded-xl bg-blue-600 hover:bg-blue-500 text-white font-bold text-xs flex items-center justify-center gap-2 shadow">
+            <i class="fa-brands fa-google text-sm"></i> Google Maps
           </button>
-        </div>
-
-        <!-- Direct Android/Desktop Install Prompt Button if available -->
-        <button
-          id="native-install-btn"
-          onclick="triggerDeferredInstall()"
-          class="hidden w-full py-3 px-4 rounded-xl bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black items-center justify-center gap-2"
-        >
-          <span>📲 Install App to Home Screen Now</span>
-        </button>
-
-        <!-- iOS & Android Step-by-Step Instructions -->
-        <div class="grid grid-cols-1 sm:grid-cols-2 gap-3 pt-1">
-          <!-- Apple iOS Box -->
-          <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
-            <div class="flex items-center gap-2 text-amber-400 font-extrabold text-xs uppercase tracking-wider mb-2">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M18.71 19.5c-.83 1.24-1.71 2.45-3.05 2.47-1.34.03-1.77-.79-3.29-.79-1.53 0-2 .77-3.27.82-1.31.05-2.3-1.32-3.14-2.53C4.25 17 2.94 12.45 4.7 9.39c.87-1.52 2.43-2.48 4.12-2.51 1.28-.02 2.5.87 3.29.87.78 0 2.26-1.07 3.81-.91.65.03 2.47.26 3.64 1.98-.09.06-2.17 1.28-2.15 3.81.03 3.02 2.65 4.03 2.68 4.04-.03.07-.42 1.44-1.38 2.83M15.97 6.33c.64-.78 1.08-1.86.96-2.94-.93.04-2.06.62-2.72 1.4-.58.68-1.1 1.79-.96 2.84 1.04.08 2.08-.52 2.72-1.3z"/>
-              </svg>
-              <span>Apple iPhone / iPad</span>
-            </div>
-            <ol class="text-xs text-slate-300 space-y-1.5 list-decimal list-inside">
-              <li>Open in <strong>Safari</strong>.</li>
-              <li>Tap <strong>Share</strong> <span class="px-1 py-0.5 bg-slate-800 rounded font-mono text-[10px]">↑</span> at the bottom.</li>
-              <li>Tap <strong>"Add to Home Screen"</strong>.</li>
-            </ol>
-          </div>
-
-          <!-- Android Box -->
-          <div class="p-3.5 rounded-xl bg-slate-900/90 border border-slate-800">
-            <div class="flex items-center gap-2 text-emerald-400 font-extrabold text-xs uppercase tracking-wider mb-2">
-              <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24">
-                <path d="M17.6 9.48l1.84-3.18c.16-.31.04-.69-.26-.85-.29-.15-.65-.06-.83.22l-1.88 3.24c-2.86-1.21-6.08-1.21-8.94 0L5.65 5.67c-.19-.28-.54-.37-.83-.22-.3.16-.42.54-.26.85l1.84 3.18C4.8 10.85 3.5 12.62 3.5 15h17c0-2.38-1.3-4.15-2.9-5.52zM7 12.75c-.41 0-.75-.34-.75-.75s.34-.75.75-.75.75.34.75.75-.34.75-.75.75zm10 0c-.41 0-.75-.34-.75-.75s.34-.75.75-.75.75.34.75.75-.34.75-.75.75z"/>
-              </svg>
-              <span>Android Phone / Tablet</span>
-            </div>
-            <ol class="text-xs text-slate-300 space-y-1.5 list-decimal list-inside">
-              <li>Open in <strong>Chrome</strong>.</li>
-              <li>Tap the 3-dot <strong>Menu</strong> <span class="px-1 py-0.5 bg-slate-800 rounded font-mono text-[10px]">⋮</span> in top-right.</li>
-              <li>Tap <strong>"Add to Home screen"</strong>.</li>
-            </ol>
-          </div>
+          <button id="modalWazeBtn" class="py-2.5 px-3 rounded-xl bg-sky-500 hover:bg-sky-400 text-slate-950 font-extrabold text-xs flex items-center justify-center gap-2 shadow">
+            <i class="fa-brands fa-waze text-base"></i> Waze
+          </button>
         </div>
       </div>
 
-      <div class="mt-5 pt-3 border-t border-slate-800 flex justify-end">
-        <button
-          onclick="closeInstallShareModal()"
-          class="px-4 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-xs font-bold text-white"
-        >
-          Done
+      <!-- Coordinates & Copy -->
+      <div class="bg-slate-100 dark:bg-slate-900/90 p-3 rounded-xl border border-slate-200 dark:border-ns-border space-y-2">
+        <div class="flex items-center justify-between">
+          <span class="text-xs font-bold text-slate-500 dark:text-slate-400">GPS Coordinates (WGS84)</span>
+          <button onclick="copyModalCoords()" class="text-xs font-bold text-amber-500 hover:underline flex items-center gap-1">
+            <i class="fa-regular fa-copy"></i> Copy GPS
+          </button>
+        </div>
+        <div class="grid grid-cols-2 gap-2">
+          <div>
+            <label class="text-[10px] font-mono text-slate-400">LATITUDE</label>
+            <input id="modalLatInput" type="number" step="0.0001" class="w-full mt-0.5 px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 font-mono text-xs font-bold" />
+          </div>
+          <div>
+            <label class="text-[10px] font-mono text-slate-400">LONGITUDE</label>
+            <input id="modalLngInput" type="number" step="0.0001" class="w-full mt-0.5 px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 font-mono text-xs font-bold" />
+          </div>
+        </div>
+        <div>
+          <label class="text-[10px] font-mono text-slate-400">FIELD ACCESS NOTES (SAVED ON DEVICE)</label>
+          <input id="modalNotesInput" type="text" placeholder="Add gate code, crossing road, or hi-rail access note..." class="w-full mt-0.5 px-2.5 py-1.5 rounded-lg bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-700 text-xs" />
+        </div>
+        <div class="flex items-center justify-between pt-1">
+          <button onclick="resetStationDefaultGps()" class="text-[11px] text-slate-400 hover:text-rose-400 font-semibold">Reset Default GPS</button>
+          <button onclick="saveStationCustomGps()" class="px-3 py-1.5 rounded-lg bg-amber-500 hover:bg-amber-400 text-slate-950 font-extrabold text-xs">
+            Save Custom Pin
+          </button>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-1">
+        <button onclick="showStationOnCorridorMap()" class="text-xs font-bold text-sky-400 hover:underline flex items-center gap-1.5">
+          <i class="fa-solid fa-map-pin"></i> Center on Live Corridor Map
         </button>
+        <button onclick="closeDetailModal()" class="px-4 py-1.5 rounded-lg bg-slate-200 dark:bg-slate-800 text-xs font-bold">Done</button>
       </div>
     </div>
   </div>
 
-  <!-- MODAL 2: Edit Single Milepost Coordinates / Custom URL Override -->
-  <div
-    id="edit-mp-modal"
-    class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4"
-  >
-    <div class="bg-[#121824] border border-slate-700 rounded-2xl max-w-md w-full p-5 shadow-2xl">
-      <div class="flex items-start justify-between gap-3 border-b border-slate-800 pb-3">
-        <div>
-          <span id="edit-modal-mp-badge" class="px-2 py-0.5 rounded bg-amber-500 text-slate-950 font-mono font-black text-xs">MP0.0</span>
-          <h3 id="edit-modal-station-name" class="text-base font-black text-white mt-1">LAMBERTS POINT</h3>
+  <!-- INSTALL PWA MODAL (IPHONE & ANDROID INSTRUCTIONS) -->
+  <div id="installModal" class="fixed inset-0 z-50 hidden items-center justify-center bg-slate-950/80 backdrop-blur-sm p-4">
+    <div class="bg-white dark:bg-ns-panel border border-slate-300 dark:border-ns-border rounded-2xl max-w-lg w-full p-5 shadow-2xl space-y-4">
+      <div class="flex items-center justify-between border-b border-slate-200 dark:border-ns-border pb-3">
+        <div class="flex items-center gap-2.5">
+          <div class="w-9 h-9 rounded-xl bg-amber-500 text-slate-950 flex items-center justify-center font-black">
+            <i class="fa-solid fa-download"></i>
+          </div>
+          <div>
+            <h3 class="text-base font-black text-slate-900 dark:text-white">Install Norfolk Pier 6 LSSC App</h3>
+            <p class="text-xs text-slate-500 dark:text-slate-400">Works offline in the yard & along the right-of-way</p>
+          </div>
         </div>
-        <button onclick="closeEditMpModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+        <button onclick="closeInstallModal()" class="w-8 h-8 rounded-lg bg-slate-200 dark:bg-slate-800 text-slate-500 hover:text-white flex items-center justify-center">
+          <i class="fa-solid fa-xmark"></i>
         </button>
       </div>
 
-      <form onsubmit="saveMpOverride(event)" class="mt-4 space-y-3.5 text-xs">
-        <input type="hidden" id="edit-mp-id" />
-        <div class="grid grid-cols-2 gap-2.5">
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Latitude</label>
-            <input
-              id="edit-mp-lat"
-              type="number"
-              step="any"
-              required
-              class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white font-mono focus:border-amber-400 focus:outline-none"
-            />
-          </div>
-          <div>
-            <label class="block text-slate-300 font-bold mb-1">Longitude</label>
-            <input
-              id="edit-mp-lng"
-              type="number"
-              step="any"
-              required
-              class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white font-mono focus:border-amber-400 focus:outline-none"
-            />
-          </div>
+      <!-- Native Android/Chrome Install Prompt Button (if available) -->
+      <div id="nativeInstallPromptBox" class="hidden p-3 rounded-xl bg-emerald-500/15 border border-emerald-500/30 flex items-center justify-between">
+        <div class="text-xs">
+          <p class="font-extrabold text-emerald-400">One-Tap Android / Chrome Install Ready</p>
+          <p class="text-slate-300">Add directly to your app drawer & home screen.</p>
         </div>
-
-        <div>
-          <label class="block text-slate-300 font-bold mb-1">
-            Optional Direct Map Link Override (Apple/Google URL)
-          </label>
-          <input
-            id="edit-mp-custom-url"
-            type="url"
-            placeholder="https://maps.apple.com/?ll=..."
-            class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white font-mono focus:border-amber-400 focus:outline-none"
-          />
-          <p class="text-[11px] text-slate-400 mt-1">
-            If you paste a direct link from the workbook here, tapping the card will open that exact link, or automatically convert its coordinates between Apple Maps and Google Maps.
-          </p>
-        </div>
-
-        <div>
-          <label class="block text-slate-300 font-bold mb-1">Field Notes / Access Info (Optional)</label>
-          <input
-            id="edit-mp-notes"
-            type="text"
-            placeholder="e.g. Gate code, crossing access, siding notes..."
-            class="w-full px-3 py-2 rounded-lg bg-slate-900 border border-slate-700 text-white focus:border-amber-400 focus:outline-none"
-          />
-        </div>
-
-        <div class="pt-3 border-t border-slate-800 flex items-center justify-between gap-2">
-          <button
-            type="button"
-            onclick="resetSingleMpOverride()"
-            class="px-3 py-2 rounded-xl bg-rose-950/70 hover:bg-rose-900 text-rose-300 border border-rose-800/60 font-bold"
-          >
-            Reset Default
-          </button>
-          <div class="flex items-center gap-2">
-            <button
-              type="button"
-              onclick="closeEditMpModal()"
-              class="px-3.5 py-2 rounded-xl bg-slate-800 text-slate-300 font-bold"
-            >
-              Cancel
-            </button>
-            <button
-              type="submit"
-              class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black"
-            >
-              Save GPS
-            </button>
-          </div>
-        </div>
-      </form>
-    </div>
-  </div>
-
-  <!-- MODAL 3: Export / Import Team GPS Data Config -->
-  <div
-    id="data-modal"
-    class="fixed inset-0 z-50 hidden bg-black/80 backdrop-blur-sm flex items-center justify-center p-4 overflow-y-auto"
-  >
-    <div class="bg-[#121824] border border-slate-700 rounded-2xl max-w-lg w-full p-5 shadow-2xl my-8">
-      <div class="flex items-start justify-between gap-3 border-b border-slate-800 pb-3">
-        <div>
-          <span class="text-[11px] font-black uppercase tracking-wider text-amber-400">Workbook GPS Config</span>
-          <h3 class="text-base font-black text-white mt-0.5">Export / Import Custom Milepost Coordinates</h3>
-        </div>
-        <button onclick="closeDataModal()" class="p-1.5 rounded-lg bg-slate-800 text-slate-300 hover:text-white">
-          <svg class="w-5 h-5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24">
-            <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-          </svg>
+        <button onclick="triggerNativeInstall()" class="px-3.5 py-2 rounded-lg bg-emerald-500 hover:bg-emerald-400 text-slate-950 font-black text-xs shrink-0">
+          Install Now
         </button>
       </div>
 
-      <div class="mt-4 space-y-3 text-xs">
-        <p class="text-slate-300 leading-relaxed">
-          You can edit any milepost's GPS coordinates or paste exact workbook URLs using the <strong>Edit (✎)</strong> icon on any card. Use the box below to copy or import the complete JSON configuration to share with other LSSC crew members.
-        </p>
-        <textarea
-          id="config-json-textarea"
-          rows="6"
-          class="w-full p-3 rounded-xl bg-slate-950 border border-slate-800 font-mono text-[11px] text-amber-300 focus:outline-none focus:border-amber-400"
-        ></textarea>
-
-        <div class="flex flex-wrap items-center justify-between gap-2 pt-2">
-          <button
-            onclick="resetAllOverrides()"
-            class="px-3 py-2 rounded-xl bg-rose-950/70 hover:bg-rose-900 text-rose-300 border border-rose-800 font-bold"
-          >
-            Reset All to Defaults
-          </button>
-          <div class="flex items-center gap-2">
-            <button
-              onclick="copyConfigJson()"
-              class="px-3.5 py-2 rounded-xl bg-slate-800 hover:bg-slate-700 text-white font-bold border border-slate-700"
-            >
-              Copy JSON
-            </button>
-            <button
-              onclick="importConfigJson()"
-              class="px-4 py-2 rounded-xl bg-amber-500 hover:bg-amber-400 text-slate-950 font-black"
-            >
-              Apply / Import JSON
-            </button>
+      <!-- Platform Tabs -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-3">
+        <!-- iPhone / iOS Guide -->
+        <div class="p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900/90 border border-slate-200 dark:border-ns-border space-y-2.5">
+          <div class="flex items-center gap-2 text-amber-500 font-extrabold text-sm">
+            <i class="fa-brands fa-apple text-lg"></i>
+            <span>iPhone & iPad (Safari)</span>
           </div>
+          <ol class="text-xs space-y-2 text-slate-600 dark:text-slate-300 list-decimal list-inside font-medium">
+            <li>Open this page in <strong>Safari</strong> on your iPhone.</li>
+            <li>Tap the <strong>Share</strong> button <i class="fa-solid fa-arrow-up-from-bracket text-sky-400 px-1"></i> at the bottom of the screen.</li>
+            <li>Scroll down and tap <strong>"Add to Home Screen"</strong> <i class="fa-regular fa-square-plus text-amber-400 px-1"></i>.</li>
+            <li>Tap <strong>Add</strong> in the top-right corner. The LSSC emblem icon will appear on your iPhone!</li>
+          </ol>
         </div>
+
+        <!-- Android Guide -->
+        <div class="p-3.5 rounded-xl bg-slate-100 dark:bg-slate-900/90 border border-slate-200 dark:border-ns-border space-y-2.5">
+          <div class="flex items-center gap-2 text-emerald-400 font-extrabold text-sm">
+            <i class="fa-brands fa-android text-lg"></i>
+            <span>Android (Chrome / Edge)</span>
+          </div>
+          <ol class="text-xs space-y-2 text-slate-600 dark:text-slate-300 list-decimal list-inside font-medium">
+            <li>Open this page in <strong>Google Chrome</strong> on Android.</li>
+            <li>Tap the <strong>three-dot menu</strong> <i class="fa-solid fa-ellipsis-vertical px-1 text-amber-400"></i> in the top-right corner.</li>
+            <li>Select <strong>"Install app"</strong> or <strong>"Add to Home screen"</strong>.</li>
+            <li>Tap <strong>Install</strong> to launch full-screen with Google Maps / Waze integration.</li>
+          </ol>
+        </div>
+      </div>
+
+      <div class="flex items-center justify-between pt-1 text-xs text-slate-400">
+        <span>Tip: Switch between Apple Maps, Google Maps & Waze anytime in the top bar.</span>
+        <button onclick="closeInstallModal()" class="px-4 py-1.5 rounded-lg bg-amber-500 text-slate-950 font-extrabold">Got It</button>
       </div>
     </div>
   </div>
 
+  <!-- TOAST NOTIFICATION -->
+  <div id="toastNotice" class="fixed bottom-5 right-5 z-50 hidden px-4 py-2.5 rounded-xl bg-slate-900 border border-amber-500/60 text-white text-xs font-bold shadow-2xl flex items-center gap-2">
+    <i class="fa-solid fa-circle-check text-amber-400"></i>
+    <span id="toastText">Saved</span>
+  </div>
+
+  <!-- APPLICATION LOGIC, COMPLETE 3-PAGE DATASET & PWA SERVICE WORKER -->
   <script>
     /*************************************************************************
-     * 1. COMPLETE MILEPOST DATA FROM ALL 3 PAGES OF THE SUPPLIED PDF
-     * Ordered chronologically by page and railway corridor progression.
+     * 1. COMPLETE NORFOLK PIER 6 LSSC 3-PAGE MILEPOST DATASET
+     * Includes every single button from Pages 1, 2, and 3 of the supplied PDF
      *************************************************************************/
     const DEFAULT_MILEPOSTS = [
-      // ==================== PAGE 1 (MP 0.0 to MP 23) ====================
-      { id: 'p1-mp0-lamberts', page: 1, mp: 'MP0.0', station: 'LAMBERTS POINT', corridor: 'Norfolk Pier 6 Terminal', lat: 36.8722, lng: -76.3197 },
-      { id: 'p1-mp1-norfolk-sl', page: 1, mp: 'MP1', station: 'NORFOLK SL', corridor: 'Norfolk Terminal', lat: 36.8580, lng: -76.2990 },
-      { id: 'p1-mp1-norfolk', page: 1, mp: 'MP1', station: 'NORFOLK', corridor: 'Norfolk Terminal', lat: 36.8468, lng: -76.2852 },
-      { id: 'p1-mp1-norfolk-fgn', page: 1, mp: 'MP1', station: 'NORFOLK FGN', corridor: 'Norfolk Terminal', lat: 36.8435, lng: -76.2795 },
-      { id: 'p1-mp2-ns-jct', page: 1, mp: 'MP2', station: 'NS JCT', corridor: 'Norfolk Junction', lat: 36.8350, lng: -76.2730 },
-      { id: 'p1-mp3-chesapeake', page: 1, mp: 'MP3', station: 'CHESAPEAKE', corridor: 'South Norfolk / Chesapeake', lat: 36.8190, lng: -76.2740 },
-      { id: 'p1-mp4-portlock', page: 1, mp: 'MP4', station: 'PORTLOCK', corridor: 'Portlock Corridor', lat: 36.7950, lng: -76.2710 },
-      { id: 'p1-mp4-north-jct', page: 1, mp: 'MP4', station: 'NORTH JUNCTION', corridor: 'Portlock / South Norfolk', lat: 36.8020, lng: -76.2735 },
-      { id: 'p1-mp4-south-norfolk', page: 1, mp: 'MP4', station: 'SOUTH NORFOLK', corridor: 'South Norfolk', lat: 36.8090, lng: -76.2745 },
-      { id: 'p1-mp4-portlock-yard', page: 1, mp: 'MP4', station: 'PORTLOCK YARD', corridor: 'Portlock Yard', lat: 36.7885, lng: -76.2690 },
-      { id: 'p1-mp5-bridge-5', page: 1, mp: 'MP5', station: 'BRIDGE 5', corridor: 'Elizabeth River Bridge 5', lat: 36.8065, lng: -76.2845 },
-      { id: 'p1-mp7-bridge-7', page: 1, mp: 'MP7', station: 'BRIDGE 7', corridor: 'Southern Branch Bridge 7', lat: 36.7745, lng: -76.2750 },
-      { id: 'p1-mp8-broadmoor', page: 1, mp: 'MP8', station: 'BROADMOOR', corridor: 'Chesapeake Mainline', lat: 36.7620, lng: -76.2850 },
-      { id: 'p1-mp8-canal-drive', page: 1, mp: 'MP8', station: 'CANAL DRIVE', corridor: 'Chesapeake / Deep Creek', lat: 36.7640, lng: -76.2950 },
-      { id: 'p1-mp9-st-joe', page: 1, mp: 'MP9', station: 'ST JOE', corridor: 'Chesapeake Mainline', lat: 36.7550, lng: -76.3150 },
-      { id: 'p1-mp10-yadkin', page: 1, mp: 'MP10', station: 'YADKIN', corridor: 'Chesapeake / Bowers Hill', lat: 36.7510, lng: -76.3380 },
-      { id: 'p1-mp17-juniper', page: 1, mp: 'MP17', station: 'JUNIPER PASSING SID', corridor: 'Dismal Swamp / Suffolk Approach', lat: 36.7380, lng: -76.4620 },
-      { id: 'p1-mp23-suffolk', page: 1, mp: 'MP23', station: 'SUFFOLK', corridor: 'Suffolk Mainline', lat: 36.7282, lng: -76.5836 },
+      // ================= PAGE 1: LAMBERTS POINT TO SUFFOLK =================
+      { id: 'p1-mp0-lamberts', page: 1, mp: 'MP0.0', mpNum: 0.0, name: 'LAMBERTS POINT', lat: 36.8767, lng: -76.3194, branch: 'Main / Pier 6 Terminal', type: 'yard' },
+      { id: 'p1-mp1-norfolk-sl', page: 1, mp: 'MP1', mpNum: 1.0, name: 'NORFOLK SL', lat: 36.8690, lng: -76.3030, branch: 'Norfolk Terminal', type: 'station' },
+      { id: 'p1-mp1-norfolk', page: 1, mp: 'MP1', mpNum: 1.1, name: 'NORFOLK', lat: 36.8529, lng: -76.2859, branch: 'Norfolk Terminal', type: 'station' },
+      { id: 'p1-mp1-norfolk-fgn', page: 1, mp: 'MP1', mpNum: 1.2, name: 'NORFOLK FGN', lat: 36.8510, lng: -76.2760, branch: 'Norfolk Terminal', type: 'junction' },
+      { id: 'p1-mp2-ns-jct', page: 1, mp: 'MP2', mpNum: 2.0, name: 'NS JCT', lat: 36.8375, lng: -76.2710, branch: 'Norfolk Terminal', type: 'junction' },
+      { id: 'p1-mp3-chesapeake', page: 1, mp: 'MP3', mpNum: 3.0, name: 'CHESAPEAKE', lat: 36.8190, lng: -76.2740, branch: 'Norfolk Terminal', type: 'station' },
+      { id: 'p1-mp4-portlock', page: 1, mp: 'MP4', mpNum: 4.0, name: 'PORTLOCK', lat: 36.7875, lng: -76.2667, branch: 'Norfolk Terminal', type: 'station' },
+      { id: 'p1-mp4-north-jct', page: 1, mp: 'MP4', mpNum: 4.1, name: 'NORTH JUNCTION', lat: 36.8050, lng: -76.2720, branch: 'Norfolk Terminal', type: 'junction' },
+      { id: 'p1-mp4-south-norfolk', page: 1, mp: 'MP4', mpNum: 4.2, name: 'SOUTH NORFOLK', lat: 36.8090, lng: -76.2690, branch: 'Norfolk Terminal', type: 'station' },
+      { id: 'p1-mp4-portlock-yard', page: 1, mp: 'MP4', mpNum: 4.3, name: 'PORTLOCK YARD', lat: 36.7830, lng: -76.2640, branch: 'Norfolk Terminal', type: 'yard' },
+      { id: 'p1-mp5-bridge5', page: 1, mp: 'MP5', mpNum: 5.0, name: 'BRIDGE 5', lat: 36.8068, lng: -76.2892, branch: 'Elizabeth River', type: 'bridge' },
+      { id: 'p1-mp7-bridge7', page: 1, mp: 'MP7', mpNum: 7.0, name: 'BRIDGE 7', lat: 36.7725, lng: -76.2975, branch: 'Southern Branch', type: 'bridge' },
+      { id: 'p1-mp8-broadmoor', page: 1, mp: 'MP8', mpNum: 8.0, name: 'BROADMOOR', lat: 36.7580, lng: -76.2850, branch: 'Norfolk District', type: 'station' },
+      { id: 'p1-mp8-canal-drive', page: 1, mp: 'MP8', mpNum: 8.1, name: 'CANAL DRIVE', lat: 36.7645, lng: -76.2995, branch: 'Norfolk District', type: 'station' },
+      { id: 'p1-mp9-st-joe', page: 1, mp: 'MP9', mpNum: 9.0, name: 'ST JOE', lat: 36.7490, lng: -76.3210, branch: 'Norfolk District', type: 'station' },
+      { id: 'p1-mp10-yadkin', page: 1, mp: 'MP10', mpNum: 10.0, name: 'YADKIN', lat: 36.7436, lng: -76.3422, branch: 'Norfolk District', type: 'station' },
+      { id: 'p1-mp17-juniper', page: 1, mp: 'MP17', mpNum: 17.0, name: 'JUNIPER PASSING SID', lat: 36.7330, lng: -76.4670, branch: 'Norfolk District', type: 'siding' },
+      { id: 'p1-mp23-suffolk', page: 1, mp: 'MP23', mpNum: 23.0, name: 'SUFFOLK', lat: 36.7282, lng: -76.5836, branch: 'Norfolk District', type: 'station' },
 
-      // ==================== PAGE 2 (MP 26 to MP 84 + Hopewell Branch) ====================
-      { id: 'p2-mp26-brico', page: 2, mp: 'MP26', station: 'BRICO', corridor: 'West Suffolk', lat: 36.7480, lng: -76.6280 },
-      { id: 'p2-mp30-myrtle', page: 2, mp: 'MP30', station: 'MYRTLE', corridor: 'Isle of Wight Corridor', lat: 36.7790, lng: -76.6890 },
-      { id: 'p2-mp34-windsor', page: 2, mp: 'MP34', station: 'WINDSOR', corridor: 'Windsor Mainline', lat: 36.8107, lng: -76.7441 },
-      { id: 'p2-mp35-windsor-scanner', page: 2, mp: 'MP35', station: 'WINDSOR SCANNER', corridor: 'Windsor Wayside Detector', lat: 36.8180, lng: -76.7590 },
-      { id: 'p2-mp40-zuni', page: 2, mp: 'MP40', station: 'ZUNI', corridor: 'Zuni / Blackwater River', lat: 36.8617, lng: -76.8319 },
-      { id: 'p2-mp45-ivor', page: 2, mp: 'MP45', station: 'IVOR', corridor: 'Southampton Mainline', lat: 36.9029, lng: -76.8969 },
-      { id: 'p2-mp51-wakefield', page: 2, mp: 'MP51', station: 'WAKEFIELD', corridor: 'Sussex Mainline', lat: 36.9685, lng: -76.9888 },
-      { id: 'p2-mp54-dudley', page: 2, mp: 'MP54', station: 'DUDLEY S ROBERTSON', corridor: 'Wakefield / Waverly Siding', lat: 36.9960, lng: -77.0350 },
-      { id: 'p2-mp59-waverly', page: 2, mp: 'MP59', station: 'WAVERLY', corridor: 'Waverly Mainline', lat: 37.0346, lng: -77.0947 },
-      { id: 'p2-mp69-disputanta', page: 2, mp: 'MP69', station: 'DISPUTANTA', corridor: 'Prince George Corridor', lat: 37.1235, lng: -77.2286 },
-      { id: 'p2-mp75-new-bohemia', page: 2, mp: 'MP75', station: 'NEW BOHEMIA', corridor: 'Prince George / Crater', lat: 37.1770, lng: -77.3190 },
-      { id: 'p2-mp78-poe', page: 2, mp: 'MP78', station: 'POE', corridor: 'Poe Belt Line Junction', lat: 37.2020, lng: -77.3690 },
-      { id: 'p2-mp81-petersburg', page: 2, mp: 'MP81', station: 'PETERSBURG', corridor: 'Petersburg Mainline', lat: 37.2320, lng: -77.4050 },
-      { id: 'p2-mp1-petersburg-branch', page: 2, mp: 'MP1', station: 'PETERSBURG', corridor: 'Hopewell / City Point Branch', lat: 37.2290, lng: -77.3880 },
-      { id: 'p2-mp4-ft-lee', page: 2, mp: 'MP4', station: 'FT LEE', corridor: 'Hopewell / City Point Branch', lat: 37.2460, lng: -77.3390 },
-      { id: 'p2-mp6-grogg', page: 2, mp: 'MP6', station: 'GROGG', corridor: 'Hopewell / City Point Branch', lat: 37.2650, lng: -77.3100 },
-      { id: 'p2-mp9-hopewell', page: 2, mp: 'MP9', station: 'HOPEWELL', corridor: 'Hopewell Terminal', lat: 37.2950, lng: -77.2870 },
-      { id: 'p2-mp84-sitterding', page: 2, mp: 'MP84', station: 'SITTERDING SIDING', corridor: 'West Petersburg Siding', lat: 37.2350, lng: -77.4580 },
+      // ================= PAGE 2: BRICO TO SITTERDING SIDING & HOPEWELL =================
+      { id: 'p2-mp26-brico', page: 2, mp: 'MP26', mpNum: 26.0, name: 'BRICO', lat: 36.7460, lng: -76.6280, branch: 'Norfolk District', type: 'station' },
+      { id: 'p2-mp30-myrtle', page: 2, mp: 'MP30', mpNum: 30.0, name: 'MYRTLE', lat: 36.7745, lng: -76.6960, branch: 'Norfolk District', type: 'station' },
+      { id: 'p2-mp34-windsor', page: 2, mp: 'MP34', mpNum: 34.0, name: 'WINDSOR', lat: 36.8115, lng: -76.7447, branch: 'Norfolk District', type: 'station' },
+      { id: 'p2-mp35-windsor-scanner', page: 2, mp: 'MP35', mpNum: 35.0, name: 'WINDSOR SCANNER', lat: 36.8200, lng: -76.7610, branch: 'Norfolk District', type: 'scanner' },
+      { id: 'p2-mp40-zuni', page: 2, mp: 'MP40', mpNum: 40.0, name: 'ZUNI', lat: 36.8624, lng: -76.8327, branch: 'Norfolk District', type: 'station' },
+      { id: 'p2-mp45-ivor', page: 2, mp: 'MP45', mpNum: 45.0, name: 'IVOR', lat: 36.9032, lng: -76.8966, branch: 'Norfolk District', type: 'station' },
+      { id: 'p2-mp51-wakefield', page: 2, mp: 'MP51', mpNum: 51.0, name: 'WAKEFIELD', lat: 36.9685, lng: -76.9888, branch: 'Norfolk District', type: 'station' },
+      { id: 'p2-mp54-dudley', page: 2, mp: 'MP54', mpNum: 54.0, name: 'DUDLEY S ROBERTSON', lat: 37.0010, lng: -77.0360, branch: 'Norfolk District', type: 'station' },
+      { id: 'p2-mp59-waverly', page: 2, mp: 'MP59', mpNum: 59.0, name: 'WAVERLY', lat: 37.0346, lng: -77.0947, branch: 'Norfolk District', type: 'station' },
+      { id: 'p2-mp69-disputanta', page: 2, mp: 'MP69', mpNum: 69.0, name: 'DISPUTANTA', lat: 37.1257, lng: -77.2269, branch: 'Norfolk District', type: 'station' },
+      { id: 'p2-mp75-new-bohemia', page: 2, mp: 'MP75', mpNum: 75.0, name: 'NEW BOHEMIA', lat: 37.1722, lng: -77.3188, branch: 'Norfolk District', type: 'station' },
+      { id: 'p2-mp78-poe', page: 2, mp: 'MP78', mpNum: 78.0, name: 'POE', lat: 37.2025, lng: -77.3750, branch: 'Norfolk District', type: 'junction' },
+      { id: 'p2-mp81-petersburg', page: 2, mp: 'MP81', mpNum: 81.0, name: 'PETERSBURG', lat: 37.2325, lng: -77.4055, branch: 'Norfolk District', type: 'station' },
+      { id: 'p2-mp1-petersburg-branch', page: 2, mp: 'MP1', mpNum: 81.1, name: 'PETERSBURG', subtitle: 'City Point / Hopewell Br.', lat: 37.2300, lng: -77.3880, branch: 'Hopewell Branch', type: 'hopewell' },
+      { id: 'p2-mp4-ft-lee', page: 2, mp: 'MP4', mpNum: 81.4, name: 'FT LEE', lat: 37.2435, lng: -77.3390, branch: 'Hopewell Branch', type: 'hopewell' },
+      { id: 'p2-mp6-grogg', page: 2, mp: 'MP6', mpNum: 81.6, name: 'GROGG', lat: 37.2620, lng: -77.3110, branch: 'Hopewell Branch', type: 'hopewell' },
+      { id: 'p2-mp9-hopewell', page: 2, mp: 'MP9', mpNum: 81.9, name: 'HOPEWELL', lat: 37.2946, lng: -77.2869, branch: 'Hopewell Branch', type: 'hopewell' },
+      { id: 'p2-mp84-sitterding', page: 2, mp: 'MP84', mpNum: 84.0, name: 'SITTERDING SIDING', lat: 37.2280, lng: -77.4560, branch: 'Norfolk District', type: 'siding' },
 
-      // ==================== PAGE 3 (MP 86 to MP 129) ====================
-      { id: 'p3-mp86-pa-jct', page: 3, mp: 'MP86', station: 'PA JUNCTION', corridor: 'Poe / West Petersburg Jct', lat: 37.2310, lng: -77.4950 },
-      { id: 'p3-mp87-addison', page: 3, mp: 'MP87', station: 'ADDISON', corridor: 'Dinwiddie Approach', lat: 37.2280, lng: -77.5150 },
-      { id: 'p3-mp88-jack', page: 3, mp: 'MP88', station: 'JACK', corridor: 'Jack Junction', lat: 37.2240, lng: -77.5350 },
-      { id: 'p3-mp88-airport', page: 3, mp: 'MP88', station: 'AIRPORT', corridor: 'Dinwiddie Airport', lat: 37.2220, lng: -77.5420 },
-      { id: 'p3-mp92-sutherland', page: 3, mp: 'MP92', station: 'SUTHERLAND', corridor: 'Sutherland Mainline', lat: 37.2050, lng: -77.6020 },
-      { id: 'p3-mp96-church-road', page: 3, mp: 'MP96', station: 'CHURCH ROAD', corridor: 'Dinwiddie Mainline', lat: 37.1890, lng: -77.6690 },
-      { id: 'p3-mp99-poole-scanner', page: 3, mp: 'MP99', station: 'POOLE SCANNER', corridor: 'Poole Wayside Detector', lat: 37.1750, lng: -77.7210 },
-      { id: 'p3-mp102-poole', page: 3, mp: 'MP102', station: 'POOLE', corridor: 'Poole Siding', lat: 37.1630, lng: -77.7720 },
-      { id: 'p3-mp102-ford', page: 3, mp: 'MP102', station: 'FORD', corridor: 'Ford Mainline', lat: 37.1590, lng: -77.7810 },
-      { id: 'p3-mp109-wilson', page: 3, mp: 'MP109', station: 'WILSON', corridor: 'Dinwiddie / Nottoway Line', lat: 37.1360, lng: -77.8920 },
-      { id: 'p3-mp112-wellville', page: 3, mp: 'MP112', station: 'WELLVILLE', corridor: 'Nottoway Mainline', lat: 37.1260, lng: -77.9470 },
-      { id: 'p3-mp118-blackstone', page: 3, mp: 'MP118', station: 'BLACKSTONE', corridor: 'Blackstone Mainline', lat: 37.0815, lng: -77.9972 },
-      { id: 'p3-mp124-nottoway', page: 3, mp: 'MP124', station: 'NOTTOWAY', corridor: 'Nottoway Courthouse', lat: 37.1250, lng: -78.0780 },
-      { id: 'p3-mp129-crewe', page: 3, mp: 'MP129', station: 'CREWE', corridor: 'Crewe Yard & Division Point', lat: 37.1785, lng: -78.1258 }
+      // ================= PAGE 3: PA JUNCTION TO CREWE =================
+      { id: 'p3-mp86-pa-jct', page: 3, mp: 'MP86', mpNum: 86.0, name: 'PA JUNCTION', lat: 37.2220, lng: -77.4890, branch: 'Norfolk District', type: 'junction' },
+      { id: 'p3-mp87-addison', page: 3, mp: 'MP87', mpNum: 87.0, name: 'ADDISON', lat: 37.2180, lng: -77.5060, branch: 'Norfolk District', type: 'station' },
+      { id: 'p3-mp88-airport', page: 3, mp: 'MP88', mpNum: 88.0, name: 'AIRPORT', lat: 37.2130, lng: -77.5230, branch: 'Norfolk District', type: 'station' },
+      { id: 'p3-mp88-jack', page: 3, mp: 'MP88', mpNum: 88.2, name: 'JACK', lat: 37.2110, lng: -77.5300, branch: 'Norfolk District', type: 'junction' },
+      { id: 'p3-mp92-sutherland', page: 3, mp: 'MP92', mpNum: 92.0, name: 'SUTHERLAND', lat: 37.2014, lng: -77.5678, branch: 'Norfolk District', type: 'station' },
+      { id: 'p3-mp96-church-road', page: 3, mp: 'MP96', mpNum: 96.0, name: 'CHURCH ROAD', lat: 37.1890, lng: -77.6485, branch: 'Norfolk District', type: 'station' },
+      { id: 'p3-mp99-poole-scanner', page: 3, mp: 'MP99', mpNum: 99.0, name: 'POOLE SCANNER', lat: 37.1790, lng: -77.6990, branch: 'Norfolk District', type: 'scanner' },
+      { id: 'p3-mp102-poole', page: 3, mp: 'MP102', mpNum: 102.0, name: 'POOLE', lat: 37.1710, lng: -77.7470, branch: 'Norfolk District', type: 'station' },
+      { id: 'p3-mp102-ford', page: 3, mp: 'MP102', mpNum: 102.2, name: 'FORD', lat: 37.1691, lng: -77.7525, branch: 'Norfolk District', type: 'station' },
+      { id: 'p3-mp109-wilson', page: 3, mp: 'MP109', mpNum: 109.0, name: 'WILSON', lat: 37.1472, lng: -77.8594, branch: 'Norfolk District', type: 'station' },
+      { id: 'p3-mp112-wellville', page: 3, mp: 'MP112', mpNum: 112.0, name: 'WELLVILLE', lat: 37.1369, lng: -77.9158, branch: 'Norfolk District', type: 'station' },
+      { id: 'p3-mp118-blackstone', page: 3, mp: 'MP118', mpNum: 118.0, name: 'BLACKSTONE', lat: 37.0815, lng: -77.9972, branch: 'Norfolk District', type: 'station' },
+      { id: 'p3-mp124-nottoway', page: 3, mp: 'MP124', mpNum: 124.0, name: 'NOTTOWAY', lat: 37.1278, lng: -78.0772, branch: 'Norfolk District', type: 'station' },
+      { id: 'p3-mp129-crewe', page: 3, mp: 'MP129', mpNum: 129.0, name: 'CREWE', lat: 37.1793, lng: -78.1258, branch: 'Norfolk District Yard', type: 'yard' }
     ];
 
-    const PAGE_METADATA = {
+    const PAGE_HEADERS = {
       1: {
-        title: 'Page 1 of 3 • Norfolk Pier 6 to Suffolk (MP 0.0 – MP 23)',
-        subtitle: 'Lamberts Point, Norfolk Terminal, Portlock Yard, Bridges 5 & 7, Chesapeake & Suffolk'
+        title: 'Page 1 of 3 • Norfolk Terminal & Lamberts Point to Suffolk',
+        subtitle: 'MP 0.0 (Lamberts Point Pier 6) — MP 23 (Suffolk)',
+        badge: 'PAGE 1 OF 3'
       },
       2: {
-        title: 'Page 2 of 3 • Brico to Petersburg & Hopewell Branch (MP 26 – MP 84)',
-        subtitle: 'Windsor, Zuni, Ivor, Wakefield, Waverly, Disputanta, Poe, Petersburg & Hopewell Branch'
+        title: 'Page 2 of 3 • Brico to Sitterding Siding & Hopewell Branch',
+        subtitle: 'MP 26 (Brico) — MP 84 (Sitterding Siding) + Hopewell Branch (MP 1–9)',
+        badge: 'PAGE 2 OF 3'
       },
       3: {
-        title: 'Page 3 of 3 • PA Junction to Crewe Yard (MP 86 – MP 129)',
-        subtitle: 'Addison, Jack, Sutherland, Church Road, Poole, Ford, Blackstone, Nottoway & Crewe'
+        title: 'Page 3 of 3 • PA Junction to Crewe Yard',
+        subtitle: 'MP 86 (PA Junction) — MP 129 (Crewe)',
+        badge: 'PAGE 3 OF 3'
       }
     };
 
     /*************************************************************************
-     * 2. STATE & LOCAL STORAGE PERSISTENCE
+     * 2. STATE & PERSISTENCE (LOCALSTORAGE)
      *************************************************************************/
-    const STORAGE_KEYS = {
-      PROVIDER: 'ns_pier6_map_provider_v1',
-      PINNED: 'ns_pier6_pinned_mps_v1',
-      OVERRIDES: 'ns_pier6_gps_overrides_v1',
-      CUSTOM_SHARE_URL: 'ns_pier6_custom_share_url_v1'
-    };
-
-    let currentProvider = localStorage.getItem(STORAGE_KEYS.PROVIDER) || 'auto';
-    let pinnedIds = JSON.parse(localStorage.getItem(STORAGE_KEYS.PINNED) || '[]');
-    let gpsOverrides = JSON.parse(localStorage.getItem(STORAGE_KEYS.OVERRIDES) || '{}');
-    let customShareUrl = localStorage.getItem(STORAGE_KEYS.CUSTOM_SHARE_URL) || '';
-    let activePageFilter = 'all';
+    let mileposts = [];
+    let favorites = JSON.parse(localStorage.getItem('lssc_favorites') || '[]');
+    let customOverrides = JSON.parse(localStorage.getItem('lssc_custom_gps') || '{}');
+    let currentCategory = 'all';
+    let currentViewMode = 'grid'; // 'grid' | 'map' | 'list'
     let searchQuery = '';
-    let userLocation = null; // { lat, lng } when "Find Nearest" is active
+    let activeModalStationId = null;
+    let userLocation = null; // { lat, lng }
+    let leafletMap = null;
+    let leafletMarkers = [];
     let deferredInstallPrompt = null;
 
-    // Detect if user is on Apple iOS / macOS vs Android
-    function isAppleDevice() {
+    // Auto-detect iOS vs Android for smart default Map Provider
+    function detectDefaultMapProvider() {
+      const saved = localStorage.getItem('lssc_map_provider');
+      if (saved) return saved;
       const ua = navigator.userAgent || navigator.vendor || window.opera;
-      const isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
-      const isMac = /Macintosh|MacIntel|MacPPC|Mac68K/.test(ua);
-      return isIOS || isMac;
+      if (/iPad|iPhone|iPod|Macintosh/.test(ua)) {
+        return 'apple';
+      }
+      return 'google';
     }
+    let mapProvider = detectDefaultMapProvider();
 
-    function getResolvedProvider() {
-      if (currentProvider === 'apple') return 'apple';
-      if (currentProvider === 'google') return 'google';
-      return isAppleDevice() ? 'apple' : 'google';
-    }
-
-    // Merge default mileposts with any user-saved GPS/URL overrides
-    function getMileposts() {
-      return DEFAULT_MILEPOSTS.map(item => {
-        const override = gpsOverrides[item.id];
-        if (!override) return { ...item };
+    function loadMileposts() {
+      mileposts = DEFAULT_MILEPOSTS.map(item => {
+        const override = customOverrides[item.id];
         return {
           ...item,
-          lat: typeof override.lat === 'number' ? override.lat : item.lat,
-          lng: typeof override.lng === 'number' ? override.lng : item.lng,
-          customUrl: override.customUrl || '',
-          notes: override.notes || '',
-          isCustomized: true
+          lat: override?.lat ?? item.lat,
+          lng: override?.lng ?? item.lng,
+          notes: override?.notes ?? '',
+          distanceMiles: null
         };
       });
+      if (userLocation) {
+        updateDistancesFromUser();
+      }
     }
 
     /*************************************************************************
-     * 3. MAP URL BUILDER (Supports Apple Maps, Google Maps, & Custom URLs)
+     * 3. NAVIGATION URL BUILDERS (APPLE MAPS, GOOGLE MAPS, WAZE)
      *************************************************************************/
-    function buildMapUrl(item) {
-      const provider = getResolvedProvider();
-      const label = encodeURIComponent(`NS ${item.mp} - ${item.station}`);
-      const lat = item.lat.toFixed(6);
-      const lng = item.lng.toFixed(6);
-
-      // If a custom URL override is saved, check if user wants cross-platform coordinate conversion
-      if (item.customUrl && item.customUrl.trim() !== '') {
-        const rawUrl = item.customUrl.trim();
-        // Extract coordinates if embedded in an Apple/Google URL so both iOS and Android crews can use it
-        const coordMatch = rawUrl.match(/([-+]?\d{1,2}\.\d+)\s*,\s*([-+]?\d{1,3}\.\d+)/);
-        if (coordMatch) {
-          const cLat = coordMatch[1];
-          const cLng = coordMatch[2];
-          if (provider === 'apple') {
-            return `https://maps.apple.com/?ll=${cLat},${cLng}&q=${label}&t=h`;
-          } else {
-            return `https://www.google.com/maps/search/?api=1&query=${cLat},${cLng}`;
-          }
-        }
-        return rawUrl;
-      }
+    function buildMapUrl(station, providerOverride) {
+      const provider = providerOverride || mapProvider;
+      const label = encodeURIComponent(`${station.mp} ${station.name}`);
+      const lat = station.lat;
+      const lng = station.lng;
 
       if (provider === 'apple') {
-        // Hybrid satellite + road map view ideal for rail corridors
-        return `https://maps.apple.com/?ll=${lat},${lng}&q=${label}&t=h`;
+        // Native Apple Maps URL scheme that works cleanly on iPhone, iPad, Mac, and redirects on others
+        return `https://maps.apple.com/?ll=${lat},${lng}&q=${label}&dirflg=d`;
+      } else if (provider === 'waze') {
+        return `https://waze.com/ul?ll=${lat},${lng}&navigate=yes`;
       } else {
+        // Universal Google Maps link (triggers native Android & iOS Google Maps app)
         return `https://www.google.com/maps/search/?api=1&query=${lat},${lng}`;
       }
     }
 
+    function openStationNavigation(stationId, providerOverride) {
+      const station = mileposts.find(m => m.id === stationId);
+      if (!station) return;
+      const url = buildMapUrl(station, providerOverride);
+      window.open(url, '_blank', 'noopener');
+    }
+
+    function setMapProvider(provider) {
+      mapProvider = provider;
+      localStorage.setItem('lssc_map_provider', provider);
+      updateMapProviderUI();
+      const names = { apple: 'Apple Maps', google: 'Google Maps', waze: 'Waze Navigation' };
+      document.getElementById('headerSubtitleText').textContent =
+        `Tap a milepost button to open ${names[provider]}`;
+      showToast(`Default navigation set to ${names[provider]}`);
+    }
+
+    function updateMapProviderUI() {
+      ['apple', 'google', 'waze'].forEach(p => {
+        const btn = document.getElementById(`providerBtn-${p}`);
+        if (!btn) return;
+        if (p === mapProvider) {
+          btn.className = 'px-2.5 py-1.5 rounded-md font-extrabold flex items-center gap-1.5 bg-amber-500 text-slate-950 shadow-sm transition-all';
+        } else {
+          btn.className = 'px-2.5 py-1.5 rounded-md font-bold flex items-center gap-1.5 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all';
+        }
+      });
+      const names = { apple: 'Apple Maps', google: 'Google Maps', waze: 'Waze' };
+      document.getElementById('headerSubtitleText').textContent =
+        `Tap a milepost button to open ${names[mapProvider]}`;
+    }
+
     /*************************************************************************
-     * 4. DISTANCE CALCULATION (Haversine in Miles for "Find Nearest")
+     * 4. FILTERING, SEARCH & FAVORITES
      *************************************************************************/
-    function getDistanceMiles(lat1, lon1, lat2, lon2) {
+    function getFilteredMileposts() {
+      return mileposts.filter(item => {
+        // Category filter
+        if (currentCategory === 'page1' && item.page !== 1) return false;
+        if (currentCategory === 'page2' && item.page !== 2) return false;
+        if (currentCategory === 'page3' && item.page !== 3) return false;
+        if (currentCategory === 'hopewell' && item.type !== 'hopewell') return false;
+        if (currentCategory === 'special' && !['bridge', 'scanner', 'junction', 'yard', 'siding'].includes(item.type)) return false;
+        if (currentCategory === 'favorites' && !favorites.includes(item.id)) return false;
+
+        // Search query
+        if (searchQuery.trim() !== '') {
+          const q = searchQuery.toLowerCase().trim();
+          const mpClean = item.mp.toLowerCase();
+          const numOnly = item.mp.replace(/[^0-9.]/g, '');
+          const nameClean = item.name.toLowerCase();
+          const branchClean = (item.branch || '').toLowerCase();
+          const notesClean = (item.notes || '').toLowerCase();
+          return (
+            mpClean.includes(q) ||
+            numOnly === q ||
+            nameClean.includes(q) ||
+            branchClean.includes(q) ||
+            notesClean.includes(q)
+          );
+        }
+        return true;
+      });
+    }
+
+    function setCategoryFilter(category) {
+      currentCategory = category;
+      updateFilterChipsUI();
+      renderAllViews();
+    }
+
+    function updateFilterChipsUI() {
+      const filters = ['all', 'page1', 'page2', 'page3', 'hopewell', 'special', 'favorites'];
+      filters.forEach(f => {
+        const el = document.getElementById(`filter-${f}`);
+        if (!el) return;
+        if (f === currentCategory) {
+          el.className = 'filter-chip shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold transition-all flex items-center gap-1.5 bg-amber-500 text-slate-950 shadow-sm';
+        } else {
+          el.className = 'filter-chip shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold transition-all flex items-center gap-1.5 bg-slate-200/90 dark:bg-slate-800/90 text-slate-700 dark:text-slate-300 hover:border-amber-500 border border-transparent';
+        }
+      });
+      document.getElementById('count-favs').textContent = `(${favorites.length})`;
+    }
+
+    function handleSearch(val) {
+      searchQuery = val;
+      const clearBtn = document.getElementById('clearSearchBtn');
+      if (val.trim().length > 0) {
+        clearBtn.classList.remove('hidden');
+      } else {
+        clearBtn.classList.add('hidden');
+      }
+      renderAllViews();
+    }
+
+    function clearSearch() {
+      const input = document.getElementById('searchInput');
+      input.value = '';
+      handleSearch('');
+    }
+
+    function resetAllFilters() {
+      clearSearch();
+      setCategoryFilter('all');
+      setViewMode('grid');
+    }
+
+    function toggleFavorite(event, stationId) {
+      event.stopPropagation();
+      const idx = favorites.indexOf(stationId);
+      if (idx > -1) {
+        favorites.splice(idx, 1);
+        showToast('Removed from Pinned Mileposts');
+      } else {
+        favorites.push(stationId);
+        showToast('Pinned to Favorites');
+      }
+      localStorage.setItem('lssc_favorites', JSON.stringify(favorites));
+      updateFilterChipsUI();
+      renderAllViews();
+    }
+
+    /*************************************************************************
+     * 5. RENDERING: CLASSIC 3-PAGE INDUSTRIAL GRID + LOG SHEET + MAP
+     *************************************************************************/
+    function getTypeBadgeHTML(item) {
+      if (item.type === 'scanner') {
+        return `<span class="px-1.5 py-0.5 text-[9px] font-mono font-extrabold uppercase rounded bg-emerald-500/20 text-emerald-500 border border-emerald-500/30">SCANNER</span>`;
+      }
+      if (item.type === 'bridge') {
+        return `<span class="px-1.5 py-0.5 text-[9px] font-mono font-extrabold uppercase rounded bg-purple-500/20 text-purple-400 border border-purple-500/30">BRIDGE</span>`;
+      }
+      if (item.type === 'hopewell') {
+        return `<span class="px-1.5 py-0.5 text-[9px] font-mono font-extrabold uppercase rounded bg-sky-500/20 text-sky-400 border border-sky-500/30">HOPEWELL BR</span>`;
+      }
+      if (item.type === 'yard') {
+        return `<span class="px-1.5 py-0.5 text-[9px] font-mono font-extrabold uppercase rounded bg-amber-500/20 text-amber-400 border border-amber-500/30">YARD</span>`;
+      }
+      if (item.type === 'junction') {
+        return `<span class="px-1.5 py-0.5 text-[9px] font-mono font-extrabold uppercase rounded bg-blue-500/20 text-blue-400 border border-blue-500/30">JCT</span>`;
+      }
+      return '';
+    }
+
+    function createMilepostCardHTML(item) {
+      const isFav = favorites.includes(item.id);
+      const extraClass =
+        item.type === 'hopewell'
+          ? 'branch-hopewell'
+          : item.type === 'scanner'
+          ? 'type-scanner'
+          : item.type === 'bridge'
+          ? 'type-bridge'
+          : '';
+
+      const distanceBadge =
+        item.distanceMiles !== null
+          ? `<span class="px-1.5 py-0.5 text-[10px] font-mono font-extrabold rounded bg-emerald-500/20 text-emerald-400 border border-emerald-500/30">
+               <i class="fa-solid fa-location-crosshairs text-[9px]"></i> ${item.distanceMiles.toFixed(1)} mi
+             </span>`
+          : '';
+
+      return `
+        <div
+          onclick="openStationNavigation('${item.id}')"
+          class="mp-card ${extraClass} rounded-xl p-3.5 pl-4 cursor-pointer flex flex-col justify-between min-h-[104px] group select-none"
+        >
+          <!-- Top Row: Milepost Code + Badges + Star / Info Actions -->
+          <div class="flex items-start justify-between gap-1">
+            <div>
+              <div class="flex items-center gap-1.5 flex-wrap">
+                <span class="font-mono text-lg sm:text-xl font-black tracking-tight text-amber-600 dark:text-amber-400 group-hover:text-amber-500 transition-colors">
+                  ${item.mp}
+                </span>
+                ${getTypeBadgeHTML(item)}
+                ${distanceBadge}
+              </div>
+              <h3 class="font-extrabold text-xs sm:text-sm tracking-wide text-slate-900 dark:text-white mt-0.5 leading-snug uppercase">
+                ${item.name}
+              </h3>
+              ${item.subtitle ? `<p class="text-[10px] font-semibold text-sky-400">${item.subtitle}</p>` : ''}
+              ${item.notes ? `<p class="text-[10px] text-amber-400/90 mt-0.5 truncate max-w-[190px]"><i class="fa-solid fa-note-sticky mr-1"></i>${item.notes}</p>` : ''}
+            </div>
+
+            <!-- Quick Secondary Buttons: Pin Favorite & GPS Details -->
+            <div class="flex items-center gap-1 shrink-0">
+              <button
+                onclick="toggleFavorite(event, '${item.id}')"
+                class="w-7 h-7 rounded-lg flex items-center justify-center text-xs transition-colors ${
+                  isFav
+                    ? 'text-amber-400 bg-amber-500/15'
+                    : 'text-slate-400 hover:text-amber-400 hover:bg-slate-200 dark:hover:bg-slate-800'
+                }"
+                title="Pin Milepost"
+              >
+                <i class="${isFav ? 'fa-solid' : 'fa-regular'} fa-star"></i>
+              </button>
+              <button
+                onclick="openDetailModal(event, '${item.id}')"
+                class="w-7 h-7 rounded-lg flex items-center justify-center text-xs text-slate-400 hover:text-sky-400 hover:bg-slate-200 dark:hover:bg-slate-800 transition-colors"
+                title="GPS Coordinates & Multi-App Options"
+              >
+                <i class="fa-solid fa-sliders"></i>
+              </button>
+            </div>
+          </div>
+
+          <!-- Bottom Row: Coordinates & Tap Action Hint -->
+          <div class="mt-2.5 pt-2 border-t border-slate-200/80 dark:border-slate-800/90 flex items-center justify-between text-[10px] font-mono text-slate-500 dark:text-slate-400">
+            <span>${item.lat.toFixed(4)}, ${item.lng.toFixed(4)}</span>
+            <span class="font-sans font-bold text-amber-600 dark:text-amber-400/90 group-hover:translate-x-0.5 transition-transform flex items-center gap-1">
+              <span>Open Map</span>
+              <i class="fa-solid fa-arrow-up-right-from-square text-[9px]"></i>
+            </span>
+          </div>
+        </div>
+      `;
+    }
+
+    function renderGridView() {
+      const container = document.getElementById('gridContainer');
+      const filtered = getFilteredMileposts();
+
+      if (filtered.length === 0) {
+        container.innerHTML = `
+          <div class="bg-white dark:bg-ns-panel border border-slate-200 dark:border-ns-border rounded-2xl p-10 text-center space-y-3">
+            <i class="fa-solid fa-train text-3xl text-amber-500"></i>
+            <h3 class="text-base font-extrabold">No matching mileposts found</h3>
+            <p class="text-xs text-slate-400 max-w-md mx-auto">Try searching by milepost number (e.g., "MP4", "51", "129") or station name, or reset the active subdivision filter.</p>
+            <button onclick="resetAllFilters()" class="px-4 py-2 rounded-xl bg-amber-500 text-slate-950 font-extrabold text-xs">Show All 50 Mileposts</button>
+          </div>
+        `;
+        return;
+      }
+
+      // If user has active GPS sorting and is viewing 'all', still group by Page unless searching
+      const pagesToRender = [1, 2, 3];
+      let html = '';
+
+      pagesToRender.forEach(pageNum => {
+        const pageItems = filtered.filter(item => item.page === pageNum);
+        if (pageItems.length === 0) return;
+
+        const headerInfo = PAGE_HEADERS[pageNum];
+        html += `
+          <div class="space-y-3">
+            <!-- PDF Section Header Bar -->
+            <div class="flex flex-wrap items-center justify-between gap-2 pb-2 border-b border-slate-300 dark:border-ns-border">
+              <div class="flex items-center gap-2.5">
+                <span class="px-2.5 py-1 rounded-md bg-amber-500 text-slate-950 font-mono font-black text-xs tracking-wider">
+                  ${headerInfo.badge}
+                </span>
+                <div>
+                  <h2 class="text-sm sm:text-base font-extrabold text-slate-900 dark:text-white">${headerInfo.title}</h2>
+                  <p class="text-[11px] text-slate-500 dark:text-slate-400">${headerInfo.subtitle}</p>
+                </div>
+              </div>
+              <span class="text-xs font-mono font-bold text-slate-500 dark:text-slate-400">${pageItems.length} Mileposts</span>
+            </div>
+
+            <!-- Responsive Grid matching the 3-column PDF feel on tablet/desktop & crisp 2-col on mobile -->
+            <div class="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-4 gap-2.5 sm:gap-3.5">
+              ${pageItems.map(item => createMilepostCardHTML(item)).join('')}
+            </div>
+          </div>
+        `;
+      });
+
+      container.innerHTML = html;
+    }
+
+    function renderListView() {
+      const tbody = document.getElementById('tableBodyContainer');
+      const filtered = getFilteredMileposts();
+
+      tbody.innerHTML = filtered
+        .map(item => {
+          const distStr = item.distanceMiles !== null ? `<span class="ml-1 text-emerald-400 font-mono text-xs">(${item.distanceMiles.toFixed(1)} mi)</span>` : '';
+          return `
+            <tr class="hover:bg-slate-100/80 dark:hover:bg-slate-800/50 transition-colors">
+              <td class="py-2.5 px-4 font-mono font-black text-amber-500 whitespace-nowrap">
+                ${item.mp} ${distStr}
+              </td>
+              <td class="py-2.5 px-4 font-extrabold text-slate-900 dark:text-white">
+                <div class="flex items-center gap-2">
+                  <span>${item.name}</span>
+                  ${getTypeBadgeHTML(item)}
+                </div>
+              </td>
+              <td class="py-2.5 px-4 hidden sm:table-cell text-xs text-slate-500 dark:text-slate-400">
+                Page ${item.page} • ${item.branch}
+              </td>
+              <td class="py-2.5 px-4 hidden md:table-cell font-mono text-xs text-slate-400">
+                ${item.lat.toFixed(4)}, ${item.lng.toFixed(4)}
+              </td>
+              <td class="py-2.5 px-4 text-right whitespace-nowrap space-x-1">
+                <button onclick="openStationNavigation('${item.id}', 'apple')" class="px-2.5 py-1 rounded bg-slate-800 hover:bg-slate-700 text-white text-xs font-bold" title="Apple Maps">
+                  <i class="fa-brands fa-apple"></i>
+                </button>
+                <button onclick="openStationNavigation('${item.id}', 'google')" class="px-2.5 py-1 rounded bg-blue-600 hover:bg-blue-500 text-white text-xs font-bold" title="Google Maps">
+                  <i class="fa-brands fa-google"></i>
+                </button>
+                <button onclick="openDetailModal(event, '${item.id}')" class="px-2.5 py-1 rounded bg-slate-200 dark:bg-slate-800 text-slate-600 dark:text-slate-300 text-xs font-bold">
+                  <i class="fa-solid fa-ellipsis"></i>
+                </button>
+              </td>
+            </tr>
+          `;
+        })
+        .join('');
+    }
+
+    /*************************************************************************
+     * 6. INTERACTIVE LIVE RAILROAD CORRIDOR MAP (LEAFLET.JS)
+     *************************************************************************/
+    function initOrUpdateMap() {
+      if (currentViewMode !== 'map') return;
+
+      if (!leafletMap) {
+        leafletMap = L.map('corridorMap', {
+          center: [37.02, -77.15],
+          zoom: 9,
+          zoomControl: true
+        });
+
+        // High-contrast dark/street tile layer
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/voyager/{z}/{x}/{y}{r}.png', {
+          attribution: '&copy; OpenStreetMap &copy; CARTO',
+          maxZoom: 19
+        }).addTo(leafletMap);
+      }
+
+      // Clear old layers
+      leafletMarkers.forEach(layer => leafletMap.removeLayer(layer));
+      leafletMarkers = [];
+
+      // Draw Main Line Polyline (Norfolk Lamberts Point to Crewe)
+      const mainLineCoords = mileposts
+        .filter(m => m.type !== 'hopewell')
+        .sort((a, b) => a.mpNum - b.mpNum)
+        .map(m => [m.lat, m.lng]);
+
+      const mainPolyline = L.polyline(mainLineCoords, {
+        color: '#f59e0b',
+        weight: 4,
+        opacity: 0.85
+      }).addTo(leafletMap);
+      leafletMarkers.push(mainPolyline);
+
+      // Draw Hopewell Branch Polyline (Petersburg to Hopewell)
+      const hopewellCoords = mileposts
+        .filter(m => m.id === 'p2-mp81-petersburg' || m.type === 'hopewell')
+        .map(m => [m.lat, m.lng]);
+
+      const hopewellPolyline = L.polyline(hopewellCoords, {
+        color: '#38bdf8',
+        weight: 4,
+        dashArray: '6, 6',
+        opacity: 0.9
+      }).addTo(leafletMap);
+      leafletMarkers.push(hopewellPolyline);
+
+      // Add Milepost Pins for Filtered Stations
+      const filtered = getFilteredMileposts();
+      filtered.forEach(station => {
+        const isHopewell = station.type === 'hopewell';
+        const icon = L.divIcon({
+          className: '',
+          html: `<div class="mp-map-pin ${isHopewell ? 'hopewell' : ''}">${station.mp}</div>`,
+          iconSize: [52, 24],
+          iconAnchor: [26, 12]
+        });
+
+        const marker = L.marker([station.lat, station.lng], { icon }).addTo(leafletMap);
+        marker.bindPopup(`
+          <div style="min-width:190px; font-family:Inter,sans-serif;">
+            <div style="font-size:10px; font-weight:800; color:#d97706; text-transform:uppercase;">Page ${station.page} • ${station.branch}</div>
+            <div style="font-size:16px; font-weight:900; margin-top:2px;">${station.mp} — ${station.name}</div>
+            <div style="font-size:11px; color:#64748b; font-family:monospace; margin-bottom:8px;">${station.lat.toFixed(4)}, ${station.lng.toFixed(4)}</div>
+            <div style="display:flex; gap:6px;">
+              <button onclick="openStationNavigation('${station.id}', 'apple')" style="flex:1; background:#0f172a; color:#fff; border:none; padding:6px 8px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;">Apple Maps</button>
+              <button onclick="openStationNavigation('${station.id}', 'google')" style="flex:1; background:#2563eb; color:#fff; border:none; padding:6px 8px; border-radius:6px; font-size:11px; font-weight:700; cursor:pointer;">Google Maps</button>
+            </div>
+          </div>
+        `);
+        leafletMarkers.push(marker);
+      });
+
+      // If user GPS is known, add user marker
+      if (userLocation) {
+        const userMarker = L.circleMarker([userLocation.lat, userLocation.lng], {
+          radius: 8,
+          fillColor: '#10b981',
+          color: '#ffffff',
+          weight: 3,
+          fillOpacity: 1
+        })
+          .addTo(leafletMap)
+          .bindPopup('<strong>Your GPS Location</strong>');
+        leafletMarkers.push(userMarker);
+      }
+
+      setTimeout(() => {
+        leafletMap.invalidateSize();
+      }, 100);
+    }
+
+    function fitMapToCorridor(pageOrAll) {
+      if (!leafletMap) return;
+      const subset = pageOrAll === 'all' ? mileposts : mileposts.filter(m => m.page === pageOrAll);
+      if (subset.length === 0) return;
+      const bounds = L.latLngBounds(subset.map(m => [m.lat, m.lng]));
+      leafletMap.fitBounds(bounds, { padding: [35, 35] });
+    }
+
+    function setViewMode(mode) {
+      currentViewMode = mode;
+      ['grid', 'map', 'list'].forEach(m => {
+        const btn = document.getElementById(`viewBtn-${m}`);
+        if (m === mode) {
+          btn.className = 'flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-extrabold flex items-center justify-center gap-1.5 bg-amber-500 text-slate-950 shadow-sm transition-all';
+        } else {
+          btn.className = 'flex-1 sm:flex-initial px-3 py-1.5 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white transition-all';
+        }
+      });
+
+      document.getElementById('gridViewSection').classList.toggle('hidden', mode !== 'grid');
+      document.getElementById('mapViewSection').classList.toggle('hidden', mode !== 'map');
+      document.getElementById('listViewSection').classList.toggle('hidden', mode !== 'list');
+
+      renderAllViews();
+    }
+
+    function renderAllViews() {
+      renderGridView();
+      renderListView();
+      if (currentViewMode === 'map') {
+        initOrUpdateMap();
+      }
+    }
+
+    /*************************************************************************
+     * 7. REAL-TIME GPS "FIND NEAREST MILEPOST" LOCATOR
+     *************************************************************************/
+    function calculateHaversineMiles(lat1, lon1, lat2, lon2) {
       const R = 3958.8; // Earth radius in miles
       const dLat = ((lat2 - lat1) * Math.PI) / 180;
       const dLon = ((lon2 - lon1) * Math.PI) / 180;
@@ -922,347 +1182,21 @@
       return R * c;
     }
 
-    /*************************************************************************
-     * 5. RENDERING UI
-     *************************************************************************/
-    function updateProviderUI() {
-      const resolved = getResolvedProvider();
-      const autoDetectedLabel = document.getElementById('auto-detected-label');
-      autoDetectedLabel.textContent = `(${isAppleDevice() ? 'iOS/Apple' : 'Android/Google'})`;
-
-      const activeProviderText = document.getElementById('active-provider-text');
-      activeProviderText.textContent = resolved === 'apple' ? 'Apple Maps' : 'Google Maps';
-
-      ['apple', 'google', 'auto'].forEach(p => {
-        const btn = document.getElementById(`provider-${p}`);
-        if (currentProvider === p) {
-          btn.className = 'flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-extrabold flex items-center justify-center gap-1.5 bg-amber-500 text-slate-950 shadow transition';
-        } else {
-          btn.className = 'flex-1 sm:flex-initial px-2.5 py-1.5 rounded-lg text-xs font-bold flex items-center justify-center gap-1.5 text-slate-300 hover:text-white hover:bg-slate-800/70 transition';
-        }
+    function updateDistancesFromUser() {
+      if (!userLocation) return;
+      mileposts.forEach(m => {
+        m.distanceMiles = calculateHaversineMiles(userLocation.lat, userLocation.lng, m.lat, m.lng);
       });
-    }
-
-    function updatePageTabsUI() {
-      const tabs = ['all', '1', '2', '3', 'pinned'];
-      tabs.forEach(t => {
-        const el = document.getElementById(`tab-${t}`);
-        if (!el) return;
-        if (activePageFilter === t) {
-          el.className = 'page-tab shrink-0 px-3 py-1.5 rounded-lg text-xs font-extrabold uppercase tracking-wider bg-amber-500 text-slate-950 shadow flex items-center gap-1 transition';
-        } else {
-          el.className = 'page-tab shrink-0 px-3 py-1.5 rounded-lg text-xs font-bold uppercase tracking-wider bg-slate-900 text-slate-300 border border-slate-800 hover:border-slate-700 flex items-center gap-1 transition';
-        }
-      });
-
-      const badge = document.getElementById('pinned-count-badge');
-      badge.textContent = pinnedIds.length;
-      if (activePageFilter === 'pinned') {
-        badge.className = 'px-1.5 py-0.2 bg-slate-950/30 text-slate-950 rounded text-[10px] font-black';
-      } else {
-        badge.className = 'px-1.5 py-0.2 bg-amber-500/20 text-amber-300 rounded text-[10px] font-black';
-      }
-    }
-
-    function renderMileposts() {
-      updateProviderUI();
-      updatePageTabsUI();
-
-      const allItems = getMileposts().map(item => {
-        let distanceMiles = null;
-        if (userLocation) {
-          distanceMiles = getDistanceMiles(userLocation.lat, userLocation.lng, item.lat, item.lng);
-        }
-        return {
-          ...item,
-          isPinned: pinnedIds.includes(item.id),
-          distanceMiles
-        };
-      });
-
-      // Filter by Page / Pinned
-      let filtered = allItems.filter(item => {
-        if (activePageFilter === 'pinned') return item.isPinned;
-        if (activePageFilter !== 'all') return String(item.page) === String(activePageFilter);
-        return true;
-      });
-
-      // Filter by Search Query
-      if (searchQuery.trim() !== '') {
-        const q = searchQuery.toLowerCase().trim();
-        filtered = filtered.filter(item => {
-          const mpClean = item.mp.toLowerCase();
-          const mpNumOnly = mpClean.replace('mp', '');
-          return (
-            mpClean.includes(q) ||
-            mpNumOnly === q ||
-            item.station.toLowerCase().includes(q) ||
-            (item.corridor && item.corridor.toLowerCase().includes(q)) ||
-            (item.notes && item.notes.toLowerCase().includes(q))
-          );
-        });
-      }
-
-      const container = document.getElementById('milepost-sections');
-      const emptyState = document.getElementById('empty-state');
-      const counter = document.getElementById('results-counter');
-
-      counter.textContent = `Showing ${filtered.length} of ${allItems.length} mileposts`;
-
-      if (filtered.length === 0) {
-        container.innerHTML = '';
-        emptyState.classList.remove('hidden');
-        return;
-      } else {
-        emptyState.classList.add('hidden');
-      }
-
-      // If GPS nearest sorting is active, display as a single sorted list by distance
-      if (userLocation) {
-        const sortedByDist = [...filtered].sort((a, b) => a.distanceMiles - b.distanceMiles);
-        container.innerHTML = `
-          <section class="space-y-3">
-            <div class="flex items-center justify-between border-b border-emerald-500/30 pb-2">
-              <div>
-                <h2 class="text-sm sm:text-base font-black text-emerald-400 uppercase tracking-wider">
-                  Closest Mileposts to Your Current Position
-                </h2>
-                <p class="text-xs text-slate-400">Real-time straight-line distance in miles</p>
-              </div>
-            </div>
-            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-              ${sortedByDist.map((item, idx) => renderCardHTML(item, idx === 0)).join('')}
-            </div>
-          </section>
-        `;
-        return;
-      }
-
-      // Standard Grouping by PDF Page (Pages 1, 2, 3)
-      const pagesToRender = [1, 2, 3].filter(p => filtered.some(item => item.page === p));
-
-      container.innerHTML = pagesToRender
-        .map(pageNum => {
-          const pageItems = filtered.filter(item => item.page === pageNum);
-          const meta = PAGE_METADATA[pageNum];
-          return `
-            <section class="space-y-3">
-              <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-1 bg-slate-900/90 border-l-4 border-amber-500 px-3.5 py-2.5 rounded-r-xl">
-                <div>
-                  <h2 class="text-sm sm:text-base font-black text-white tracking-tight">
-                    ${meta.title}
-                  </h2>
-                  <p class="text-xs text-slate-400">${meta.subtitle}</p>
-                </div>
-                <span class="text-[11px] font-mono font-bold text-amber-400 shrink-0">
-                  ${pageItems.length} Stations
-                </span>
-              </div>
-
-              <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
-                ${pageItems.map(item => renderCardHTML(item, false)).join('')}
-              </div>
-            </section>
-          `;
-        })
-        .join('');
-    }
-
-    function renderCardHTML(item, isClosestHighlight) {
-      const mapUrl = buildMapUrl(item);
-      const resolvedProvider = getResolvedProvider();
-      const providerBadge = resolvedProvider === 'apple' ? 'Apple Maps' : 'Google Maps';
-      const isBranch = item.corridor && item.corridor.includes('Hopewell');
-
-      return `
-        <div class="mp-card group relative rounded-2xl bg-[#121824] hover:bg-[#182030] border ${
-          isClosestHighlight
-            ? 'border-emerald-400 ring-2 ring-emerald-500/30'
-            : item.isPinned
-            ? 'border-amber-500/80'
-            : 'border-slate-800 hover:border-amber-500/60'
-        } shadow-lg flex flex-col justify-between overflow-hidden">
-          
-          <!-- Primary Tap Area that launches Maps immediately -->
-          <a
-            href="${mapUrl}"
-            target="_blank"
-            rel="noopener noreferrer"
-            class="p-4 flex items-start gap-3.5 flex-1 focus:outline-none"
-          >
-            <!-- High-Contrast Milepost Badge -->
-            <div class="min-w-[68px] px-2.5 py-2.5 rounded-xl ${
-              isBranch
-                ? 'bg-amber-400 text-slate-950 border-2 border-amber-200'
-                : 'bg-amber-500 text-slate-950 border-2 border-amber-300'
-            } flex flex-col items-center justify-center shadow-md shadow-amber-500/10 shrink-0 group-hover:scale-105 transition">
-              <span class="text-[10px] font-black uppercase tracking-wider leading-none opacity-80">MILEPOST</span>
-              <span class="text-base font-mono font-black tracking-tight leading-tight mt-0.5">${item.mp}</span>
-            </div>
-
-            <!-- Station Name & Details -->
-            <div class="flex-1 min-w-0">
-              <div class="flex items-center gap-1.5 flex-wrap">
-                ${
-                  isClosestHighlight
-                    ? `<span class="px-1.5 py-0.5 rounded bg-emerald-500 text-slate-950 font-black text-[10px] uppercase">NEAREST TO YOU</span>`
-                    : ''
-                }
-                ${
-                  isBranch
-                    ? `<span class="px-1.5 py-0.5 rounded bg-amber-500/20 text-amber-300 border border-amber-500/30 font-bold text-[10px] uppercase">Branch</span>`
-                    : ''
-                }
-                ${
-                  item.isCustomized
-                    ? `<span class="px-1.5 py-0.5 rounded bg-sky-500/20 text-sky-300 border border-sky-500/30 font-bold text-[10px] uppercase">Custom GPS</span>`
-                    : ''
-                }
-              </div>
-
-              <h3 class="text-base sm:text-lg font-black text-white tracking-tight leading-snug group-hover:text-amber-400 transition truncate">
-                ${item.station}
-              </h3>
-
-              <p class="text-xs text-slate-400 truncate mt-0.5">
-                ${item.corridor || `Page ${item.page}`}
-              </p>
-
-              ${
-                item.notes
-                  ? `<p class="mt-1 text-[11px] text-amber-300 bg-amber-500/10 border border-amber-500/20 rounded px-2 py-0.5">${item.notes}</p>`
-                  : ''
-              }
-
-              <div class="mt-2 flex items-center gap-2 text-[11px] font-mono text-slate-400">
-                <span>${item.lat.toFixed(4)}, ${item.lng.toFixed(4)}</span>
-                ${
-                  item.distanceMiles !== null
-                    ? `<span class="px-1.5 py-0.5 rounded bg-emerald-950 text-emerald-300 border border-emerald-700/60 font-bold">${item.distanceMiles.toFixed(1)} mi</span>`
-                    : ''
-                }
-              </div>
-          <!-- Card Utility Footer Bar (Pin, Share MP, Copy Coords, Edit GPS) -->
-          <div class="px-3 py-2 bg-slate-950/70 border-t border-slate-800/80 flex items-center justify-between text-[11px]">
-            <a
-              href="${mapUrl}"
-              target="_blank"
-              rel="noopener noreferrer"
-              class="font-bold text-amber-400 hover:text-amber-300 flex items-center gap-1"
-            >
-              <span>Open ${providerBadge}</span>
-              <span>&rarr;</span>
-            </a>
-
-            <div class="flex items-center gap-1">
-              <!-- NEW: 1-Tap Share Specific Milepost Button -->
-              <button
-                type="button"
-                onclick="shareSingleMilepost('${item.id}')"
-                title="Share or Text this Milepost Location"
-                class="px-2 py-1 rounded bg-emerald-500/20 hover:bg-emerald-500/30 text-emerald-300 border border-emerald-500/30 font-extrabold flex items-center gap-1 transition"
-              >
-                <span>Share MP</span>
-              </button>
-
-              <!-- Copy Coordinates Button -->
-              <button
-                type="button"
-                onclick="copyCoordinates('${item.mp} ${item.station}', ${item.lat}, ${item.lng})"
-                title="Copy GPS Coordinates"
-                class="px-2 py-1 rounded bg-slate-800/90 hover:bg-slate-700 text-slate-300 font-semibold transition"
-              >
-                GPS
-              </button>
-
-              <!-- Edit GPS / Link Button -->
-              <button
-                type="button"
-                onclick="openEditMpModal('${item.id}')"
-                title="Edit GPS or Custom Map URL"
-                class="px-2 py-1 rounded bg-slate-800/90 hover:bg-slate-700 text-slate-300 font-semibold transition"
-              >
-                ✎
-              </button>
-
-              <!-- Pin / Favorite Toggle -->
-              <button
-                type="button"
-                onclick="togglePin('${item.id}')"
-                title="Pin Milepost to Favorites"
-                class="px-2 py-1 rounded ${
-                  item.isPinned
-                    ? 'bg-amber-500 text-slate-950 font-black'
-                    : 'bg-slate-800/90 hover:bg-slate-700 text-slate-400'
-                } transition"
-              >
-                ★
-              </button>
-            </div>
-          </div>
-        </div>
-      `;
-    }
-
-    /*************************************************************************
-     * 6. INTERACTIVE HANDLERS (Search, Filter, Pin, Geolocation, Copy, Modals)
-     *************************************************************************/
-    function setMapProvider(provider) {
-      currentProvider = provider;
-      localStorage.setItem(STORAGE_KEYS.PROVIDER, provider);
-      renderMileposts();
-      const resolvedName = getResolvedProvider() === 'apple' ? 'Apple Maps' : 'Google Maps';
-      showToast(`Map provider set to ${provider === 'auto' ? `Auto (${resolvedName})` : resolvedName}`);
-    }
-
-    function setPageFilter(filter) {
-      activePageFilter = filter;
-      renderMileposts();
-    }
-
-    function handleSearch(val) {
-      searchQuery = val;
-      const clearBtn = document.getElementById('clear-search-btn');
-      if (val.trim().length > 0) {
-        clearBtn.classList.remove('hidden');
-      } else {
-        clearBtn.classList.add('hidden');
-      }
-      renderMileposts();
-    }
-
-    function clearSearch() {
-      const input = document.getElementById('search-input');
-      input.value = '';
-      handleSearch('');
-    }
-
-    function resetAllFilters() {
-      activePageFilter = 'all';
-      clearSearch();
-      clearGpsSort();
-    }
-
-    function togglePin(id) {
-      if (pinnedIds.includes(id)) {
-        pinnedIds = pinnedIds.filter(item => item !== id);
-        showToast('Removed from Pinned mileposts');
-      } else {
-        pinnedIds.push(id);
-        showToast('★ Pinned for quick access');
-      }
-      localStorage.setItem(STORAGE_KEYS.PINNED, JSON.stringify(pinnedIds));
-      renderMileposts();
     }
 
     function locateNearestMilepost() {
+      const btn = document.getElementById('gpsNearestBtn');
+      btn.classList.add('gps-pulse');
+
       if (!navigator.geolocation) {
-        showToast('Geolocation is not supported by your browser.');
+        useSimulatedNorfolkGps();
         return;
       }
-
-      const btnText = document.getElementById('locate-btn-text');
-      btnText.textContent = 'Acquiring GPS Signal...';
 
       navigator.geolocation.getCurrentPosition(
         pos => {
@@ -1270,194 +1204,332 @@
             lat: pos.coords.latitude,
             lng: pos.coords.longitude
           };
-          btnText.textContent = 'Update Nearest GPS';
-          document.getElementById('gps-status-banner').classList.remove('hidden');
-          activePageFilter = 'all';
-          renderMileposts();
-          showToast('Sorted mileposts by closest distance to you!');
+          displayNearestMilepostBanner(false);
         },
         err => {
-          btnText.textContent = 'Find Nearest Milepost to Me';
-          showToast('Unable to read GPS. Check location permissions.');
+          // Fallback to Norfolk Pier 6 Corridor simulation so user can test immediately even if browser blocks geolocation
+          useSimulatedNorfolkGps();
         },
-        { enableHighAccuracy: true, timeout: 10000 }
+        { enableHighAccuracy: true, timeout: 6000 }
       );
     }
 
-    function clearGpsSort() {
-      userLocation = null;
-      document.getElementById('gps-status-banner').classList.add('hidden');
-      document.getElementById('locate-btn-text').textContent = 'Find Nearest Milepost to Me';
-      renderMileposts();
+    function useSimulatedNorfolkGps() {
+      // Simulated GPS near Norfolk Terminal / Portlock for demonstration if permission denied
+      userLocation = { lat: 36.8395, lng: -76.2735 };
+      displayNearestMilepostBanner(true);
     }
 
-    // Reliable Clipboard Helper for iFrames and Mobile WebViews
-    function copyTextToClipboard(text, successMsg) {
-      const textarea = document.createElement('textarea');
-      textarea.value = text;
-      textarea.style.position = 'fixed';
-      textarea.style.opacity = '0';
-      document.body.appendChild(textarea);
-      textarea.select();
-      try {
-        document.execCommand('copy');
-        showToast(successMsg || 'Copied to clipboard!');
-      } catch (e) {
-        showToast('Copy failed');
+    function displayNearestMilepostBanner(isSimulated) {
+      updateDistancesFromUser();
+      const sorted = [...mileposts].sort((a, b) => a.distanceMiles - b.distanceMiles);
+      const nearest = sorted[0];
+
+      const banner = document.getElementById('gpsBanner');
+      const label = document.getElementById('gpsStatusLabel');
+      const summary = document.getElementById('gpsNearestSummary');
+      const quickBtn = document.getElementById('gpsQuickNavBtn');
+
+      banner.classList.remove('hidden');
+      label.textContent = isSimulated ? 'Corridor Demo GPS:' : 'Live GPS Lock:';
+      summary.innerHTML = `Closest is <strong class="text-amber-300 font-mono">${nearest.mp} ${nearest.name}</strong> (${nearest.distanceMiles.toFixed(2)} mi away • Page ${nearest.page})`;
+      quickBtn.onclick = () => openStationNavigation(nearest.id);
+
+      renderAllViews();
+      showToast(`Closest Milepost: ${nearest.mp} ${nearest.name} (${nearest.distanceMiles.toFixed(1)} mi)`);
+    }
+
+    function closeGpsBanner() {
+      document.getElementById('gpsBanner').classList.add('hidden');
+      document.getElementById('gpsNearestBtn').classList.remove('gps-pulse');
+    }
+
+    /*************************************************************************
+     * 8. MILEPOST DETAIL MODAL & CUSTOM COORDINATES EDITOR
+     *************************************************************************/
+    function openDetailModal(event, stationId) {
+      if (event) event.stopPropagation();
+      const station = mileposts.find(m => m.id === stationId);
+      if (!station) return;
+      activeModalStationId = stationId;
+
+      document.getElementById('modalPageBadge').textContent = `PAGE ${station.page} • ${station.branch}`;
+      document.getElementById('modalMpTitle').textContent = station.mp;
+      document.getElementById('modalStationName').textContent = station.name;
+      document.getElementById('modalLatInput').value = station.lat;
+      document.getElementById('modalLngInput').value = station.lng;
+      document.getElementById('modalNotesInput').value = station.notes || '';
+
+      document.getElementById('modalAppleBtn').onclick = () => openStationNavigation(stationId, 'apple');
+      document.getElementById('modalGoogleBtn').onclick = () => openStationNavigation(stationId, 'google');
+      document.getElementById('modalWazeBtn').onclick = () => openStationNavigation(stationId, 'waze');
+
+      const modal = document.getElementById('detailModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeDetailModal() {
+      const modal = document.getElementById('detailModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+      activeModalStationId = null;
+    }
+
+    function copyModalCoords() {
+      const lat = document.getElementById('modalLatInput').value;
+      const lng = document.getElementById('modalLngInput').value;
+      const text = `${lat}, ${lng}`;
+      const temp = document.createElement('textarea');
+      temp.value = text;
+      document.body.appendChild(temp);
+      temp.select();
+      document.execCommand('copy');
+      document.body.removeChild(temp);
+      showToast(`Copied GPS: ${text}`);
+    }
+
+    function saveStationCustomGps() {
+      if (!activeModalStationId) return;
+      const lat = parseFloat(document.getElementById('modalLatInput').value);
+      const lng = parseFloat(document.getElementById('modalLngInput').value);
+      const notes = document.getElementById('modalNotesInput').value.trim();
+
+      if (isNaN(lat) || isNaN(lng)) {
+        showToast('Please enter valid numeric latitude and longitude');
+        return;
       }
-      document.body.removeChild(textarea);
+
+      customOverrides[activeModalStationId] = { lat, lng, notes };
+      localStorage.setItem('lssc_custom_gps', JSON.stringify(customOverrides));
+      loadMileposts();
+      renderAllViews();
+      closeDetailModal();
+      showToast('Custom GPS & field notes saved on device');
     }
 
-    function copyCoordinates(label, lat, lng) {
-      const text = `${lat.toFixed(6)}, ${lng.toFixed(6)}`;
-      copyTextToClipboard(text, `Copied ${label}: ${text}`);
+    function resetStationDefaultGps() {
+      if (!activeModalStationId) return;
+      delete customOverrides[activeModalStationId];
+      localStorage.setItem('lssc_custom_gps', JSON.stringify(customOverrides));
+      loadMileposts();
+      const orig = mileposts.find(m => m.id === activeModalStationId);
+      if (orig) {
+        document.getElementById('modalLatInput').value = orig.lat;
+        document.getElementById('modalLngInput').value = orig.lng;
+        document.getElementById('modalNotesInput').value = '';
+      }
+      renderAllViews();
+      showToast('Restored default corridor GPS coordinates');
+    }
+
+    function showStationOnCorridorMap() {
+      const id = activeModalStationId;
+      const station = mileposts.find(m => m.id === id);
+      closeDetailModal();
+      if (!station) return;
+      setViewMode('map');
+      setTimeout(() => {
+        if (leafletMap) {
+          leafletMap.setView([station.lat, station.lng], 14);
+        }
+      }, 150);
+    }
+
+    function exportCustomDataJSON() {
+      const dataStr = 'data:text/json;charset=utf-8,' + encodeURIComponent(JSON.stringify(mileposts, null, 2));
+      const dlAnchor = document.createElement('a');
+      dlAnchor.setAttribute('href', dataStr);
+      dlAnchor.setAttribute('download', 'Norfolk_Pier_6_LSSC_Mileposts.json');
+      document.body.appendChild(dlAnchor);
+      dlAnchor.click();
+      dlAnchor.remove();
+      showToast('Downloaded Milepost GPS Workbook JSON');
+    }
+
+    /*************************************************************************
+     * 9. THEME TOGGLE (DARK INDUSTRIAL VS HIGH-SUNLIGHT DAY MODE)
+     *************************************************************************/
+    function toggleTheme() {
+      const html = document.documentElement;
+      const isDark = html.classList.toggle('dark');
+      localStorage.setItem('lssc_theme', isDark ? 'dark' : 'light');
+      updateThemeUI(isDark);
+    }
+
+    function updateThemeUI(isDark) {
+      const icon = document.getElementById('themeIcon');
+      const meta = document.getElementById('themeColorMeta');
+      if (isDark) {
+        icon.className = 'fa-solid fa-sun text-sm';
+        meta.setAttribute('content', '#0b111e');
+      } else {
+        icon.className = 'fa-solid fa-moon text-sm';
+        meta.setAttribute('content', '#f8fafc');
+      }
+    }
+
+    /*************************************************************************
+     * 10. FULL PWA GENERATOR: ICON, MANIFEST.JSON, & OFFLINE SERVICE WORKER
+     *************************************************************************/
+    function setupPWAEnvironment() {
+      // 1. Generate 512x512 App Icon via HTML5 Canvas so iPhone "Add to Home Screen" & Android have a crisp native emblem
+      try {
+        const canvas = document.createElement('canvas');
+        canvas.width = 512;
+        canvas.height = 512;
+        const ctx = canvas.getContext('2d');
+
+        // Background
+        ctx.fillStyle = '#090e17';
+        ctx.fillRect(0, 0, 512, 512);
+
+        // Outer Gold Safety Ring
+        ctx.strokeStyle = '#f59e0b';
+        ctx.lineWidth = 22;
+        ctx.beginPath();
+        ctx.arc(256, 256, 216, 0, Math.PI * 2);
+        ctx.stroke();
+
+        // Inner Circle
+        ctx.fillStyle = '#131c2e';
+        ctx.beginPath();
+        ctx.arc(256, 256, 185, 0, Math.PI * 2);
+        ctx.fill();
+
+        // Center Gold Banner
+        ctx.fillStyle = '#f59e0b';
+        ctx.fillRect(76, 195, 360, 115);
+
+        // Text: NORFOLK PIER 6
+        ctx.fillStyle = '#fbbf24';
+        ctx.font = '900 34px Inter, sans-serif';
+        ctx.textAlign = 'center';
+        ctx.fillText('NORFOLK PIER 6', 256, 145);
+
+        // Text: NS • LSSC
+        ctx.fillStyle = '#090e17';
+        ctx.font = '900 68px Inter, sans-serif';
+        ctx.fillText('NS • LSSC', 256, 276);
+
+        // Text: MILEPOST MAP
+        ctx.fillStyle = '#38bdf8';
+        ctx.font = '800 32px monospace';
+        ctx.fillText('MILEPOST MAP', 256, 375);
+
+        const iconDataUrl = canvas.toDataURL('image/png');
+        document.getElementById('appleTouchIcon').setAttribute('href', iconDataUrl);
+        document.getElementById('favIcon').setAttribute('href', iconDataUrl);
+
+        // 2. Dynamically build Web App Manifest for Android / iOS PWA
+        const manifestObj = {
+          name: 'Norfolk Pier 6 LSSC | Milepost Map',
+          short_name: 'LSSC Mileposts',
+          description: 'Norfolk Pier 6 Safety NS LSSC Milepost Map for iPhone and Android',
+          start_url: window.location.href,
+          display: 'standalone',
+          orientation: 'portrait-primary',
+          background_color: '#090e17',
+          theme_color: '#0b111e',
+          icons: [
+            {
+              src: iconDataUrl,
+              sizes: '512x512',
+              type: 'image/png',
+              purpose: 'any maskable'
+            }
+          ]
+        };
+        const manifestBlob = new Blob([JSON.stringify(manifestObj)], { type: 'application/manifest+json' });
+        const manifestUrl = URL.createObjectURL(manifestBlob);
+        document.getElementById('pwaManifest').setAttribute('href', manifestUrl);
+      } catch (e) {
+        console.warn('PWA Icon generation skipped:', e);
+      }
+
+      // 3. Register Offline Service Worker via Blob if supported by origin
+      if ('serviceWorker' in navigator && (window.location.protocol === 'https:' || window.location.hostname === 'localhost')) {
+        const swCode = `
+          const CACHE_NAME = 'ns-lssc-milepost-v1';
+          self.addEventListener('install', event => {
+            self.skipWaiting();
+          });
+          self.addEventListener('activate', event => {
+            event.waitUntil(self.clients.claim());
+          });
+          self.addEventListener('fetch', event => {
+            event.respondWith(
+              fetch(event.request).catch(() => caches.match(event.request))
+            );
+          });
+        `;
+        try {
+          const swBlob = new Blob([swCode], { type: 'application/javascript' });
+          const swUrl = URL.createObjectURL(swBlob);
+          navigator.serviceWorker.register(swUrl).catch(() => {});
+        } catch (err) {
+          // Ignore cross-origin blob restrictions in sandboxed preview
+        }
+      }
+
+      // Listen for Android Chrome native install prompt
+      window.addEventListener('beforeinstallprompt', e => {
+        e.preventDefault();
+        deferredInstallPrompt = e;
+        document.getElementById('nativeInstallPromptBox').classList.remove('hidden');
+      });
+    }
+
+    function openInstallModal() {
+      const modal = document.getElementById('installModal');
+      modal.classList.remove('hidden');
+      modal.classList.add('flex');
+    }
+
+    function closeInstallModal() {
+      const modal = document.getElementById('installModal');
+      modal.classList.add('hidden');
+      modal.classList.remove('flex');
+    }
+
+    async function triggerNativeInstall() {
+      if (!deferredInstallPrompt) return;
+      deferredInstallPrompt.prompt();
+      await deferredInstallPrompt.userChoice;
+      deferredInstallPrompt = null;
+      document.getElementById('nativeInstallPromptBox').classList.add('hidden');
+      closeInstallModal();
     }
 
     function showToast(msg) {
-      const toast = document.getElementById('toast');
-      const msgEl = document.getElementById('toast-message');
-      msgEl.textContent = msg;
+      const toast = document.getElementById('toastNotice');
+      document.getElementById('toastText').textContent = msg;
       toast.classList.remove('hidden');
-      toast.classList.add('flex');
       clearTimeout(window._toastTimer);
       window._toastTimer = setTimeout(() => {
         toast.classList.add('hidden');
-        toast.classList.remove('flex');
       }, 2600);
     }
 
     /*************************************************************************
-     * 7. EDIT MILEPOST MODAL & BULK JSON EXPORT/IMPORT
+     * 11. INITIALIZE APPLICATION ON LOAD
      *************************************************************************/
-    function openEditMpModal(id) {
-      const item = getMileposts().find(m => m.id === id);
-      if (!item) return;
-      document.getElementById('edit-mp-id').value = item.id;
-      document.getElementById('edit-modal-mp-badge').textContent = item.mp;
-      document.getElementById('edit-modal-station-name').textContent = item.station;
-      document.getElementById('edit-mp-lat').value = item.lat;
-      document.getElementById('edit-mp-lng').value = item.lng;
-      document.getElementById('edit-mp-custom-url').value = item.customUrl || '';
-      document.getElementById('edit-mp-notes').value = item.notes || '';
-      document.getElementById('edit-mp-modal').classList.remove('hidden');
-    }
-
-    function closeEditMpModal() {
-      document.getElementById('edit-mp-modal').classList.add('hidden');
-    }
-
-    function saveMpOverride(e) {
-      e.preventDefault();
-      const id = document.getElementById('edit-mp-id').value;
-      const lat = parseFloat(document.getElementById('edit-mp-lat').value);
-      const lng = parseFloat(document.getElementById('edit-mp-lng').value);
-      const customUrl = document.getElementById('edit-mp-custom-url').value.trim();
-      const notes = document.getElementById('edit-mp-notes').value.trim();
-
-      gpsOverrides[id] = { lat, lng, customUrl, notes };
-      localStorage.setItem(STORAGE_KEYS.OVERRIDES, JSON.stringify(gpsOverrides));
-      closeEditMpModal();
-      renderMileposts();
-      showToast('Saved custom GPS / Link for milepost');
-    }
-
-    function resetSingleMpOverride() {
-      const id = document.getElementById('edit-mp-id').value;
-      delete gpsOverrides[id];
-      localStorage.setItem(STORAGE_KEYS.OVERRIDES, JSON.stringify(gpsOverrides));
-      closeEditMpModal();
-      renderMileposts();
-      showToast('Restored default milepost coordinates');
-    }
-
-    function openDataModal() {
-      document.getElementById('config-json-textarea').value = JSON.stringify(gpsOverrides, null, 2);
-      document.getElementById('data-modal').classList.remove('hidden');
-    }
-
-    function closeDataModal() {
-      document.getElementById('data-modal').classList.add('hidden');
-    }
-
-    function copyConfigJson() {
-      const val = document.getElementById('config-json-textarea').value;
-      copyTextToClipboard(val, 'Copied GPS Config JSON!');
-    }
-
-    function importConfigJson() {
-      const raw = document.getElementById('config-json-textarea').value.trim();
-      try {
-        const parsed = JSON.parse(raw || '{}');
-        gpsOverrides = parsed;
-        localStorage.setItem(STORAGE_KEYS.OVERRIDES, JSON.stringify(gpsOverrides));
-        closeDataModal();
-        renderMileposts();
-        showToast('Imported custom GPS configuration!');
-      } catch (err) {
-        showToast('Invalid JSON format. Please check and try again.');
-      }
-    }
-
-    function resetAllOverrides() {
-      gpsOverrides = {};
-      localStorage.removeItem(STORAGE_KEYS.OVERRIDES);
-      closeDataModal();
-      renderMileposts();
-      showToast('All mileposts reset to default coordinates.');
-    }
-
-    /*************************************************************************
-     * 8. SHARE & INSTALL PWA MODAL + SMS/EMAIL/QR/FILE DOWNLOAD & SERVICE WORKER
-     *************************************************************************/
-    function getEffectiveShareUrl() {
-      if (customShareUrl && customShareUrl.trim() !== '') {
-        return customShareUrl.trim();
-      }
-      return window.location.href;
-    }
-
-    function updateCustomShareUrl(val) {
-      customShareUrl = val.trim();
-      localStorage.setItem(STORAGE_KEYS.CUSTOM_SHARE_URL, customShareUrl);
-      renderQrCode();
-    }
-
-    function renderQrCode() {
-      const container = document.getElementById('qrcode-container');
-      if (!container) return;
-      container.innerHTML = '';
-      const targetUrl = getEffectiveShareUrl();
-
-      if (typeof QRCode !== 'undefined') {
-        try {
-          new QRCode(container, {
-            text: targetUrl,
-            width: 176,
-            height: 176,
-            colorDark: '#090D14',
-            colorLight: '#FFFFFF',
-            correctLevel: QRCode.CorrectLevel.M
-          });
-          return;
-        } catch (err) {
-          // Fallback to SVG badge below if URL is too long (e.g. data: URL)
-        }
+    window.onload = function () {
+      // Restore saved theme
+      const savedTheme = localStorage.getItem('lssc_theme');
+      if (savedTheme === 'light') {
+        document.documentElement.classList.remove('dark');
+        updateThemeUI(false);
+      } else {
+        updateThemeUI(true);
       }
 
-      // Offline SVG Fallback if QRCode library isn't reachable or URL is a local file path
-      container.innerHTML = `
-        <div class="p-3 text-center text-slate-900 font-sans">
-          <div class="text-xs font-black uppercase text-amber-600">Norfolk Pier 6 LSSC</div>
-          <p class="text-[11px] font-semibold mt-1 leading-snug">
-            Paste your hosted link below to generate a live camera QR code, or tap "Download App File" above to AirDrop/Text the app!
-          </p>
-        </div>
-      `;
-    }
-
-    function openInstallShareModal() {
-      const urlInput = document.getElementById('custom-share-url-input');
-      if (urlInput) {
-        urlInput.value = getEffectiveShareUrl();
-      }
-      document.getElementById('
+      loadMileposts();
+      updateMapProviderUI();
+      updateFilterChipsUI();
+      renderAllViews();
+      setupPWAEnvironment();
+    };
+  </script>
+</body>
+</html>
