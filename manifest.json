@@ -1,0 +1,18 @@
+json
+{
+  "name": "My GitHub PWA",
+  "short_name": "GitHubPWA",
+  "start_url": "./index.html",
+  "scope": "./",
+  "display": "standalone",
+  "background_color": "#0f172a",
+  "theme_color": "#0f172a",
+  "icons": [
+    {
+      "src": "data:image/svg+xml,<svg xmlns='http://w3.org' viewBox='0 0 512 512'><rect width='512' height='512' rx='112' fill='%230f172a'/><text x='256' y='340' font-size='260' font-family='sans-serif' font-weight='bold' text-anchor='middle' fill='%2338bdf8'>P</text></svg>",
+      "sizes": "192x192 512x512",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
